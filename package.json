@@ -1,0 +1,10 @@
+{
+  "name": "pizarra-futbol",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node --check app.js && node --check core.js && node tests.mjs",
+    "update:data": "node scripts/update-data.mjs"
+  }
+}

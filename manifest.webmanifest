@@ -1,0 +1,15 @@
+{
+  "name": "Pizarra · Puzles diarios de fútbol",
+  "short_name": "Pizarra",
+  "description": "Cuadrícula 3×3, Trayectoria, Quién soy y Mayor o menor.",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f2efe6",
+  "theme_color": "#10281e",
+  "icons": [
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
