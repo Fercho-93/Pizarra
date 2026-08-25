@@ -83,7 +83,7 @@
     }
 
     for (const club of clubs) {
-      cols.push(buildCondition(club.name, `Jugó en ${club.name} desde 1990.`, "club",
+      cols.push(buildCondition(club.name, `Jugó en ${club.name}.`, "club",
         player => playerHasClub(player, club.id), players));
     }
     for (const league of leagues) {
