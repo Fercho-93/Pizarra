@@ -76,6 +76,7 @@
     else content = renderHome();
     app.innerHTML = `<div class="shell">${topbar()}${content}</div>${nav()}`;
     bindSearchInputs();
+    if (state.view === "grid" && state.grid) ensureGridTimer(state.grid);
     requestAnimationFrame(() => document.querySelector("[data-autofocus]")?.focus());
   }
 
@@ -121,7 +122,8 @@
     const answers = saved?.answers?.length === 9 ? saved.answers : Array(9).fill(null);
     state.grid = {
       ...puzzle, mode, answers, active: null, errors: saved?.errors || 0,
-      endsAt: mode === "timed" ? Date.now() + 180000 : null, lost: false, lostReason: ""
+      preparing: mode === "timed", prepEndsAt: mode === "timed" ? Date.now() + 3000 : null,
+      endsAt: null, lost: false, lostReason: ""
     };
   }
 
@@ -136,11 +138,16 @@
     return game.mode === "timed" ? Math.max(0, Math.ceil((game.endsAt - Date.now()) / 1000)) : null;
   }
 
+  function preparationSeconds(game) {
+    return Math.max(0, Math.ceil((game.prepEndsAt - Date.now()) / 1000));
+  }
+
   function formatTimer(seconds) {
     return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
   }
 
   function expireTimedGrid(game) {
+    if (game.mode === "timed" && game.preparing) return false;
     if (game.mode === "timed" && !game.lost && !game.answers.every(Boolean) && remainingSeconds(game) <= 0) {
       game.active = null;
       game.lost = true;
@@ -155,15 +162,19 @@
     clearGridTimer();
     if (game.mode !== "timed" || game.lost || game.answers.every(Boolean)) return;
     gridTimer = setInterval(() => {
+      if (game.preparing) {
+        const seconds = preparationSeconds(game);
+        const timer = document.querySelector("[data-grid-timer]");
+        if (seconds > 0) { if (timer) timer.textContent = `Prepárate · ${seconds}`; return; }
+        game.preparing = false;
+        game.endsAt = Date.now() + 180000;
+        render();
+        return;
+      }
       if (expireTimedGrid(game)) { render(); return; }
       const timer = document.querySelector("[data-grid-timer]");
       if (timer) timer.textContent = formatTimer(remainingSeconds(game));
     }, 250);
-  }
-
-  function rarityFor(player) {
-    const index = players.findIndex(item => item.id === player.id);
-    return Math.max(4, Math.round(99 - (index / Math.max(1, players.length - 1)) * 95));
   }
 
   function saveGrid() {
@@ -175,7 +186,6 @@
     const game = state.grid;
     expireTimedGrid(game);
     const complete = game.answers.every(Boolean);
-    const score = game.answers.reduce((total, answer) => total + (answer?.rarity || 0), 0);
     if (complete && game.mode === "daily") markDone("grid");
     let grid = `<div class="grid-corner"><strong>3×3</strong><small>sin repetir</small></div>`;
     for (const col of game.cols) grid += conditionHtml(col, "col-condition");
@@ -185,19 +195,19 @@
         const index = row * 3 + col;
         const answer = game.answers[index];
         const player = answer ? playerById.get(answer.id) : null;
-        grid += `<button class="grid-cell ${answer ? "filled" : ""}" data-grid-cell="${index}" ${answer || game.lost ? "disabled" : ""}>
-          ${player ? `<strong>${escapeHtml(player.name)}</strong><small>Rareza ${answer.rarity}%</small>` : `<span class="sr-only">Añadir jugador</span>`}
+        grid += `<button class="grid-cell ${answer ? "filled" : ""}" data-grid-cell="${index}" ${answer || game.lost || game.preparing ? "disabled" : ""}>
+          ${player ? `<strong>${escapeHtml(player.name)}</strong>` : `<span class="sr-only">Añadir jugador</span>`}
         </button>`;
       }
     }
     return `<section>
-      <div class="game-header"><div class="eyebrow">${escapeHtml(GRID_MODES[game.mode].label)} · ${game.mode === "daily" ? today : "3×3"}</div><div class="game-header-line"><h2>Cuadrícula</h2><span class="badge">${game.mode === "timed" ? `<span data-grid-timer>${formatTimer(remainingSeconds(game))}</span>` : `${game.answers.filter(Boolean).length}/9`}</span></div>
+      <div class="game-header"><div class="eyebrow">${escapeHtml(GRID_MODES[game.mode].label)} · ${game.mode === "daily" ? today : "3×3"}</div><div class="game-header-line"><h2>Cuadrícula</h2><span class="badge">${game.mode === "timed" ? `<span data-grid-timer>${game.preparing ? `Prepárate · ${preparationSeconds(game)}` : formatTimer(remainingSeconds(game))}</span>` : `${game.answers.filter(Boolean).length}/9`}</span></div>
       <p class="help">${escapeHtml(GRID_MODES[game.mode].description)}. Cruza una condición de la fila con una condición de la columna.</p></div>
       <div class="mode-picker" aria-label="Modo de juego">${Object.entries(GRID_MODES).map(([id, mode]) => `<button class="mode-option ${id === game.mode ? "active" : ""}" data-grid-mode="${id}" ${id === game.mode ? "disabled" : ""}>${escapeHtml(mode.label)}</button>`).join("")}</div>
-      <div class="score-strip"><div class="score-stat"><strong>${score}</strong><small>rareza total</small></div><div class="score-stat"><strong>${game.errors}</strong><small>fallos</small></div><div class="score-stat"><strong>${9 - game.answers.filter(Boolean).length}</strong><small>pendientes</small></div></div>
+      <div class="score-strip two-stat"><div class="score-stat"><strong>${game.errors}</strong><small>fallos</small></div><div class="score-stat"><strong>${9 - game.answers.filter(Boolean).length}</strong><small>pendientes</small></div></div>
       <div class="grid-scroll"><div class="football-grid">${grid}</div></div>
       ${game.active !== null && !game.answers[game.active] && !game.lost ? renderGridEntry(game.active) : ""}
-      ${complete || game.lost ? renderGridResult(score, complete) : ""}
+      ${complete || game.lost ? renderGridResult(complete) : ""}
     </section>`;
   }
 
@@ -214,10 +224,10 @@
     </div>`;
   }
 
-  function renderGridResult(score, complete) {
+  function renderGridResult(complete) {
     const game = state.grid;
     const title = complete ? "Cuadrícula completa" : "Partida terminada";
-    const detail = complete ? `Rareza ${score} · ${game.errors} fallos. Cuanto más bajo, más originales fueron tus respuestas.` : game.lostReason;
+    const detail = complete ? `${game.errors} fallos. ¡Cuadrícula resuelta!` : game.lostReason;
     return `<div class="result"><h3>${title}</h3><p>${escapeHtml(detail)}</p><div class="actions">${complete && game.mode === "daily" ? `<button class="btn btn-primary" data-action="share-grid">Compartir resultado</button>` : ""}<button class="btn btn-secondary" data-action="new-grid">${game.mode === "daily" ? "Jugar otro modo" : "Nueva cuadrícula"}</button></div></div>`;
   }
 
@@ -371,7 +381,7 @@
       render();
       return;
     }
-    game.answers[game.active] = { id: player.id, rarity: rarityFor(player) };
+    game.answers[game.active] = { id: player.id };
     game.active = null;
     state.selected.grid = null;
     saveGrid();
@@ -405,10 +415,9 @@
   }
 
   async function shareGrid() {
-    const blocks = state.grid.answers.map(answer => answer.rarity <= 35 ? "🟩" : answer.rarity <= 70 ? "🟨" : "🟥");
+    const blocks = state.grid.answers.map(() => "🟩");
     const rows = [blocks.slice(0,3).join(""), blocks.slice(3,6).join(""), blocks.slice(6,9).join("")].join("\n");
-    const score = state.grid.answers.reduce((sum, answer) => sum + answer.rarity, 0);
-    const text = `Pizarra 3×3 · ${today}\n${rows}\nRareza ${score} · ${state.grid.errors} fallos`;
+    const text = `Pizarra 3×3 · ${today}\n${rows}\n${state.grid.errors} fallos`;
     try {
       if (navigator.share) await navigator.share({ title: "Pizarra 3×3", text });
       else { await navigator.clipboard.writeText(text); showToast("Resultado copiado."); }
@@ -461,6 +470,6 @@
     return;
   }
   render();
-  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./service-worker.js?v=6").catch(() => {});
+  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./service-worker.js?v=7").catch(() => {});
 })();
 
