@@ -341,7 +341,7 @@
     if (query.length < 2) { container.hidden = true; return; }
     const matches = players.filter(player => core.normalize(player.name).includes(query))
       .sort((a, b) => Number(core.normalize(b.name).startsWith(query)) - Number(core.normalize(a.name).startsWith(query)) || b.sitelinks - a.sitelinks).slice(0, 7);
-    container.innerHTML = matches.map(player => `<button class="suggestion" data-select-player="${player.id}" data-context="${context}"><span><b>${escapeHtml(player.name)}</b>${context === "identity" ? "" : `<small>${escapeHtml(playerMeta(player))}</small>`}</span><span>›</span></button>`).join("");
+    container.innerHTML = matches.map(player => `<button class="suggestion" data-select-player="${player.id}" data-context="${context}"><span><b>${escapeHtml(player.name)}</b></span><span>›</span></button>`).join("");
     container.hidden = !matches.length;
   }
 
@@ -461,6 +461,6 @@
     return;
   }
   render();
-  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./service-worker.js?v=5").catch(() => {});
+  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./service-worker.js?v=6").catch(() => {});
 })();
 
