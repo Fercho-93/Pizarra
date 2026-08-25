@@ -1,4 +1,4 @@
-const CACHE = "pizarra-v1";
+const CACHE = "pizarra-v2";
 const ASSETS = [
   "./", "./index.html", "./styles.css", "./core.js", "./app.js",
   "./data/players.js", "./manifest.webmanifest", "./icon.svg"
@@ -22,3 +22,4 @@ self.addEventListener("fetch", event => {
     return response;
   }).catch(() => event.request.mode === "navigate" ? caches.match("./index.html") : Response.error())));
 });
+
