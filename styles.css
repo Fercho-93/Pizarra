@@ -121,6 +121,20 @@ h3 { margin-bottom: 6px; font-size: 1rem; }
 .clue.locked { opacity: .42; }
 .clue.locked .clue-text { filter: blur(6px); user-select: none; }
 .clue small { display: block; color: var(--muted); font-size: .65rem; text-transform: uppercase; letter-spacing: .07em; }
+.identity-key { display: flex; flex-wrap: wrap; gap: 7px; margin: 0 0 14px; }
+.identity-key span { padding: 6px 9px; border-radius: 999px; font-size: .64rem; font-weight: 850; }
+.identity-key .match, .comparison-cell.match { color: #0d4c31; background: #cfe7c8; }
+.identity-key .miss, .comparison-cell.miss { color: #7b3424; background: #f3d5cd; }
+.identity-key .higher, .comparison-cell.higher, .identity-key .lower, .comparison-cell.lower { color: #72530b; background: #f3e6a7; }
+.comparison-list { display: grid; gap: 10px; margin-bottom: 16px; }
+.comparison-row { border: 1px solid var(--line); border-radius: 18px; padding: 12px; background: var(--card); }
+.comparison-row > strong { display: block; margin-bottom: 10px; color: var(--green); font-size: .9rem; }
+.comparison-cells { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.comparison-cell { display: grid; min-height: 48px; place-content: center; gap: 3px; border-radius: 10px; padding: 5px; text-align: center; }
+.comparison-cell small { color: currentColor; font-size: .53rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+.comparison-cell b { font-size: .64rem; }
+.comparison-cell.unknown { color: var(--muted); background: #ebece5; }
+.empty-comparison { margin-bottom: 16px; border: 1px dashed var(--line); border-radius: 18px; padding: 16px; color: var(--muted); background: rgba(255,253,247,.55); text-align: center; font-size: .82rem; }
 
 .duel { display: grid; grid-template-columns: 1fr 48px 1fr; align-items: stretch; gap: 8px; margin: 26px 0; }
 .player-card { min-height: 220px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--line); border-radius: 23px; padding: 18px 13px; background: var(--card); text-align: center; }
