@@ -1,7 +1,7 @@
-const CACHE = "pizarra-v4";
+const CACHE = "pizarra-v5";
 const ASSETS = [
-  "./", "./index.html", "./styles.css?v=4", "./core.js?v=4", "./app.js?v=4",
-  "./data/players.js?v=4", "./manifest.webmanifest", "./icon.svg"
+  "./", "./index.html", "./styles.css?v=5", "./core.js?v=5", "./app.js?v=5",
+  "./data/players.js?v=5", "./manifest.webmanifest", "./icon.svg"
 ];
 
 self.addEventListener("install", event => {
