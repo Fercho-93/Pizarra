@@ -20,6 +20,8 @@ for (let day = 1; day <= 120; day++) {
   assert.equal(grid.rows.length, 3);
   assert.equal(grid.cols.length, 3);
   assert.equal(grid.cells.length, 9);
+  assert.ok(grid.rows.every(condition => ["nacionalidad", "posicion", "decada"].includes(condition.family)), "Cada fila debe tener una única condición");
+  assert.ok(grid.cols.every(condition => ["club", "liga"].includes(condition.family)), "Cada columna debe tener una única condición");
   assert.ok(grid.cells.every(cell => cell.length >= 2 && cell.length <= 32), "Cada casilla debe ser específica y tener alternativas");
   assert.ok(core.hasDistinctAssignment(grid.cells), "La cuadrícula debe poder completarse sin repetir jugador");
 }
@@ -32,3 +34,4 @@ assert.ok(identity.clubs.length >= 2);
 console.log(`✓ ${data.players.length} jugadores validados`);
 console.log("✓ 120 cuadrículas robustas, resolubles y sin repeticiones validadas");
 console.log("✓ Selección diaria de Trayectoria y Quién soy validada");
+
