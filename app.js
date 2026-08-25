@@ -254,31 +254,40 @@
     if (state.identity) return;
     const player = core.selectDaily(players, `identity:${today}`, candidate => candidate.sitelinks >= 45 && candidate.clubs.length >= 2 && candidate.positions.length);
     const saved = safeParse(localStorage.getItem(gameKey("identity-state")), {});
-    state.identity = { player, attempts: saved.attempts || 0, complete: Boolean(saved.complete), lost: Boolean(saved.lost) };
+    const hasNewState = Array.isArray(saved.guesses);
+    state.identity = { player, guesses: hasNewState ? saved.guesses : [], complete: hasNewState && Boolean(saved.complete), lost: hasNewState && Boolean(saved.lost) };
   }
 
-  function identityClues(player) {
-    const club = [...player.clubs].sort((a, b) => (a.start || 9999) - (b.start || 9999))[0];
-    const year = birthYear(player);
+  function hasSharedValue(left, right) {
+    return left.some(value => right.includes(value));
+  }
+
+  function identityComparison(guess, target) {
+    const guessClub = primaryClub(guess), targetClub = primaryClub(target);
+    const guessAge = new Date().getFullYear() - birthYear(guess);
+    const targetAge = new Date().getFullYear() - birthYear(target);
+    const guessNumber = guess.shirtNumber ?? null, targetNumber = target.shirtNumber ?? null;
+    const age = guessAge === targetAge ? { state: "match", text: "Coincide" } :
+      targetAge > guessAge ? { state: "higher", text: "↑ Mayor" } : { state: "lower", text: "↓ Menor" };
     return [
-      ["Nacionalidad", player.nationalities.join(" / ")],
-      ["Generación", `Nació en la década de ${Math.floor(year / 10) * 10}`],
-      ["Posición", player.positions.join(" / ")],
-      ["Ligas", `Pasó por ${player.leagues.length} de las cinco grandes ligas`],
-      ["Club", `Jugó en ${club?.name || "un club de la base"}`],
-      ["Nacimiento", `Nació en ${year}`]
+      { label: "Nacionalidad", state: hasSharedValue(guess.nationalities, target.nationalities) ? "match" : "miss", text: hasSharedValue(guess.nationalities, target.nationalities) ? "Coincide" : "No" },
+      { label: "Liga", state: guessClub?.league === targetClub?.league ? "match" : "miss", text: guessClub?.league === targetClub?.league ? "Coincide" : "No" },
+      { label: "Equipo", state: guessClub?.id === targetClub?.id ? "match" : "miss", text: guessClub?.id === targetClub?.id ? "Coincide" : "No" },
+      { label: "Posición", state: hasSharedValue(guess.positions, target.positions) ? "match" : "miss", text: hasSharedValue(guess.positions, target.positions) ? "Coincide" : "No" },
+      { label: "Edad", ...age },
+      { label: "Dorsal", state: guessNumber === null || targetNumber === null ? "unknown" : guessNumber === targetNumber ? "match" : "miss", text: guessNumber === null || targetNumber === null ? "Sin dato" : guessNumber === targetNumber ? "Coincide" : "No" }
     ];
   }
 
   function renderIdentity() {
     initIdentity();
     const game = state.identity;
-    const clues = identityClues(game.player);
-    const revealed = game.complete || game.lost ? clues.length : Math.min(clues.length, game.attempts + 1);
+    const remaining = Math.max(0, 8 - game.guesses.length);
     return `<section>
-      <div class="game-header"><div class="eyebrow">Identidad diaria · ${today}</div><div class="game-header-line"><h2>¿Quién soy?</h2><span class="badge">Pista ${revealed}/6</span></div><p class="help">Cada fallo descubre una pista más precisa.</p></div>
-      <div class="clues">${clues.map(([title, value], index) => `<div class="clue ${index < revealed ? "" : "locked"}"><span class="clue-index">${index + 1}</span><span class="clue-text"><small>${escapeHtml(title)}</small><b>${index < revealed ? escapeHtml(value) : "Pista bloqueada"}</b></span></div>`).join("")}</div>
-      ${!game.complete && !game.lost ? `<div class="panel">${searchBox("identity", "Escribe un jugador…")}<div class="actions"><button class="btn btn-primary" data-action="submit-identity">Responder</button><button class="btn btn-secondary" data-action="reveal-identity">Pedir pista</button></div></div>` : renderSimpleResult(game.complete, game.player, game.attempts)}
+      <div class="game-header"><div class="eyebrow">Identidad diaria · ${today}</div><div class="game-header-line"><h2>¿Quién soy?</h2><span class="badge">${remaining}/8 intentos</span></div><p class="help">Tienes 8 posibilidades. Tras cada jugador, compara Nacionalidad, Liga, Equipo, Posición, Edad y Dorsal con el futbolista misterioso.</p></div>
+      <div class="identity-key" aria-label="Cómo leer los resultados"><span class="match">Coincide</span><span class="miss">No coincide</span><span class="higher">↑ Mayor</span><span class="lower">↓ Menor</span></div>
+      ${game.guesses.length ? `<div class="comparison-list">${game.guesses.map(id => { const guess = playerById.get(id); const results = identityComparison(guess, game.player); return `<article class="comparison-row"><strong>${escapeHtml(guess.name)}</strong><div class="comparison-cells">${results.map(item => `<span class="comparison-cell ${item.state}"><small>${item.label}</small><b>${item.text}</b></span>`).join("")}</div></article>`; }).join("")}</div>` : `<div class="empty-comparison">Introduce tu primer jugador para ver la comparación.</div>`}
+      ${!game.complete && !game.lost ? `<div class="panel">${searchBox("identity", "Escribe un jugador…")}<div class="actions"><button class="btn btn-primary" data-action="submit-identity">Comparar jugador</button></div></div>` : renderSimpleResult(game.complete, game.player, Math.max(0, game.guesses.length - 1))}
     </section>`;
   }
 
@@ -359,7 +368,7 @@
   function submitForContext(context) {
     if (context === "grid") submitGrid();
     if (context === "trajectory") submitGuess("trajectory");
-    if (context === "identity") submitGuess("identity");
+    if (context === "identity") submitIdentity();
   }
 
   function submitGrid() {
@@ -403,6 +412,25 @@
     }
     localStorage.setItem(gameKey(`${type}-state`), JSON.stringify({ attempts: game.attempts, complete: game.complete, lost: game.lost }));
     state.selected[type] = null;
+    render();
+  }
+
+  function submitIdentity() {
+    const game = state.identity;
+    const player = selectedPlayer("identity");
+    if (!player) return showToast("Selecciona un jugador de la lista.");
+    if (game.guesses.includes(player.id)) return showToast("Ese jugador ya está comparado.");
+    game.guesses.push(player.id);
+    if (player.id === game.player.id) {
+      game.complete = true;
+      markDone("identity");
+    } else if (game.guesses.length >= 8) {
+      game.lost = true;
+    } else {
+      showToast("Comparación añadida.");
+    }
+    localStorage.setItem(gameKey("identity-state"), JSON.stringify({ guesses: game.guesses, complete: game.complete, lost: game.lost }));
+    state.selected.identity = null;
     render();
   }
 
@@ -460,8 +488,7 @@
     if (action === "new-grid") { resetGrid(state.gridMode === "daily" ? "infinite" : state.gridMode); render(); }
     if (action === "submit-trajectory") submitGuess("trajectory");
     if (action === "reveal-trajectory") reveal("trajectory");
-    if (action === "submit-identity") submitGuess("identity");
-    if (action === "reveal-identity") reveal("identity");
+    if (action === "submit-identity") submitIdentity();
     if (action === "next-duel") { nextDuel(state.duel.right); render(); }
   });
 
@@ -470,6 +497,6 @@
     return;
   }
   render();
-  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./service-worker.js?v=7").catch(() => {});
+  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./service-worker.js?v=8").catch(() => {});
 })();
 
