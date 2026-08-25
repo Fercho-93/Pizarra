@@ -10,9 +10,16 @@
   const today = core.dateKey();
   const TODAY_LABEL = new Intl.DateTimeFormat("es-ES", { weekday: "long", day: "numeric", month: "long" }).format(new Date());
   const state = {
-    view: "home", selected: {}, grid: null, trajectory: null, identity: null,
+    view: "home", selected: {}, grid: null, gridMode: "daily", trajectory: null, identity: null,
     duel: { streak: 0, best: Number(localStorage.getItem("pizarra-duel-best")) || 0 }
   };
+  const GRID_MODES = {
+    daily: { label: "Diario", description: "La misma cuadrícula para todos · se renueva a las 00:00" },
+    infinite: { label: "Infinito", description: "Una nueva cuadrícula cada vez que quieras" },
+    timed: { label: "Contrarreloj", description: "Completa la cuadrícula antes de que se agoten 3:00" },
+    flawless: { label: "Sin errores", description: "Un único fallo termina la partida" }
+  };
+  let gridTimer = null;
 
   function escapeHtml(value) {
     return String(value ?? "").replace(/[&<>'"]/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[char]);
@@ -78,6 +85,7 @@
       <div class="eyebrow">${escapeHtml(TODAY_LABEL)} · edición diaria</div>
       <h1>Cuatro formas de leer el fútbol.</h1>
       <p class="lead">Cruza carreras, sigue trayectorias y mide tu intuición con una selección histórica actualizada de las cinco grandes ligas.</p>
+      <p class="help general-note">Las trayectorias y los hechos del juego se contabilizan desde 1990.</p>
       <div class="score-strip two-stat">
         <div class="score-stat"><strong>${done}/3</strong><small>diarios</small></div>
         <div class="score-stat"><strong>${state.duel.best}</strong><small>mejor racha</small></div>
@@ -96,12 +104,61 @@
     return `<button class="game-card" data-view="${id}" data-number="${number}"><span><span class="status">${status}</span><b>${title}</b><p>${description}</p></span></button>`;
   }
 
+  function clearGridTimer() {
+    if (gridTimer) clearInterval(gridTimer);
+    gridTimer = null;
+  }
+
+  function gridSeed(mode) {
+    return mode === "daily" ? `grid:${today}` : `grid:${mode}:${Date.now()}:${Math.random()}`;
+  }
+
   function initGrid() {
     if (state.grid) return;
-    const puzzle = core.generateGrid(players, `grid:${today}`);
-    const saved = safeParse(localStorage.getItem(gameKey("grid-state")), null);
+    const mode = state.gridMode;
+    const puzzle = core.generateGrid(players, gridSeed(mode));
+    const saved = mode === "daily" ? safeParse(localStorage.getItem(gameKey("grid-state")), null) : null;
     const answers = saved?.answers?.length === 9 ? saved.answers : Array(9).fill(null);
-    state.grid = { ...puzzle, answers, active: null, errors: saved?.errors || 0 };
+    state.grid = {
+      ...puzzle, mode, answers, active: null, errors: saved?.errors || 0,
+      endsAt: mode === "timed" ? Date.now() + 180000 : null, lost: false, lostReason: ""
+    };
+  }
+
+  function resetGrid(mode = state.gridMode) {
+    clearGridTimer();
+    state.gridMode = mode;
+    state.grid = null;
+    state.selected.grid = null;
+  }
+
+  function remainingSeconds(game) {
+    return game.mode === "timed" ? Math.max(0, Math.ceil((game.endsAt - Date.now()) / 1000)) : null;
+  }
+
+  function formatTimer(seconds) {
+    return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
+  }
+
+  function expireTimedGrid(game) {
+    if (game.mode === "timed" && !game.lost && !game.answers.every(Boolean) && remainingSeconds(game) <= 0) {
+      game.active = null;
+      game.lost = true;
+      game.lostReason = "Se acabó el tiempo.";
+      clearGridTimer();
+      return true;
+    }
+    return false;
+  }
+
+  function ensureGridTimer(game) {
+    clearGridTimer();
+    if (game.mode !== "timed" || game.lost || game.answers.every(Boolean)) return;
+    gridTimer = setInterval(() => {
+      if (expireTimedGrid(game)) { render(); return; }
+      const timer = document.querySelector("[data-grid-timer]");
+      if (timer) timer.textContent = formatTimer(remainingSeconds(game));
+    }, 250);
   }
 
   function rarityFor(player) {
@@ -110,15 +167,16 @@
   }
 
   function saveGrid() {
-    localStorage.setItem(gameKey("grid-state"), JSON.stringify({ answers: state.grid.answers, errors: state.grid.errors }));
+    if (state.grid.mode === "daily") localStorage.setItem(gameKey("grid-state"), JSON.stringify({ answers: state.grid.answers, errors: state.grid.errors }));
   }
 
   function renderGrid() {
     initGrid();
     const game = state.grid;
+    expireTimedGrid(game);
     const complete = game.answers.every(Boolean);
     const score = game.answers.reduce((total, answer) => total + (answer?.rarity || 0), 0);
-    if (complete) markDone("grid");
+    if (complete && game.mode === "daily") markDone("grid");
     let grid = `<div class="grid-corner"><strong>3×3</strong><small>sin repetir</small></div>`;
     for (const col of game.cols) grid += conditionHtml(col, "col-condition");
     for (let row = 0; row < 3; row++) {
@@ -127,18 +185,19 @@
         const index = row * 3 + col;
         const answer = game.answers[index];
         const player = answer ? playerById.get(answer.id) : null;
-        grid += `<button class="grid-cell ${answer ? "filled" : ""}" data-grid-cell="${index}" ${answer ? "disabled" : ""}>
+        grid += `<button class="grid-cell ${answer ? "filled" : ""}" data-grid-cell="${index}" ${answer || game.lost ? "disabled" : ""}>
           ${player ? `<strong>${escapeHtml(player.name)}</strong><small>Rareza ${answer.rarity}%</small>` : `<span class="sr-only">Añadir jugador</span>`}
         </button>`;
       }
     }
     return `<section>
-      <div class="game-header"><div class="eyebrow">Puzle diario · ${today}</div><div class="game-header-line"><h2>Cuadrícula</h2><span class="badge">${game.answers.filter(Boolean).length}/9</span></div>
-      <p class="help">Cruza una condición de la fila con una condición de la columna. Toca los encabezados para leer el criterio exacto.</p></div>
+      <div class="game-header"><div class="eyebrow">${escapeHtml(GRID_MODES[game.mode].label)} · ${game.mode === "daily" ? today : "3×3"}</div><div class="game-header-line"><h2>Cuadrícula</h2><span class="badge">${game.mode === "timed" ? `<span data-grid-timer>${formatTimer(remainingSeconds(game))}</span>` : `${game.answers.filter(Boolean).length}/9`}</span></div>
+      <p class="help">${escapeHtml(GRID_MODES[game.mode].description)}. Cruza una condición de la fila con una condición de la columna.</p></div>
+      <div class="mode-picker" aria-label="Modo de juego">${Object.entries(GRID_MODES).map(([id, mode]) => `<button class="mode-option ${id === game.mode ? "active" : ""}" data-grid-mode="${id}" ${id === game.mode ? "disabled" : ""}>${escapeHtml(mode.label)}</button>`).join("")}</div>
       <div class="score-strip"><div class="score-stat"><strong>${score}</strong><small>rareza total</small></div><div class="score-stat"><strong>${game.errors}</strong><small>fallos</small></div><div class="score-stat"><strong>${9 - game.answers.filter(Boolean).length}</strong><small>pendientes</small></div></div>
       <div class="grid-scroll"><div class="football-grid">${grid}</div></div>
-      ${game.active !== null && !game.answers[game.active] ? renderGridEntry(game.active) : ""}
-      ${complete ? renderGridResult(score) : ""}
+      ${game.active !== null && !game.answers[game.active] && !game.lost ? renderGridEntry(game.active) : ""}
+      ${complete || game.lost ? renderGridResult(score, complete) : ""}
     </section>`;
   }
 
@@ -155,8 +214,11 @@
     </div>`;
   }
 
-  function renderGridResult(score) {
-    return `<div class="result"><h3>Cuadrícula completa</h3><p>Rareza ${score} · ${state.grid.errors} fallos. Cuanto más bajo, más originales fueron tus respuestas.</p><div class="actions"><button class="btn btn-primary" data-action="share-grid">Compartir resultado</button></div></div>`;
+  function renderGridResult(score, complete) {
+    const game = state.grid;
+    const title = complete ? "Cuadrícula completa" : "Partida terminada";
+    const detail = complete ? `Rareza ${score} · ${game.errors} fallos. Cuanto más bajo, más originales fueron tus respuestas.` : game.lostReason;
+    return `<div class="result"><h3>${title}</h3><p>${escapeHtml(detail)}</p><div class="actions">${complete && game.mode === "daily" ? `<button class="btn btn-primary" data-action="share-grid">Compartir resultado</button>` : ""}<button class="btn btn-secondary" data-action="new-grid">${game.mode === "daily" ? "Jugar otro modo" : "Nueva cuadrícula"}</button></div></div>`;
   }
 
   function initTrajectory() {
@@ -293,13 +355,19 @@
   function submitGrid() {
     const player = selectedPlayer("grid");
     const game = state.grid;
+    if (expireTimedGrid(game) || game.lost) return render();
     if (!player) return showToast("Selecciona un jugador de la lista.");
     if (game.answers.some(answer => answer?.id === player.id)) return showToast("Ese jugador ya está en la cuadrícula.");
     if (!game.cells[game.active].includes(player.id)) {
       game.errors++;
+      if (game.mode === "flawless") {
+        game.active = null;
+        game.lost = true;
+        game.lostReason = "Un fallo termina la partida en este modo.";
+      }
       saveGrid();
       state.selected.grid = null;
-      showToast("No cumple las dos condiciones.");
+      showToast(game.lost ? "Partida terminada." : "No cumple las dos condiciones.");
       render();
       return;
     }
@@ -307,7 +375,7 @@
     game.active = null;
     state.selected.grid = null;
     saveGrid();
-    if (game.answers.every(Boolean)) markDone("grid");
+    if (game.answers.every(Boolean)) clearGridTimer();
     render();
   }
 
@@ -361,6 +429,8 @@
     }
     const cell = event.target.closest("[data-grid-cell]");
     if (cell) { state.grid.active = Number(cell.dataset.gridCell); state.selected.grid = null; render(); return; }
+    const gridMode = event.target.closest("[data-grid-mode]")?.dataset.gridMode;
+    if (gridMode) { resetGrid(gridMode); render(); return; }
     const condition = event.target.closest("[data-condition]");
     if (condition) { showToast(condition.dataset.condition); return; }
     const choice = event.target.closest("[data-duel-choice]")?.dataset.duelChoice;
@@ -378,6 +448,7 @@
     if (action === "submit-grid") submitGrid();
     if (action === "close-grid") { state.grid.active = null; render(); }
     if (action === "share-grid") shareGrid();
+    if (action === "new-grid") { resetGrid(state.gridMode === "daily" ? "infinite" : state.gridMode); render(); }
     if (action === "submit-trajectory") submitGuess("trajectory");
     if (action === "reveal-trajectory") reveal("trajectory");
     if (action === "submit-identity") submitGuess("identity");
@@ -390,6 +461,6 @@
     return;
   }
   render();
-  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./service-worker.js?v=4").catch(() => {});
+  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./service-worker.js?v=5").catch(() => {});
 })();
 
