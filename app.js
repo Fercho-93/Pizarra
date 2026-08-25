@@ -6,6 +6,7 @@
   const app = document.getElementById("app");
   const toast = document.getElementById("toast");
   const players = data?.players ?? [];
+  const verifiedPlayers = window.PIZARRA_VERIFIED ?? {};
   const playerById = new Map(players.map(player => [player.id, player]));
   const today = core.dateKey();
   const TODAY_LABEL = new Intl.DateTimeFormat("es-ES", { weekday: "long", day: "numeric", month: "long" }).format(new Date());
@@ -46,7 +47,8 @@
     return `${player.positions[0] || "Jugador"} · ${player.nationalities[0] || "—"}`;
   }
   function birthYear(player) { return core.birthYear(player); }
-  function primaryClub(player) { return [...player.clubs].sort((a, b) => (b.start || 0) - (a.start || 0))[0]; }
+  function primaryClub(player) { return verifiedPlayers[player.id]?.club || [...player.clubs].sort((a, b) => (b.start || 0) - (a.start || 0))[0]; }
+  function shirtNumber(player) { return verifiedPlayers[player.id]?.shirtNumber ?? player.shirtNumber ?? null; }
 
   function nav() {
     const items = [
@@ -266,7 +268,7 @@
     const guessClub = primaryClub(guess), targetClub = primaryClub(target);
     const guessAge = new Date().getFullYear() - birthYear(guess);
     const targetAge = new Date().getFullYear() - birthYear(target);
-    const guessNumber = guess.shirtNumber ?? null, targetNumber = target.shirtNumber ?? null;
+    const guessNumber = shirtNumber(guess), targetNumber = shirtNumber(target);
     const age = guessAge === targetAge ? { state: "match", text: "Coincide" } :
       targetAge > guessAge ? { state: "higher", text: "↑ Mayor" } : { state: "lower", text: "↓ Menor" };
     return [
@@ -497,6 +499,6 @@
     return;
   }
   render();
-  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./service-worker.js?v=8").catch(() => {});
+  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./service-worker.js?v=9").catch(() => {});
 })();
 
