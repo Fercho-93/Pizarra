@@ -56,7 +56,6 @@
       <button class="brand" data-view="home" aria-label="Volver al inicio">
         <span class="brand-mark">P</span><span class="brand-copy"><strong>Pizarra</strong><small>Puzles diarios de fútbol</small></span>
       </button>
-      <button class="top-action" data-view="info">Datos · ${players.length.toLocaleString("es-ES")}</button>
     </header>`;
   }
 
@@ -79,13 +78,12 @@
       <div class="eyebrow">${escapeHtml(TODAY_LABEL)} · edición diaria</div>
       <h1>Cuatro formas de leer el fútbol.</h1>
       <p class="lead">Cruza carreras, sigue trayectorias y mide tu intuición con una selección histórica actualizada de las cinco grandes ligas.</p>
-      <div class="score-strip">
+      <div class="score-strip two-stat">
         <div class="score-stat"><strong>${done}/3</strong><small>diarios</small></div>
         <div class="score-stat"><strong>${state.duel.best}</strong><small>mejor racha</small></div>
-        <div class="score-stat"><strong>${players.length.toLocaleString("es-ES")}</strong><small>jugadores</small></div>
       </div>
       <div class="game-list">
-        ${gameCard("grid", "01", "Cuadrícula 3×3", "Condiciones compuestas, nueve respuestas y ningún jugador repetido.")}
+        ${gameCard("grid", "01", "Cuadrícula 3×3", "Una condición por encabezado, nueve respuestas y ningún jugador repetido.")}
         ${gameCard("trajectory", "02", "Trayectoria", "Adivina al jugador siguiendo sus clubes en las cinco grandes ligas.")}
         ${gameCard("identity", "03", "Quién soy", "Una identidad oculta y seis pistas que se revelan una a una.")}
         ${gameCard("duel", "04", "Mayor o menor", "Compara carreras y encadena tantos aciertos como puedas.", true)}
@@ -136,7 +134,7 @@
     }
     return `<section>
       <div class="game-header"><div class="eyebrow">Puzle diario · ${today}</div><div class="game-header-line"><h2>Cuadrícula</h2><span class="badge">${game.answers.filter(Boolean).length}/9</span></div>
-      <p class="help">Cada respuesta debe cumplir las dos condiciones completas. Toca los encabezados para leer el criterio exacto.</p></div>
+      <p class="help">Cruza una condición de la fila con una condición de la columna. Toca los encabezados para leer el criterio exacto.</p></div>
       <div class="score-strip"><div class="score-stat"><strong>${score}</strong><small>rareza total</small></div><div class="score-stat"><strong>${game.errors}</strong><small>fallos</small></div><div class="score-stat"><strong>${9 - game.answers.filter(Boolean).length}</strong><small>pendientes</small></div></div>
       <div class="grid-scroll"><div class="football-grid">${grid}</div></div>
       ${game.active !== null && !game.answers[game.active] ? renderGridEntry(game.active) : ""}
@@ -145,7 +143,7 @@
   }
 
   function conditionHtml(condition, extraClass = "") {
-    return `<button class="condition ${extraClass}" data-condition="${escapeHtml(condition.detail)}"><b>${escapeHtml(condition.label)}</b><small>${condition.matches.length} candidatos</small></button>`;
+    return `<button class="condition ${extraClass}" data-condition="${escapeHtml(condition.detail)}"><b>${escapeHtml(condition.label)}</b></button>`;
   }
 
   function renderGridEntry(index) {
@@ -394,3 +392,4 @@
   render();
   if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./service-worker.js").catch(() => {});
 })();
+
