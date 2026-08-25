@@ -7,13 +7,17 @@ const require = createRequire(import.meta.url);
 const core = require("./core.js");
 const context = { window: {} };
 vm.runInNewContext(await readFile(new URL("./data/players.js", import.meta.url), "utf8"), context);
+vm.runInNewContext(await readFile(new URL("./data/verified.js", import.meta.url), "utf8"), context);
 const data = context.window.PIZARRA_DATA;
+const verified = context.window.PIZARRA_VERIFIED;
 
 assert.equal(data.players.length, 2400, "La selección debe contener 2.400 jugadores");
 assert.equal(new Set(data.players.map(player => player.id)).size, data.players.length, "No debe haber jugadores duplicados");
 assert.ok(data.players.every(player => player.name && player.birth && player.clubs.length), "Todos los jugadores deben tener ficha utilizable");
 assert.ok(data.players.some(player => /Lionel Messi/i.test(player.name)), "Debe incluir a Lionel Messi");
 assert.ok(data.players.some(player => /Cristiano Ronaldo/i.test(player.name)), "Debe incluir a Cristiano Ronaldo");
+assert.equal(verified.Q483837.club.id, verified.Q30055335.club.id, "Modrić y Leão deben compartir su club verificado");
+assert.equal(verified.Q483837.club.league, verified.Q30055335.club.league, "Modrić y Leão deben compartir su liga verificada");
 
 for (let day = 1; day <= 120; day++) {
   const grid = core.generateGrid(data.players, `test-2026-${String(day).padStart(3, "0")}`);
