@@ -68,44 +68,27 @@
     const cols = [];
 
     for (const country of nationalities) {
-      for (const position of positions) {
-        const condition = buildCondition(`${position} · ${country}`, `Nacionalidad: ${country}. Posición: ${position}.`, "nacion-posicion",
-          player => player.nationalities.includes(country) && player.positions.includes(position), players);
-        if (condition.matches.length >= 12 && condition.matches.length <= 180) rows.push(condition);
-      }
-      for (const league of leagues) {
-        const condition = buildCondition(`${country} · ${LEAGUE_NAMES[league]}`, `Nacionalidad: ${country}. Jugó en ${LEAGUE_NAMES[league]}.`, "nacion-liga",
-          player => player.nationalities.includes(country) && player.leagues.includes(league), players);
-        if (condition.matches.length >= 14 && condition.matches.length <= 220) rows.push(condition);
-      }
+      rows.push(buildCondition(country, `Nacionalidad: ${country}.`, "nacionalidad",
+        player => player.nationalities.includes(country), players));
     }
 
     for (const position of positions) {
-      for (const decade of decades) {
-        const condition = buildCondition(`${position} · nac. ${decade}s`, `Posición: ${position}. Nació entre ${decade} y ${decade + 9}.`, "posicion-decada",
-          player => player.positions.includes(position) && birthDecade(player) === decade, players);
-        if (condition.matches.length >= 20 && condition.matches.length <= 260) rows.push(condition);
-      }
+      rows.push(buildCondition(position, `Posición: ${position}.`, "posicion",
+        player => player.positions.includes(position), players));
+    }
+
+    for (const decade of decades) {
+      rows.push(buildCondition(`Nacidos en los ${decade}`, `Nació entre ${decade} y ${decade + 9}.`, "decada",
+        player => birthDecade(player) === decade, players));
     }
 
     for (const club of clubs) {
       cols.push(buildCondition(club.name, `Jugó en ${club.name} desde 1990.`, "club",
         player => playerHasClub(player, club.id), players));
     }
-    for (let i = 0; i < leagues.length; i++) {
-      for (let j = i + 1; j < leagues.length; j++) {
-        const a = leagues[i], b = leagues[j];
-        const condition = buildCondition(`${LEAGUE_NAMES[a]} + ${LEAGUE_NAMES[b]}`, `Jugó en ambas ligas.`, "doble-liga",
-          player => player.leagues.includes(a) && player.leagues.includes(b), players);
-        if (condition.matches.length >= 20) cols.push(condition);
-      }
-    }
     for (const league of leagues) {
-      for (const decade of decades) {
-        const condition = buildCondition(`${LEAGUE_NAMES[league]} · nac. ${decade}s`, `Jugó en ${LEAGUE_NAMES[league]} y nació en los ${decade}.`, "liga-decada",
-          player => player.leagues.includes(league) && birthDecade(player) === decade, players);
-        if (condition.matches.length >= 24) cols.push(condition);
-      }
+      cols.push(buildCondition(LEAGUE_NAMES[league], `Jugó en ${LEAGUE_NAMES[league]}.`, "liga",
+        player => player.leagues.includes(league), players));
     }
     return { rows, cols };
   }
@@ -180,3 +163,4 @@
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.PIZARRA_CORE = api;
 })(typeof window !== "undefined" ? window : globalThis);
+
