@@ -48,10 +48,12 @@ const identity = core.selectDaily(data.players, "identity:test", player => playe
 assert.ok(identity.clubs.length >= 2);
 assert.ok(identityProfiles[identity.id], "La identidad diaria debe tener equipo y dorsal contrastados");
 for (const game of ["grid", "trajectory", "identity", "duel"]) {
-  assert.ok(appSource.includes(`modePicker("${game}"`), `${game} debe mostrar las cuatro modalidades`);
-  assert.ok(appSource.includes(`difficultyPicker("${game}"`), `${game} debe mostrar las cuatro dificultades`);
+  assert.ok(appSource.includes(`settingsAccordion("${game}"`), `${game} debe mostrar la configuración en acordeón`);
 }
+assert.ok(appSource.includes("modePicker(type, game.mode)") && appSource.includes("difficultyPicker(type, game.difficulty)"), "El acordeón debe contener modalidades y dificultades");
 assert.ok(appSource.includes("Date.now() + 3000") && appSource.includes("Date.now() + 180000"), "El modo contrarreloj debe tener preparación y tres minutos");
+assert.ok(appSource.includes("data-home-game") && appSource.includes("game-card-collapse"), "La portada debe organizar los juegos en acordeón");
+assert.ok(appSource.includes("IntersectionObserver") && appSource.includes("is-scrolled"), "La interfaz debe responder al desplazamiento");
 
 for (const [difficulty, minimum] of Object.entries({ easy: 60, medium: 50, hard: 40, expert: 35 })) {
   const pool = data.players.filter(player => player.sitelinks >= minimum);
