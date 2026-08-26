@@ -11,7 +11,7 @@
   const today = core.dateKey();
   const TODAY_LABEL = new Intl.DateTimeFormat("es-ES", { weekday: "long", day: "numeric", month: "long" }).format(new Date());
   const state = {
-    view: "home", selected: {}, grid: null, gridMode: "daily", gridDifficulty: "medium",
+    view: "home", homeGame: "grid", settingsOpen: {}, selected: {}, grid: null, gridMode: "daily", gridDifficulty: "medium",
     trajectory: null, trajectoryMode: "daily", trajectoryDifficulty: "medium",
     identity: null, identityMode: "daily", identityDifficulty: "medium",
     duel: null, duelMode: "daily", duelDifficulty: "medium", duelBest: Number(localStorage.getItem("pizarra-duel-best")) || 0
@@ -30,6 +30,7 @@
   };
   const IDENTITY_PROFILE_VERSION = 12;
   let gameTimer = null;
+  let cardObserver = null;
 
   function escapeHtml(value) {
     return String(value ?? "").replace(/[&<>'"]/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[char]);
@@ -40,6 +41,12 @@
     toast.classList.add("show");
     clearTimeout(showToast.timer);
     showToast.timer = setTimeout(() => toast.classList.remove("show"), 2200);
+  }
+
+  function resetScroll() {
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    requestAnimationFrame(() => { document.documentElement.scrollTop = 0; document.body.scrollTop = 0; });
   }
 
   function safeParse(value, fallback) {
@@ -91,9 +98,9 @@
     else content = renderHome();
     app.innerHTML = `<div class="shell">${topbar()}${content}</div>${nav()}`;
     bindSearchInputs();
+    bindScrollCards();
     if (state.view === "grid" && state.grid) ensureGridTimer(state.grid);
     else if (["trajectory", "identity", "duel"].includes(state.view) && state[state.view]) ensureChallengeTimer(state.view, state[state.view]);
-    requestAnimationFrame(() => document.querySelector("[data-autofocus]")?.focus());
   }
 
   function renderHome() {
@@ -101,8 +108,8 @@
     return `<section class="hero">
       <div class="eyebrow">${escapeHtml(TODAY_LABEL)} · edición diaria</div>
       <h1>Cuatro formas de leer el fútbol.</h1>
-      <p class="lead">Cruza carreras, sigue trayectorias y mide tu intuición con una selección histórica actualizada de las cinco grandes ligas.</p>
-      <p class="help general-note">Las trayectorias y los hechos del juego se contabilizan desde 1990.</p>
+      <p class="lead">Cruza carreras, sigue trayectorias y mide tu intuición. Elige un juego y adapta la partida a tu ritmo.</p>
+      <p class="help general-note"><span></span> Hechos contabilizados desde 1990.</p>
       <div class="score-strip two-stat">
         <div class="score-stat"><strong>${done}/4</strong><small>diarios</small></div>
         <div class="score-stat"><strong>${state.duelBest}</strong><small>mejor racha</small></div>
@@ -118,7 +125,24 @@
 
   function gameCard(id, number, title, description) {
     const status = isDone(id) ? "Completado hoy" : "Nuevo hoy";
-    return `<button class="game-card" data-view="${id}" data-number="${number}"><span><span class="status">${status}</span><b>${title}</b><p>${description}</p></span></button>`;
+    const open = state.homeGame === id;
+    return `<article class="game-card ${open ? "open" : ""}" data-number="${number}">
+      <button class="game-card-toggle" data-home-game="${id}" aria-expanded="${open}">
+        <span class="game-index">${number}</span><span class="game-title"><small>${status}</small><b>${title}</b></span><span class="accordion-icon">⌄</span>
+      </button>
+      <div class="game-card-collapse" aria-hidden="${!open}" ${open ? "" : "inert"}><div><div class="game-card-body"><p>${description}</p><div class="game-meta"><span>4 modos</span><span>4 dificultades</span></div><button class="game-play" data-view="${id}">Jugar ahora <span>→</span></button></div></div></div>
+    </article>`;
+  }
+
+  function bindScrollCards() {
+    cardObserver?.disconnect();
+    cardObserver = null;
+    if (state.view !== "home" || typeof IntersectionObserver === "undefined") return;
+    const cards = document.querySelectorAll(".game-card");
+    cardObserver = new IntersectionObserver(entries => {
+      for (const entry of entries) entry.target.classList.toggle("in-focus", entry.isIntersecting && entry.intersectionRatio >= .6);
+    }, { threshold: [.25, .6, .9], rootMargin: "-8% 0px -18%" });
+    cards.forEach(card => cardObserver.observe(card));
   }
 
   function clearGameTimer() {
@@ -132,6 +156,14 @@
 
   function difficultyPicker(type, difficulty) {
     return `<div class="difficulty-picker" aria-label="Dificultad">${Object.entries(DIFFICULTIES).map(([id, option]) => `<button class="difficulty-option ${id === difficulty ? "active" : ""}" data-game="${type}" data-difficulty="${id}" ${id === difficulty ? "disabled" : ""}>${escapeHtml(option.label)}</button>`).join("")}</div>`;
+  }
+
+  function settingsAccordion(type, game) {
+    const open = Boolean(state.settingsOpen[type]);
+    return `<div class="game-settings ${open ? "open" : ""}">
+      <button class="settings-summary" data-settings-toggle="${type}" aria-expanded="${open}"><span><small>Configuración</small><strong>${escapeHtml(GAME_MODES[game.mode].label)} · ${escapeHtml(DIFFICULTIES[game.difficulty].label)}</strong></span><span class="settings-icon">⌄</span></button>
+      <div class="settings-collapse" aria-hidden="${!open}" ${open ? "" : "inert"}><div><div class="settings-body"><p class="settings-label">Modo de juego</p>${modePicker(type, game.mode)}<p class="settings-label">Dificultad</p>${difficultyPicker(type, game.difficulty)}</div></div></div>
+    </div>`;
   }
 
   function difficultyPool(difficulty, predicate = () => true) {
@@ -287,8 +319,7 @@
     return `<section>
       <div class="game-header"><div class="eyebrow">${escapeHtml(GAME_MODES[game.mode].label)} · ${escapeHtml(DIFFICULTIES[game.difficulty].label)} · ${game.mode === "daily" ? today : "3×3"}</div><div class="game-header-line"><h2>Cuadrícula</h2><span class="badge">${game.mode === "timed" ? `<span data-game-timer>${game.preparing ? `Prepárate · ${preparationSeconds(game)}` : formatTimer(remainingSeconds(game))}</span>` : `${game.answers.filter(Boolean).length}/9`}</span></div>
       <p class="help">${escapeHtml(GAME_MODES[game.mode].description)}. ${escapeHtml(difficultyHelp(game.difficulty))}. Cruza una condición de la fila con una condición de la columna.</p></div>
-      ${modePicker("grid", game.mode)}
-      ${difficultyPicker("grid", game.difficulty)}
+      ${settingsAccordion("grid", game)}
       <div class="score-strip two-stat"><div class="score-stat"><strong>${game.errors}</strong><small>fallos</small></div><div class="score-stat"><strong>${9 - game.answers.filter(Boolean).length}</strong><small>pendientes</small></div></div>
       <div class="grid-scroll"><div class="football-grid">${grid}</div></div>
       ${game.active !== null && !game.answers[game.active] && !game.lost ? renderGridEntry(game.active) : ""}
@@ -334,8 +365,7 @@
     return `<section>
       <div class="game-header"><div class="eyebrow">${escapeHtml(GAME_MODES[game.mode].label)} · ${escapeHtml(DIFFICULTIES[game.difficulty].label)} · Trayectoria</div><div class="game-header-line"><h2>¿Quién recorrió este camino?</h2><span class="badge">${game.mode === "timed" ? `<span data-game-timer>${game.preparing ? `Prepárate · ${preparationSeconds(game)}` : formatTimer(remainingSeconds(game))}</span>` : `${Math.max(0, 5 - game.attempts)} intentos`}</span></div>
       <p class="help">${escapeHtml(GAME_MODES[game.mode].description)}. ${escapeHtml(difficultyHelp(game.difficulty))}. Solo mostramos su recorrido por los clubes incluidos en las cinco grandes ligas.</p></div>
-      ${modePicker("trajectory", game.mode)}
-      ${difficultyPicker("trajectory", game.difficulty)}
+      ${settingsAccordion("trajectory", game)}
       <div class="career">${game.player.clubs.map((club, index) => `<div class="career-row ${index < revealed ? "" : "hidden-club"}"><span class="year">${club.start || "—"}${club.end ? `–${club.end}` : ""}</span><span class="dot"></span><span><b>${index < revealed ? escapeHtml(club.name) : "Club oculto"}</b><small>${escapeHtml(core.LEAGUE_NAMES[club.league] || club.leagueName)}</small></span></div>`).join("")}</div>
       ${!game.complete && !game.lost && !game.preparing ? `<div class="panel">${game.attempts >= 2 ? `<p class="muted">Pista: ${escapeHtml(game.player.positions.join(" / "))}</p>` : ""}${searchBox("trajectory", "¿Qué jugador es?")}<div class="actions"><button class="btn btn-primary" data-action="submit-trajectory">Responder</button><button class="btn btn-secondary" data-action="reveal-trajectory">Revelar otro club</button></div></div>` : game.complete || game.lost ? renderSimpleResult(game.complete, game.player, game.attempts, "trajectory", game) : ""}
     </section>`;
@@ -380,8 +410,7 @@
     const remaining = Math.max(0, 8 - game.guesses.length);
     return `<section>
       <div class="game-header"><div class="eyebrow">${escapeHtml(GAME_MODES[game.mode].label)} · ${escapeHtml(DIFFICULTIES[game.difficulty].label)} · Identidad</div><div class="game-header-line"><h2>¿Quién soy?</h2><span class="badge">${game.mode === "timed" ? `<span data-game-timer>${game.preparing ? `Prepárate · ${preparationSeconds(game)}` : formatTimer(remainingSeconds(game))}</span>` : `${remaining}/8 intentos`}</span></div><p class="help">${escapeHtml(GAME_MODES[game.mode].description)}. ${escapeHtml(difficultyHelp(game.difficulty))}. Tras cada jugador, compara Nacionalidad, Liga, Equipo, Posición, Edad y Dorsal con el futbolista misterioso.</p></div>
-      ${modePicker("identity", game.mode)}
-      ${difficultyPicker("identity", game.difficulty)}
+      ${settingsAccordion("identity", game)}
       <div class="identity-key" aria-label="Cómo leer los resultados"><span class="match">Coincide</span><span class="miss">No coincide</span><span class="higher">↑ Mayor</span><span class="lower">↓ Menor</span></div>
       ${game.guesses.length ? `<div class="comparison-list">${game.guesses.map(id => { const guess = playerById.get(id); const results = identityComparison(guess, game.player); return `<article class="comparison-row"><strong>${escapeHtml(guess.name)}</strong><div class="comparison-cells">${results.map(item => `<span class="comparison-cell ${item.state}"><small>${item.label}</small><b>${item.text}</b></span>`).join("")}</div></article>`; }).join("")}</div>` : `<div class="empty-comparison">Introduce tu primer jugador para ver la comparación.</div>`}
       ${!game.complete && !game.lost && !game.preparing ? `<div class="panel">${searchBox("identity", "Escribe un jugador…")}<div class="actions"><button class="btn btn-primary" data-action="submit-identity">Comparar jugador</button></div></div>` : game.complete || game.lost ? renderSimpleResult(game.complete, game.player, Math.max(0, game.guesses.length - 1), "identity", game) : ""}
@@ -436,8 +465,7 @@
     const result = game.lost ? `<div class="result"><h3>Partida terminada</h3><p>${escapeHtml(game.lostReason)}</p><button class="btn btn-secondary" data-new-game="duel">${game.mode === "daily" ? "Jugar otro modo" : "Nueva partida"}</button></div>` : game.answered ? `<div class="result"><h3>${game.correct ? "¡Acierto!" : "Fallo"}</h3><p>${escapeHtml(game.right.name)} registra ${metric.value(game.right)} ${metric.short}.</p>${game.complete ? `<button class="btn btn-secondary" data-new-game="duel">Jugar otro modo</button>` : `<button class="btn btn-primary" data-action="next-duel">Siguiente duelo</button>`}</div>` : "";
     return `<section>
       <div class="game-header"><div class="eyebrow">${escapeHtml(GAME_MODES[game.mode].label)} · ${escapeHtml(DIFFICULTIES[game.difficulty].label)} · Duelo</div><div class="game-header-line"><h2>Mayor o menor</h2><span class="badge">${badge}</span></div><p class="help">${escapeHtml(GAME_MODES[game.mode].description)}. ${escapeHtml(difficultyHelp(game.difficulty))}. ${escapeHtml(metric.label)}${game.mode === "timed" ? ` · ${game.score} aciertos` : ""}</p></div>
-      ${modePicker("duel", game.mode)}
-      ${difficultyPicker("duel", game.difficulty)}
+      ${settingsAccordion("duel", game)}
       <div class="duel">
         ${duelCard(game.left, metric.value(game.left), metric.short, false)}<div class="duel-vs">VS</div>${duelCard(game.right, metric.value(game.right), metric.short, !game.answered)}
       </div>
@@ -583,8 +611,12 @@
   }
 
   document.addEventListener("click", event => {
+    const homeGame = event.target.closest("[data-home-game]")?.dataset.homeGame;
+    if (homeGame) { state.homeGame = state.homeGame === homeGame ? null : homeGame; render(); return; }
+    const settingsToggle = event.target.closest("[data-settings-toggle]")?.dataset.settingsToggle;
+    if (settingsToggle) { state.settingsOpen[settingsToggle] = !state.settingsOpen[settingsToggle]; render(); return; }
     const view = event.target.closest("[data-view]")?.dataset.view;
-    if (view) { clearGameTimer(); state.view = view; render(); return; }
+    if (view) { clearGameTimer(); state.view = view; render(); resetScroll(); return; }
     const suggestion = event.target.closest("[data-select-player]");
     if (suggestion) {
       const context = suggestion.dataset.context, player = playerById.get(suggestion.dataset.selectPlayer);
@@ -646,11 +678,21 @@
     if (action === "next-duel") { nextDuel(state.duel.right); render(); }
   });
 
+  let scrollFrame = null;
+  function updateScrollState() {
+    scrollFrame = null;
+    document.documentElement.classList.toggle("is-scrolled", window.scrollY > 24);
+  }
+  window.addEventListener("scroll", () => {
+    if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScrollState);
+  }, { passive: true });
+  updateScrollState();
+
   if (!data || players.length < 100) {
     app.innerHTML = `<div class="loading"><strong>No se pudo cargar la base de jugadores.</strong></div>`;
     return;
   }
   render();
-  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./service-worker.js?v=14").catch(() => {});
+  if ("serviceWorker" in navigator && location.protocol !== "file:" && !["localhost", "127.0.0.1"].includes(location.hostname)) navigator.serviceWorker.register("./service-worker.js?v=15").catch(() => {});
 })();
 
