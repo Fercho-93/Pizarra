@@ -44,6 +44,32 @@
   function birthDecade(player) { const year = birthYear(player); return year ? Math.floor(year / 10) * 10 : null; }
   function playerHasClub(player, id) { return player.clubs.some(club => club.id === id); }
 
+  function applyCorrections(players, corrections = {}) {
+    for (const player of players) {
+      const correction = corrections[player.id];
+      if (!correction) continue;
+      if (correction.name) player.name = correction.name;
+      if (correction.clubs) player.clubs = correction.clubs.map(club => ({ ...club }));
+      for (const club of correction.addClubs ?? []) {
+        const index = player.clubs.findIndex(item => item.id === club.id);
+        if (index === -1) player.clubs.push({ ...club });
+        else player.clubs[index] = { ...player.clubs[index], ...club };
+      }
+      for (const [clubId, periods] of Object.entries(correction.clubPeriods ?? {})) {
+        const template = player.clubs.find(club => club.id === clubId);
+        if (!template) continue;
+        player.clubs = player.clubs.filter(club => club.id !== clubId);
+        player.clubs.push(...periods.map(period => ({ ...template, ...period })));
+      }
+      player.clubs.sort((a, b) => (a.start ?? 9999) - (b.start ?? 9999) || a.name.localeCompare(b.name, "es"));
+      if (correction.clubs || correction.addClubs || correction.clubPeriods) {
+        player.leagues = [...new Set(player.clubs.map(club => club.league))];
+      }
+      if (correction.positions) player.positions = [...correction.positions];
+    }
+    return players;
+  }
+
   function buildCondition(label, detail, family, test, players) {
     const matches = players.filter(test).map(player => player.id);
     return { id: `${family}:${normalize(label)}`, label, detail, family, matches, set: new Set(matches), test };
@@ -159,7 +185,7 @@
     return Math.max(0, last - first);
   }
 
-  const api = { LEAGUE_NAMES, normalize, birthYear, birthDecade, seededRandom, shuffle, generateGrid, selectDaily, dateKey, careerSpan, hasDistinctAssignment };
+  const api = { LEAGUE_NAMES, normalize, birthYear, birthDecade, seededRandom, shuffle, applyCorrections, generateGrid, selectDaily, dateKey, careerSpan, hasDistinctAssignment };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.PIZARRA_CORE = api;
 })(typeof window !== "undefined" ? window : globalThis);
