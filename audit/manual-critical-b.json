@@ -1,0 +1,424 @@
+{
+  "generatedAt": "2026-08-26",
+  "scope": "Segunda mitad de las alertas críticas de easy-internal-report.json (índices 36-71)",
+  "method": "Revisión manual. Se priorizan fuentes oficiales de clubes, federaciones y competiciones; cuando no se localiza una ficha oficial suficientemente detallada se usa Wikipedia con sus referencias.",
+  "summary": {
+    "findingsReviewed": 36,
+    "playersReviewed": 32,
+    "verdicts": {
+      "verified": 0,
+      "conflict": 36,
+      "pending": 0
+    },
+    "findingsByType": {
+      "missing-position": 18,
+      "overlapping-club-periods": 15,
+      "impossible-senior-start-age": 3
+    },
+    "sourcesByType": {
+      "official_club": 29,
+      "official_federation": 1,
+      "wikipedia_with_references": 6
+    },
+    "conclusion": "Todas las alertas revisadas representan defectos reales de la base: posiciones ausentes, etapas separadas fusionadas en un solo intervalo o años de cantera tratados como carrera sénior."
+  },
+  "reviews": [
+    {
+      "playerId": "Q185093",
+      "player": "Jesús Navas",
+      "claim": "Trayectoria Sevilla FC / Manchester City",
+      "verdict": "conflict",
+      "correctData": { "club": "Sevilla FC", "periods": [[2003, 2013], [2017, 2024]], "otherClub": { "club": "Manchester City", "period": [2013, 2017] } },
+      "sourceUrl": "https://en.wikipedia.org/wiki/Jes%C3%BAs_Navas",
+      "sourceType": "wikipedia_with_references",
+      "checkedAt": "2026-08-26",
+      "note": "La base fusiona las dos etapas del Sevilla (2003-2013 y 2017-2024), creando un solapamiento falso con Manchester City."
+    },
+    {
+      "playerId": "Q83456",
+      "player": "John Terry",
+      "claim": "Posición",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://www.chelseafc.com/en/john-terry",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "Chelsea lo describe como uno de los grandes defensas ingleses y sitúa su carrera en el centro de la defensa; no debe figurar sin posición."
+    },
+    {
+      "playerId": "Q531814",
+      "player": "Kaká",
+      "claim": "Trayectoria AC Milan / Real Madrid",
+      "verdict": "conflict",
+      "correctData": { "club": "AC Milan", "periods": [[2003, 2009], [2013, 2014]], "otherClub": { "club": "Real Madrid", "period": [2009, 2013] } },
+      "sourceUrl": "https://www.acmilan.com/en/club/legends/players/kaka",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "Las dos etapas en Milan fueron fusionadas como 2003-2014; la etapa del Real Madrid ocupa el intervalo intermedio."
+    },
+    {
+      "playerId": "Q3195361",
+      "player": "Kepa Arrizabalaga",
+      "claim": "Inicio sénior en Athletic Club",
+      "verdict": "conflict",
+      "correctData": { "youth": { "club": "Athletic Club", "start": 2004 }, "seniorFirstTeam": { "club": "Athletic Club", "period": [2016, 2018] }, "position": "Portero" },
+      "sourceUrl": "https://www.athletic-club.eus/en/players/kepa-arrizabalaga-revuelta/",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "2004 corresponde a su incorporación a Lezama, no al primer equipo. Athletic registra su debut oficial el 11/09/2016."
+    },
+    {
+      "playerId": "Q16499882",
+      "player": "Leroy Sané",
+      "claim": "Posición",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Delantero"] },
+      "sourceUrl": "https://app.fcbayern.com/en/teams/first-team/leroy-sane",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "La ficha oficial del Bayern lo cataloga como forward; para las categorías amplias del juego corresponde a Delantero."
+    },
+    {
+      "playerId": "Q160472",
+      "player": "Marc-André ter Stegen",
+      "claim": "Inicio sénior en Borussia Mönchengladbach",
+      "verdict": "conflict",
+      "correctData": { "youth": { "club": "Borussia Mönchengladbach", "start": 1996 }, "seniorFirstTeam": { "club": "Borussia Mönchengladbach", "period": [2011, 2014] }, "position": "Portero" },
+      "sourceUrl": "https://www.fcbarcelona.com/en/football/first-team/players/11072/marc-andre-ter-Stegen",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "El Barça confirma que entró en el club alemán con 4 años y debutó con el primer equipo el 10/04/2011; la base mezcla cantera y etapa sénior."
+    },
+    {
+      "playerId": "Q193625",
+      "player": "Marcel Desailly",
+      "claim": "Posición",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa", "Centrocampista"] },
+      "sourceUrl": "https://www.chelseafc.com/en/news/article/team-of-120-the-shortlisted-defenders",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "Chelsea lo incluye entre sus defensas históricos; también actuó como mediocentro defensivo, por lo que ambas categorías son válidas."
+    },
+    {
+      "playerId": "Q507890",
+      "player": "Marcos Rojo",
+      "claim": "Posición",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://ir.manutd.com/~/media/files/m/manutd-ir/annual%20reports/manchester-united-plc-20f-20141027.pdf",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "El informe anual oficial del Manchester United lo lista como Defender; la posición vacía es incorrecta."
+    },
+    {
+      "playerId": "Q45766",
+      "player": "Mario Gómez",
+      "claim": "Trayectoria VfB Stuttgart / Bayern Múnich",
+      "verdict": "conflict",
+      "correctData": { "club": "VfB Stuttgart", "periods": [[2003, 2009], [2018, 2020]], "otherClub": { "club": "Bayern Múnich", "period": [2009, 2013] } },
+      "sourceUrl": "https://www.vfb.de/de/vfb/aktuell/neues/profis/2020/danke-mario-gomez/",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "La base fusiona dos etapas del Stuttgart. La fuente oficial confirma la salida al Bayern en 2009 y el regreso en diciembre de 2017."
+    },
+    {
+      "playerId": "Q110053",
+      "player": "Mats Hummels",
+      "claim": "Trayectoria Bayern Múnich / Borussia Dortmund",
+      "verdict": "conflict",
+      "correctData": { "clubs": [{ "club": "Bayern Múnich", "periods": [[2006, 2008], [2016, 2019]] }, { "club": "Borussia Dortmund", "periods": [[2008, 2016], [2019, 2024]] }] },
+      "sourceUrl": "https://www.bvb.de/de/en/news/news-overview/news.html/2025/8/10/The-best-thing-that-could-have-happened-to-me-Mats-Hummels-in-Black-Yellow-for-the-last-time.html",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "Ambos clubes aparecen fusionados en intervalos únicos; BVB confirma sus dos etapas en Dortmund y los tres años intermedios en Bayern."
+    },
+    {
+      "playerId": "Q248141",
+      "player": "Maya Yoshida",
+      "claim": "Posición",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://www.jfa.jp/common/pdf/140606_FWC14_Jpn_MG.pdf",
+      "sourceType": "official_federation",
+      "checkedAt": "2026-08-26",
+      "note": "La guía oficial de la JFA lo incluye entre los defensas; no debe figurar con posición vacía."
+    },
+    {
+      "playerId": "Q11948",
+      "player": "Michael Ballack",
+      "claim": "Trayectoria Bayer Leverkusen / Bayern Múnich",
+      "verdict": "conflict",
+      "correctData": { "club": "Bayer Leverkusen", "periods": [[1999, 2002], [2010, 2012]], "otherClub": { "club": "Bayern Múnich", "period": [2002, 2006] } },
+      "sourceUrl": "https://en.wikipedia.org/wiki/Michael_Ballack",
+      "sourceType": "wikipedia_with_references",
+      "checkedAt": "2026-08-26",
+      "note": "La base fusiona las dos etapas de Leverkusen y crea un solapamiento falso con Bayern."
+    },
+    {
+      "playerId": "Q11948",
+      "player": "Michael Ballack",
+      "claim": "Trayectoria Bayer Leverkusen / Chelsea",
+      "verdict": "conflict",
+      "correctData": { "club": "Bayer Leverkusen", "periods": [[1999, 2002], [2010, 2012]], "otherClub": { "club": "Chelsea", "period": [2006, 2010] } },
+      "sourceUrl": "https://en.wikipedia.org/wiki/Michael_Ballack",
+      "sourceType": "wikipedia_with_references",
+      "checkedAt": "2026-08-26",
+      "note": "El intervalo continuo 1999-2012 para Leverkusen es incorrecto; Chelsea ocupa 2006-2010 y el regreso a Leverkusen empieza en 2010."
+    },
+    {
+      "playerId": "Q163564",
+      "player": "Nemanja Vidić",
+      "claim": "Posición",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://en.wikipedia.org/wiki/Nemanja_Vidi%C4%87",
+      "sourceType": "wikipedia_with_references",
+      "checkedAt": "2026-08-26",
+      "note": "Está documentado como defensa central; la posición vacía es incorrecta."
+    },
+    {
+      "playerId": "Q483027",
+      "player": "Paolo Maldini",
+      "claim": "Posición",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://www.acmilan.com/it/club/legends/giocatori/paolo-maldini",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "La ficha de leyenda del Milan documenta toda su carrera rossonera; actuó como lateral izquierdo y defensa central."
+    },
+    {
+      "playerId": "Q129027",
+      "player": "Paul Pogba",
+      "claim": "Trayectoria Manchester United / Juventus",
+      "verdict": "conflict",
+      "correctData": { "clubs": [{ "club": "Manchester United", "periods": [[2011, 2012], [2016, 2022]] }, { "club": "Juventus", "periods": [[2012, 2016], [2022, 2024]] }] },
+      "sourceUrl": "https://www.juventus.com/en/news/articles/paul-pogba-joins-manchester-united",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "Juventus confirma la primera etapa 2012-2016 y su regreso a Manchester; la base fusiona dos etapas de cada club. La segunda etapa juventina terminó el 30/11/2024."
+    },
+    {
+      "playerId": "Q66606355",
+      "player": "Pedri González",
+      "claim": "Posición",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Centrocampista"] },
+      "sourceUrl": "https://www.fcbarcelona.com/en/football/first-team/players///70486/pedri",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "La ficha oficial del FC Barcelona lo cataloga como Midfielder."
+    },
+    {
+      "playerId": "Q485697",
+      "player": "Pepe",
+      "claim": "Posición",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://en.wikipedia.org/wiki/Pepe_(footballer,_born_1983)",
+      "sourceType": "wikipedia_with_references",
+      "checkedAt": "2026-08-26",
+      "note": "Está documentado como defensa central; la posición vacía es incorrecta."
+    },
+    {
+      "playerId": "Q163666",
+      "player": "Pepe Reina",
+      "claim": "Trayectoria Villarreal / Liverpool",
+      "verdict": "conflict",
+      "correctData": { "club": "Villarreal", "periods": [[2002, 2005], [2022, 2024]], "otherClub": { "club": "Liverpool", "period": [2005, 2014] } },
+      "sourceUrl": "https://villarrealcf.es/en/pepe-reinas-best-moments-at-villarreal/",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "Villarreal confirma dos etapas separadas por 17 años; la base las fusiona como 2002-2024."
+    },
+    {
+      "playerId": "Q163666",
+      "player": "Pepe Reina",
+      "claim": "Trayectoria Villarreal / Napoli",
+      "verdict": "conflict",
+      "correctData": { "club": "Villarreal", "periods": [[2002, 2005], [2022, 2024]], "otherClub": { "club": "Napoli", "periods": [[2013, 2014], [2015, 2018]] } },
+      "sourceUrl": "https://villarrealcf.es/en/pepe-reina-alcanza-los-1000-partidos-como-profesional/",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "El historial oficial enumera Liverpool, Napoli, Bayern y las dos etapas de Villarreal; Napoli tampoco fue un intervalo único 2013-2018 por la temporada en Bayern."
+    },
+    {
+      "playerId": "Q186330",
+      "player": "Rafael Márquez Álvarez",
+      "claim": "Posición",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa", "Centrocampista"] },
+      "sourceUrl": "https://www.fcbarcelona.com/en/football/barca-legends/players/4288674/marquez",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "El Barça confirma que fue usado inicialmente en mediocampo y después se asentó como defensa central; ambas categorías son válidas."
+    },
+    {
+      "playerId": "Q489039",
+      "player": "Raphaël Varane",
+      "claim": "Posición",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://www.realmadrid.com/en-US/the-club/history/football-legends/raphael-varane",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "La ficha histórica oficial del Real Madrid indica Position: Defender."
+    },
+    {
+      "playerId": "Q570811",
+      "player": "Ricardo Carvalho",
+      "claim": "Posición",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://www.chelseafc.com/en/ricardo-carvalho",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "Chelsea lo describe como centre-back; la posición vacía es incorrecta."
+    },
+    {
+      "playerId": "Q313316",
+      "player": "Romelu Lukaku",
+      "claim": "Trayectoria Chelsea / Everton",
+      "verdict": "conflict",
+      "correctData": { "club": "Chelsea", "periods": [[2011, 2014], [2021, 2024]], "otherClub": { "club": "Everton", "period": [2013, 2017], "loanUntil": 2014 } },
+      "sourceUrl": "https://www.chelseafc.com/en/news/article/romelu-lukaku--everything-you-need-to-know-about-chelsea-s-new-s",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "Chelsea confirma la primera etapa, la cesión al Everton en 2013/14 y el regreso en 2021; el intervalo único 2011-2024 es falso."
+    },
+    {
+      "playerId": "Q313316",
+      "player": "Romelu Lukaku",
+      "claim": "Trayectoria Chelsea / Inter",
+      "verdict": "conflict",
+      "correctData": { "club": "Chelsea", "periods": [[2011, 2014], [2021, 2024]], "otherClub": { "club": "Inter", "periods": [[2019, 2021], [2022, 2023]], "secondSpellLoan": true } },
+      "sourceUrl": "https://www.chelseafc.com/en/news/article/romelu-lukaku-departs-chelsea",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "Chelsea confirma que volvió en 2021 y que pasó 2022/23 cedido en Inter; ambas relaciones estaban fusionadas en intervalos continuos."
+    },
+    {
+      "playerId": "Q185225",
+      "player": "Santi Cazorla",
+      "claim": "Trayectoria Villarreal / Arsenal",
+      "verdict": "conflict",
+      "correctData": { "club": "Villarreal", "periods": [[2003, 2006], [2007, 2011], [2018, 2020]], "otherClub": { "club": "Arsenal", "period": [2012, 2018] } },
+      "sourceUrl": "https://villarrealcf.es/eternos/",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "La relación de Villarreal agrupa tres etapas y omite los intervalos en Recreativo, Málaga y Arsenal."
+    },
+    {
+      "playerId": "Q49704",
+      "player": "Sergio Busquets",
+      "claim": "Inicio sénior en FC Barcelona",
+      "verdict": "conflict",
+      "correctData": { "youth": { "club": "FC Barcelona", "start": 2005 }, "reserve": { "club": "Barcelona B", "period": [2007, 2008] }, "seniorFirstTeam": { "club": "FC Barcelona", "period": [2008, 2023] }, "position": "Centrocampista" },
+      "sourceUrl": "https://www.fcbarcelona.com/en/card/3569210/sergio-busquets",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "El club confirma entrada en la cantera en 2005 y 15 temporadas de primer equipo desde 2008; 2000 no es una fecha válida para el Barça sénior."
+    },
+    {
+      "playerId": "Q483309",
+      "player": "Sergio Ramos",
+      "claim": "Posición",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://www.realmadrid.com/es-ES/el-club/historia/leyendas-futbol/sergio-ramos-garcia",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "La ficha oficial del Real Madrid indica Posición en el campo: Defensa."
+    },
+    {
+      "playerId": "Q483309",
+      "player": "Sergio Ramos",
+      "claim": "Trayectoria Sevilla / Real Madrid",
+      "verdict": "conflict",
+      "correctData": { "club": "Sevilla FC", "periods": [[2004, 2005], [2023, 2024]], "otherClub": { "club": "Real Madrid", "period": [2005, 2021] } },
+      "sourceUrl": "https://www.realmadrid.com/es-ES/el-club/historia/leyendas-futbol/sergio-ramos-garcia",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "Real Madrid confirma su etapa 2005-2021 y procedencia del Sevilla; la base fusiona las dos etapas sevillistas."
+    },
+    {
+      "playerId": "Q694014",
+      "player": "Shkodran Mustafi",
+      "claim": "Posición",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://en.wikipedia.org/wiki/Shkodran_Mustafi",
+      "sourceType": "wikipedia_with_references",
+      "checkedAt": "2026-08-26",
+      "note": "Está documentado como defensa central; la posición vacía es incorrecta."
+    },
+    {
+      "playerId": "Q210453",
+      "player": "Thiago Silva",
+      "claim": "Posición",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://www.chelseafc.com/en/news/article/thiago-silva-moves-from-paris-to-london",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "Chelsea lo identifica expresamente como central/centre-back; la posición vacía es incorrecta."
+    },
+    {
+      "playerId": "Q184177",
+      "player": "Thomas Vermaelen",
+      "claim": "Posición",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://www.fcbarcelona.com/en/football/first-team/news/1121351/thomas-vermaelen-a-belgian-leader-with-class",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "El FC Barcelona lo define como defensa central capaz de actuar también como lateral izquierdo."
+    },
+    {
+      "playerId": "Q128840",
+      "player": "Toby Alderweireld",
+      "claim": "Posición",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://www.tottenhamhotspur.com/news/1017834/toby-back-in-n17-for-atleti-tie",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "Tottenham lo identifica como centre-back y parte de una pareja central con Vertonghen."
+    },
+    {
+      "playerId": "Q201381",
+      "player": "Vincent Kompany",
+      "claim": "Posición",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa", "Centrocampista"] },
+      "sourceUrl": "https://www.mancity.com/news/first-team/first-team-news/2018/august/vincent-kompany-manchester-city-10-year-anniversary",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "Manchester City confirma que empezó como mediocentro defensivo y fue reconvertido en defensa central; ambas categorías son defendibles."
+    },
+    {
+      "playerId": "Q266613",
+      "player": "Wayne Rooney",
+      "claim": "Trayectoria Everton / Manchester United",
+      "verdict": "conflict",
+      "correctData": { "club": "Everton", "periods": [[2002, 2004], [2017, 2018]], "otherClub": { "club": "Manchester United", "period": [2004, 2017] } },
+      "sourceUrl": "https://www.manutd.com/en/news/detail/wayne-rooney-interview-exclusive-on-missing-man-united?ut=",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "Manchester United confirma su servicio 2004-2017 y el regreso al Everton en 2017; la base fusiona las dos etapas del Everton."
+    },
+    {
+      "playerId": "Q46896",
+      "player": "Zlatan Ibrahimović",
+      "claim": "Trayectoria AC Milan / Paris Saint-Germain",
+      "verdict": "conflict",
+      "correctData": { "club": "AC Milan", "periods": [[2010, 2012], [2020, 2023]], "otherClub": { "club": "Paris Saint-Germain", "period": [2012, 2016] } },
+      "sourceUrl": "https://www.acmilan.com/en/news/articles/media/2019-12-27/zlatan-ibrahimovic-rejoins-ac-milan",
+      "sourceType": "official_club",
+      "checkedAt": "2026-08-26",
+      "note": "AC Milan confirma la primera etapa 2010-2012 y su regreso en 2020; el intervalo 2010-2023 fusionado crea un solapamiento falso con PSG."
+    }
+  ]
+}
+
