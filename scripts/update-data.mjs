@@ -160,7 +160,11 @@ function buildPlayers(rows) {
     if (row.countryId && row.country) player.nationalities.set(row.countryId, row.country);
     if (row.position) player.positions.add(row.position);
     player.sitelinks = Math.max(player.sitelinks, row.sitelinks);
-    const current = player.clubs.get(row.club.id);
+    // Una misma persona puede tener varias etapas separadas en un club.
+    // La clave debe representar la etapa, no solo el club; de lo contrario,
+    // regresos como los de Cristiano Ronaldo al Manchester United se funden
+    // en un intervalo continuo incorrecto.
+    const membershipKey = `${row.club.id}:${row.start ?? "?"}:${row.end ?? "?"}`;
     const membership = {
       id: row.club.id,
       name: row.club.name,
@@ -169,13 +173,10 @@ function buildPlayers(rows) {
       start: row.start,
       end: row.end
     };
-    if (!current) player.clubs.set(row.club.id, membership);
-    else {
-      current.start = Math.min(current.start ?? 9999, row.start ?? 9999);
-      if (current.start === 9999) current.start = null;
-      current.end = Math.max(current.end ?? 0, row.end ?? 0);
-      if (current.end === 0) current.end = null;
-    }
+    // Wikidata puede repetir una misma declaración por la combinación de
+    // nacionalidades y posiciones del SELECT. Map elimina solo esos duplicados
+    // exactos y conserva las etapas realmente distintas.
+    if (!player.clubs.has(membershipKey)) player.clubs.set(membershipKey, membership);
   }
 
   return [...players.values()].map(player => {
