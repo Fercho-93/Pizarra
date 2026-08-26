@@ -1,0 +1,421 @@
+{
+  "generatedAt": "2026-08-26",
+  "scope": {
+    "sourceReport": "audit/easy-internal-report.json",
+    "criticalFindingsReviewed": 36,
+    "playersReviewed": 28,
+    "segment": "first-half"
+  },
+  "method": "Revisión manual de la afirmación que originó cada alerta. Prioridad: fuente oficial del club, federación o competición; Wikipedia solo cuando no se encontró una cronología oficial suficiente. Una etapa de cantera no se considera etapa sénior. Las cesiones se conservan como relaciones de juego aunque puedan solaparse con el club propietario.",
+  "summary": {
+    "verified": 1,
+    "conflict": 27,
+    "pending": 0
+  },
+  "records": [
+    {
+      "playerId": "Q107051",
+      "player": "Andrea Barzagli",
+      "claim": "La posición está vacía en la base.",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://halloffame.juventus.com/en/hall-of-fame/andrea-barzagli",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "La ficha del Salón de la Fama de Juventus identifica el rol como DEF y lo describe como defensor."
+    },
+    {
+      "playerId": "Q96755",
+      "player": "Antonio Rüdiger",
+      "claim": "La corrección oficial existente añade Real Madrid desde 2022 y corrige Stuttgart a 2011-2015.",
+      "verdict": "verified",
+      "correctData": {
+        "positions": ["Defensa"],
+        "clubs": [
+          { "clubId": "Q4512", "start": 2011, "end": 2015 },
+          { "clubId": "Q2739", "start": 2015, "end": 2017 },
+          { "clubId": "Q9616", "start": 2017, "end": 2022 },
+          { "clubId": "Q8682", "start": 2022, "end": null }
+        ]
+      },
+      "sourceUrl": "https://www.realmadrid.com/es-ES/futbol/primer-equipo-masculino/plantilla/antonio-rudiger",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "La ficha oficial del Real Madrid sustenta la posición, la llegada en 2022 y la trayectoria corregida."
+    },
+    {
+      "playerId": "Q10602",
+      "player": "Ashley Young",
+      "claim": "Aston Villa figura como una etapa continua 2007-2023, solapada con Manchester United.",
+      "verdict": "conflict",
+      "correctData": {
+        "clubs": [
+          { "clubId": "Q18711", "start": 2007, "end": 2011 },
+          { "clubId": "Q18656", "start": 2011, "end": 2020 },
+          { "clubId": "Q18711", "start": 2021, "end": 2023 }
+        ]
+      },
+      "sourceUrl": "https://www.avfc.co.uk/news/2021/june/Ashley-Young-The-Story-So-Far/",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "Aston Villa documenta una primera etapa hasta 2011, su paso posterior por United e Inter y el regreso en 2021."
+    },
+    {
+      "playerId": "Q152897",
+      "player": "Benedikt Höwedes",
+      "claim": "La posición está vacía en la base.",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://schalke04.de/teams/traditionself/kader/benedikt-hoewedes/",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "Schalke registra su posición como Abwehr (defensa)."
+    },
+    {
+      "playerId": "Q179172",
+      "player": "Bojan Krkić",
+      "claim": "La relación con Mainz 05 no tiene fechas.",
+      "verdict": "conflict",
+      "correctData": { "clubId": "Q105254", "start": 2017, "end": 2017, "loan": true },
+      "sourceUrl": "https://www.mainz05.de/News/mainz-05-leiht-bojan-bis-saisonende",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "Mainz anunció el 29-01-2017 una cesión hasta el final de la temporada 2016/17."
+    },
+    {
+      "playerId": "Q193000",
+      "player": "Bruno Alves",
+      "claim": "La posición está vacía en la base.",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://www.fpf.pt/pt/Jogadores/Bruno-Alves/contextId/172",
+      "sourceType": "official-federation",
+      "checkedAt": "2026-08-26",
+      "note": "La Federación Portuguesa de Fútbol lo registra expresamente como Defesa."
+    },
+    {
+      "playerId": "Q17158",
+      "player": "Carles Puyol",
+      "claim": "La posición está vacía en la base.",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://players.fcbarcelona.com/en/player/704-puyol-carles-puyol-saforcada",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "El archivo oficial de jugadores del Barcelona indica Line up: Defender y primera etapa sénior 1999-2014."
+    },
+    {
+      "playerId": "Q294806",
+      "player": "César Azpilicueta",
+      "claim": "Osasuna consta como etapa sénior 2001-2010, empezando a los 12 años.",
+      "verdict": "conflict",
+      "correctData": { "clubId": "Q10286", "seniorStart": 2007, "end": 2010, "youthStart": 2001 },
+      "sourceUrl": "https://www.chelseafc.com/en/news/article/cesar-azpilicueta-exclusive-part-one--captaincy--gary-cahill-and",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "Azpilicueta declara en la web oficial del Chelsea que debutó con Osasuna a los 17 años; 2001 pertenece a formación."
+    },
+    {
+      "playerId": "Q17499",
+      "player": "Cesc Fàbregas",
+      "claim": "Barcelona figura como etapa sénior continua 1997-2014 y se solapa con Arsenal 2003-2011.",
+      "verdict": "conflict",
+      "correctData": {
+        "youth": { "clubId": "Q7156", "start": 1997, "end": 2003 },
+        "clubs": [
+          { "clubId": "Q9617", "start": 2003, "end": 2011 },
+          { "clubId": "Q7156", "start": 2011, "end": 2014 }
+        ]
+      },
+      "sourceUrl": "https://www.fcbarcelona.com/en/football/first-team/news/3564437/cesc-fabregas-calls-time-on-his-playing-career",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "Barcelona distingue su formación desde 1997, Arsenal desde 2003 y el regreso al primer equipo en 2011."
+    },
+    {
+      "playerId": "Q29491",
+      "player": "Christopher Smalling",
+      "claim": "La posición está vacía en la base.",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://www.manutd.com/ar/news/chris-smalling-scores-in-three-successive-away-victories-for-manchester-united",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "Manchester United lo identifica como defender y centre-back."
+    },
+    {
+      "playerId": "Q11571",
+      "player": "Cristiano Ronaldo",
+      "claim": "Manchester United figura como etapa continua 2003-2022, solapada con Real Madrid 2009-2018.",
+      "verdict": "conflict",
+      "correctData": {
+        "clubs": [
+          { "clubId": "Q18656", "start": 2003, "end": 2009 },
+          { "clubId": "Q8682", "start": 2009, "end": 2018 },
+          { "clubId": "Q18656", "start": 2021, "end": 2022 }
+        ]
+      },
+      "sourceUrl": "https://www.realmadrid.com/en-US/the-club/history/football-legends/cristiano-ronaldo-dos-santos-aveiro",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "Real Madrid acredita la etapa 2009-2018; Manchester United contabiliza 346 partidos en dos etapas, por lo que no es una relación continua."
+    },
+    {
+      "playerId": "Q193706",
+      "player": "David Luiz",
+      "claim": "La posición está vacía en la base.",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://www.flamengo.com.br/noticias/futebol/david-luiz-e-o-novo-zagueiro-do-mengao",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "Flamengo lo registra como zagueiro y defensor."
+    },
+    {
+      "playerId": "Q349125",
+      "player": "Dejan Lovren",
+      "claim": "La posición está vacía y Lyon figura como etapa continua 2010-2024, solapada con Liverpool.",
+      "verdict": "conflict",
+      "correctData": {
+        "positions": ["Defensa"],
+        "clubs": [
+          { "clubId": "Q704", "start": 2010, "end": 2013 },
+          { "clubId": "Q1130849", "start": 2014, "end": 2020 },
+          { "clubId": "Q704", "start": 2023, "end": 2024 }
+        ]
+      },
+      "sourceUrl": "https://www.liverpoolfc.com/info/dejan-lovren",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "Liverpool lo identifica como central y fija su etapa allí en 2014-2020; Lyon debe dividirse en dos etapas, no consolidarse."
+    },
+    {
+      "playerId": "Q214903",
+      "player": "Diego Godín",
+      "claim": "La posición está vacía en la base.",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://www.atleticodemadrid.com/jugadores/diego-roberto-godin-leal-2013-2014",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "La ficha histórica oficial del Atlético indica Demarcación: Defensa y lo describe como central."
+    },
+    {
+      "playerId": "Q258115",
+      "player": "Diego Simeone",
+      "claim": "Atlético de Madrid figura como etapa continua 1994-2005, solapada con Lazio 1999-2003.",
+      "verdict": "conflict",
+      "correctData": {
+        "clubs": [
+          { "clubId": "Q8701", "start": 1994, "end": 1997 },
+          { "clubId": "Q2609", "start": 1999, "end": 2003 },
+          { "clubId": "Q8701", "start": 2003, "end": 2005 }
+        ]
+      },
+      "sourceUrl": "https://www.atleticodemadrid.com/noticias/un-heroe-del-doblete-para-el-banquillo-rojiblanco",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "El Atlético detalla dos etapas, 1994-97 y 2003-05, separadas por Inter y Lazio."
+    },
+    {
+      "playerId": "Q1935",
+      "player": "Éric Abidal",
+      "claim": "Monaco figura como etapa continua 2000-2014, solapada con Barcelona 2007-2013.",
+      "verdict": "conflict",
+      "correctData": {
+        "clubs": [
+          { "clubId": "Q180305", "start": 2001, "end": 2002 },
+          { "clubId": "Q7156", "start": 2007, "end": 2013 },
+          { "clubId": "Q180305", "start": 2013, "end": 2014 }
+        ],
+        "reserve": { "clubId": "Q180305", "start": 2000, "end": 2001 }
+      },
+      "sourceUrl": "https://players.fcbarcelona.com/en/player/3-abidal-eric-sylvain-bilal-abidal",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "El archivo del Barcelona separa Monaco B, Monaco sénior, Barcelona 2007-13 y el regreso a Monaco 2013-14."
+    },
+    {
+      "playerId": "Q191139",
+      "player": "Fabien Barthez",
+      "claim": "Marsella figura como etapa continua 1992-2006 y se solapa con Monaco y Manchester United.",
+      "verdict": "conflict",
+      "correctData": {
+        "clubs": [
+          { "clubId": "Q132885", "start": 1992, "end": 1995 },
+          { "clubId": "Q180305", "start": 1995, "end": 2000 },
+          { "clubId": "Q18656", "start": 2000, "end": 2004 },
+          { "clubId": "Q132885", "start": 2003, "end": 2006, "loanDuringFirstSeason": true }
+        ]
+      },
+      "sourceUrl": "https://www.asmonaco.com/fr/joueurs/fabien-barthez",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "AS Monaco aporta la cronología de Marseille 1992-95, Monaco 1995-2000 y Manchester United 2000-04; UEFA confirma el regreso inicial a Marseille como cesión."
+    },
+    {
+      "playerId": "Q187891",
+      "player": "Fernando Llorente",
+      "claim": "Athletic Club figura como etapa sénior desde 1996, cuando tenía 11 años.",
+      "verdict": "conflict",
+      "correctData": { "clubId": "Q8687", "seniorStart": 2005, "end": 2013, "youthStart": 1996 },
+      "sourceUrl": "https://www.athletic-club.eus/en/players/fernando-llorente-torres/",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "Athletic fija el debut del primer equipo en 16-01-2005 y lista 1996-2003 dentro de categorías juveniles."
+    },
+    {
+      "playerId": "Q42731",
+      "player": "Fernando Torres",
+      "claim": "Atlético de Madrid figura como etapa sénior continua 1995-2018, solapada con Liverpool y Chelsea.",
+      "verdict": "conflict",
+      "correctData": {
+        "youth": { "clubId": "Q8701", "start": 1995, "end": 2001 },
+        "clubs": [
+          { "clubId": "Q8701", "start": 2001, "end": 2007 },
+          { "clubId": "Q1130849", "start": 2007, "end": 2011 },
+          { "clubId": "Q9616", "start": 2011, "end": 2014 },
+          { "clubId": "Q8701", "start": 2015, "end": 2018 }
+        ]
+      },
+      "sourceUrl": "https://www.atleticodemadrid.com/noticias/se-cumplen-21-anos-del-debut-de-fernando-torres",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "El Atlético distingue Academia desde 1995, debut sénior en 2001, salida a Liverpool en 2007 y regreso en 2015."
+    },
+    {
+      "playerId": "Q184586",
+      "player": "Gareth Bale",
+      "claim": "Tottenham figura como etapa continua 2007-2021 y se solapa con Real Madrid 2013-2022.",
+      "verdict": "conflict",
+      "correctData": {
+        "clubs": [
+          { "clubId": "Q18741", "start": 2007, "end": 2013 },
+          { "clubId": "Q8682", "start": 2013, "end": 2022 },
+          { "clubId": "Q18741", "start": 2020, "end": 2021, "loan": true }
+        ]
+      },
+      "sourceUrl": "https://static.realmadrid.com/StaticFiles/RealMadrid/img/pdf/Annual_Report_RealMadrid_2020-21.pdf",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "El informe anual del Real Madrid registra expresamente la cesión de Bale al Tottenham el 19-09-2020; no fue una etapa continua en Tottenham."
+    },
+    {
+      "playerId": "Q223827",
+      "player": "Gary Cahill",
+      "claim": "La posición está vacía en la base.",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://www.chelseafc.com/en/gary-cahill",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "Chelsea lo identifica como defensor y describe su función en defensa central."
+    },
+    {
+      "playerId": "Q17507",
+      "player": "Gerard Piqué",
+      "claim": "Barcelona figura como etapa sénior continua 1997-2022 y se solapa con Manchester United 2004-2008.",
+      "verdict": "conflict",
+      "correctData": {
+        "youth": { "clubId": "Q7156", "start": 1997, "end": 2004 },
+        "clubs": [
+          { "clubId": "Q18656", "start": 2004, "end": 2008 },
+          { "clubId": "Q7156", "start": 2008, "end": 2022 }
+        ]
+      },
+      "sourceUrl": "https://www.fcbarcelona.com/en/football/first-team/news/2889709/fc-",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "Barcelona aclara que 1997-2004 fue cantera y que el debut con el primer equipo llegó en 2008 tras Manchester United."
+    },
+    {
+      "playerId": "Q68060",
+      "player": "Gianluigi Buffon",
+      "claim": "Parma figura como etapa continua 1995-2023 y se solapa veinte años con Juventus.",
+      "verdict": "conflict",
+      "correctData": {
+        "clubs": [
+          { "clubId": "Q2693", "start": 1995, "end": 2001 },
+          { "clubId": "Q1422", "start": 2001, "end": 2018 },
+          { "clubId": "Q1422", "start": 2019, "end": 2021 },
+          { "clubId": "Q2693", "start": 2021, "end": 2023 }
+        ]
+      },
+      "sourceUrl": "https://www.parmacalcio1913.com/en/main-news/g1gi-is-forever/",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "Parma describe dos etapas separadas por Juventus y PSG; su texto llama interludios a esos clubes y cifra dos últimos años en Parma."
+    },
+    {
+      "playerId": "Q165772",
+      "player": "Harry Maguire",
+      "claim": "La posición está vacía en la base.",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://www.manutd.com/en/teams/mens-team/harry-maguire",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "La plantilla oficial de Manchester United lo registra como Defender y centre-back."
+    },
+    {
+      "playerId": "Q196219",
+      "player": "Henrikh Mkhitaryan",
+      "claim": "La posición está vacía en la base.",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Centrocampista"] },
+      "sourceUrl": "https://www.inter.it/en/teams/first-team/player/henrikh-mkhitaryan",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "La ficha oficial del Inter indica MID / Midfielder."
+    },
+    {
+      "playerId": "Q160206",
+      "player": "Hernán Crespo",
+      "claim": "Parma e Inter figuran como etapas continuas largas y se solapan entre sí y con Chelsea.",
+      "verdict": "conflict",
+      "correctData": {
+        "clubs": [
+          { "clubId": "Q2693", "start": 1996, "end": 2000 },
+          { "clubId": "Q631", "start": 2002, "end": 2003 },
+          { "clubId": "Q9616", "start": 2003, "end": 2004 },
+          { "clubId": "Q9616", "start": 2005, "end": 2006 },
+          { "clubId": "Q631", "start": 2006, "end": 2009, "loanUntil": 2008 },
+          { "clubId": "Q2693", "start": 2010, "end": 2012 }
+        ]
+      },
+      "sourceUrl": "https://www.parmacalcio1913.com/legends/hernan-crespo/",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "Parma documenta 1996-2000 y regreso 2010-12; Inter documenta 2002/03 y regreso en 2006; Chelsea confirma que jugó allí en 2003/04 y 2005/06, entre cesiones. Se registran temporadas jugadas, no toda la vigencia contractual."
+    },
+    {
+      "playerId": "Q115453",
+      "player": "Ivan Rakitić",
+      "claim": "Sevilla figura como etapa continua 2011-2024 y se solapa con Barcelona 2014-2020.",
+      "verdict": "conflict",
+      "correctData": {
+        "clubs": [
+          { "clubId": "Q10329", "start": 2011, "end": 2014 },
+          { "clubId": "Q7156", "start": 2014, "end": 2020 },
+          { "clubId": "Q10329", "start": 2020, "end": 2024 }
+        ]
+      },
+      "sourceUrl": "https://players.fcbarcelona.com/en/player/717-rakitic-ivan-rakitic",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "El archivo oficial del Barcelona separa Sevilla 2011-14, Barcelona 2014-20 y Sevilla 2020-24."
+    },
+    {
+      "playerId": "Q313170",
+      "player": "Jan Vertonghen",
+      "claim": "La posición está vacía en la base.",
+      "verdict": "conflict",
+      "correctData": { "positions": ["Defensa"] },
+      "sourceUrl": "https://www.tottenhamhotspur.com/news/983408/end-of-an-era-for-club-legend-vertonghen",
+      "sourceType": "official-club",
+      "checkedAt": "2026-08-26",
+      "note": "Tottenham lo identifica como Belgian defender y versatile defender."
+    }
+  ]
+}
+
