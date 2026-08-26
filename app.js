@@ -83,7 +83,7 @@
   function topbar() {
     return `<header class="topbar">
       <button class="brand" data-view="home" aria-label="Volver al inicio">
-        <span class="brand-mark">P</span><span class="brand-copy"><strong>Pizarra</strong><small>Puzles diarios de fútbol</small></span>
+        <span class="brand-mark">P</span><span class="brand-copy"><strong>Pizarra</strong></span>
       </button>
     </header>`;
   }
@@ -99,38 +99,33 @@
     app.innerHTML = `<div class="shell">${topbar()}${content}</div>${nav()}`;
     bindSearchInputs();
     bindScrollCards();
+    if (state.view === "grid" && state.grid?.active !== null) {
+      requestAnimationFrame(() => document.querySelector('[data-search="grid"]')?.focus({ preventScroll: true }));
+    }
     if (state.view === "grid" && state.grid) ensureGridTimer(state.grid);
     else if (["trajectory", "identity", "duel"].includes(state.view) && state[state.view]) ensureChallengeTimer(state.view, state[state.view]);
   }
 
   function renderHome() {
-    const done = ["grid", "trajectory", "identity", "duel"].filter(isDone).length;
     return `<section class="hero">
-      <div class="eyebrow">${escapeHtml(TODAY_LABEL)} · edición diaria</div>
-      <h1>Cuatro formas de leer el fútbol.</h1>
-      <p class="lead">Cruza carreras, sigue trayectorias y mide tu intuición. Elige un juego y adapta la partida a tu ritmo.</p>
-      <p class="help general-note"><span></span> Hechos contabilizados desde 1990.</p>
-      <div class="score-strip two-stat">
-        <div class="score-stat"><strong>${done}/4</strong><small>diarios</small></div>
-        <div class="score-stat"><strong>${state.duelBest}</strong><small>mejor racha</small></div>
-      </div>
+      <div class="gallery-date">${escapeHtml(TODAY_LABEL)}</div>
       <div class="game-list">
-        ${gameCard("grid", "01", "Cuadrícula 3×3", "Una condición por encabezado, nueve respuestas y ningún jugador repetido.")}
-        ${gameCard("trajectory", "02", "Trayectoria", "Adivina al jugador siguiendo sus clubes en las cinco grandes ligas.")}
-        ${gameCard("identity", "03", "Quién soy", "Ocho intentos para comparar nacionalidad, liga, equipo, posición, edad y dorsal.")}
-        ${gameCard("duel", "04", "Mayor o menor", "Compara carreras y encadena tantos aciertos como puedas.")}
+        ${gameCard("grid", "01", "Cuadrícula 3×3")}
+        ${gameCard("trajectory", "02", "Trayectoria")}
+        ${gameCard("identity", "03", "Quién soy")}
+        ${gameCard("duel", "04", "Mayor o menor")}
       </div>
+      <p class="gallery-note">Datos de carrera desde 1990.</p>
     </section>`;
   }
 
-  function gameCard(id, number, title, description) {
-    const status = isDone(id) ? "Completado hoy" : "Nuevo hoy";
+  function gameCard(id, number, title) {
     const open = state.homeGame === id;
-    return `<article class="game-card ${open ? "open" : ""}" data-number="${number}">
+    return `<article class="game-card gallery-${id} ${open ? "open" : ""}" data-number="${number}">
       <button class="game-card-toggle" data-home-game="${id}" aria-expanded="${open}">
-        <span class="game-index">${number}</span><span class="game-title"><small>${status}</small><b>${title}</b></span><span class="accordion-icon">⌄</span>
+        <span class="game-index">${number}</span><span class="game-title"><b>${title}</b></span><span class="gallery-motif" aria-hidden="true"></span>
       </button>
-      <div class="game-card-collapse" aria-hidden="${!open}" ${open ? "" : "inert"}><div><div class="game-card-body"><p>${description}</p><div class="game-meta"><span>4 modos</span><span>4 dificultades</span></div><button class="game-play" data-view="${id}">Jugar ahora <span>→</span></button></div></div></div>
+      <div class="game-card-collapse" aria-hidden="${!open}" ${open ? "" : "inert"}><div><div class="game-card-body"><button class="game-play" data-view="${id}">Jugar <span>→</span></button></div></div></div>
     </article>`;
   }
 
@@ -333,8 +328,7 @@
 
   function renderGridEntry(index) {
     const row = state.grid.rows[Math.floor(index / 3)], col = state.grid.cols[index % 3];
-    return `<div class="panel"><div class="eyebrow">Casilla ${index + 1}</div><h3>${escapeHtml(row.label)} × ${escapeHtml(col.label)}</h3>
-      <p class="muted">Tiene que cumplir: ${escapeHtml(row.detail)} ${escapeHtml(col.detail)}</p>
+    return `<div class="panel grid-entry-sheet"><div class="eyebrow">Casilla ${index + 1}</div><h3>${escapeHtml(row.label)} × ${escapeHtml(col.label)}</h3>
       ${searchBox("grid", "Escribe un jugador…")}
       <div class="actions"><button class="btn btn-primary" data-action="submit-grid">Comprobar</button><button class="btn btn-secondary" data-action="close-grid">Cancelar</button></div>
     </div>`;
@@ -693,6 +687,6 @@
     return;
   }
   render();
-  if ("serviceWorker" in navigator && location.protocol !== "file:" && !["localhost", "127.0.0.1"].includes(location.hostname)) navigator.serviceWorker.register("./service-worker.js?v=16").catch(() => {});
+  if ("serviceWorker" in navigator && location.protocol !== "file:" && !["localhost", "127.0.0.1"].includes(location.hostname)) navigator.serviceWorker.register("./service-worker.js?v=18").catch(() => {});
 })();
 
