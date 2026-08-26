@@ -24,9 +24,19 @@ const sleep = ms => new Promise(resolvePromise => setTimeout(resolvePromise, ms)
 
 async function sparql(query, attempt = 1) {
   const url = `${ENDPOINT}?query=${encodeURIComponent(query)}&format=json`;
-  const response = await fetch(url, {
-    headers: { Accept: "application/sparql-results+json", "User-Agent": USER_AGENT }
-  });
+  let response;
+  try {
+    response = await fetch(url, {
+      headers: { Accept: "application/sparql-results+json", "User-Agent": USER_AGENT },
+      signal: AbortSignal.timeout(25000)
+    });
+  } catch (error) {
+    if (attempt < 4) {
+      await sleep(900 * attempt);
+      return sparql(query, attempt + 1);
+    }
+    throw error;
+  }
   if (!response.ok) {
     if (attempt < 4 && [429, 500, 502, 503, 504].includes(response.status)) {
       await sleep(900 * attempt);
@@ -86,12 +96,14 @@ async function getCurrentClubs(league) {
 async function getClubPlayers(club) {
   const rows = await sparql(`
     SELECT DISTINCT ?player ?playerLabel ?birth ?country ?countryLabel ?position ?positionLabel
-      ?start ?end ?sitelinks WHERE {
+      ?start ?end ?matches ?sitelinks WHERE {
       ?player p:P54 ?membership;
-              wdt:P569 ?birth.
+              wdt:P569 ?birth;
+              wdt:P106 wd:Q937857.
       ?membership ps:P54 wd:${club.id}.
       OPTIONAL { ?membership pq:P580 ?start. }
       OPTIONAL { ?membership pq:P582 ?end. }
+      OPTIONAL { ?membership pq:P1350 ?matches. }
       OPTIONAL { ?player wdt:P27 ?country. }
       OPTIONAL { ?player wdt:P413 ?position. }
       OPTIONAL { ?player wikibase:sitelinks ?sitelinks. }
@@ -109,9 +121,10 @@ async function getClubPlayers(club) {
     position: normalizePosition(value(row, "positionLabel")),
     start: yearFromDate(value(row, "start")),
     end: yearFromDate(value(row, "end")),
+    matches: Number(value(row, "matches")) || null,
     sitelinks: Number(value(row, "sitelinks")) || 0,
     club
-  })).filter(row => row.id && row.name && !/^Q\d+$/.test(row.name));
+  })).filter(row => row.id && row.name && !/^Q\d+$/.test(row.name) && (row.start || row.end || row.matches) && !(row.start && row.end && row.start > row.end));
 }
 
 async function mapPool(items, concurrency, worker) {
@@ -196,7 +209,9 @@ async function main() {
   const rows = await mapPool(clubs, 3, async (club, index) => {
     try {
       const result = await getClubPlayers(club);
-      console.log(`[${index + 1}/${clubs.length}] ${club.name}: ${result.length} filas`);
+      if ((index + 1) % 10 === 0 || index === clubs.length - 1) {
+        console.log(`[${index + 1}/${clubs.length}] ${club.name}: ${result.length} filas`);
+      }
       return result;
     } catch (error) {
       console.warn(`[${index + 1}/${clubs.length}] ${club.name}: omitido (${error.message})`);
