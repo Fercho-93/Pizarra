@@ -5,6 +5,8 @@
   "scripts": {
     "start": "node scripts/serve.mjs",
     "test": "node --check app.js && node --check core.js && node tests.mjs",
+    "audit:official": "node scripts/audit-official.mjs",
     "update:data": "node scripts/update-data.mjs"
   }
 }
+
