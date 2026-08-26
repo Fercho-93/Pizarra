@@ -1,0 +1,1688 @@
+{
+  "generatedAt": "2026-08-26T14:21:17.230Z",
+  "source": "data/players.js",
+  "normalizationPolicy": "Los alias ayudan a emparejar nombres, pero nunca fusionan IDs de Wikidata distintos automáticamente.",
+  "scope": {
+    "allCatalogClubs": 107,
+    "easyPlayers": 369,
+    "easyClubs": 85
+  },
+  "clubs": [
+    {
+      "id": "Q19568",
+      "canonicalName": "AFC Bournemouth",
+      "league": "premier",
+      "inEasyScope": true,
+      "aliases": [
+        "AFC Bournemouth",
+        "Bournemouth"
+      ],
+      "normalizedKeys": [
+        "afc bournemouth",
+        "bournemouth"
+      ]
+    },
+    {
+      "id": "Q9617",
+      "canonicalName": "Arsenal Fútbol Club",
+      "league": "premier",
+      "inEasyScope": true,
+      "aliases": [
+        "Arsenal",
+        "Arsenal FC",
+        "Arsenal Fútbol Club"
+      ],
+      "normalizedKeys": [
+        "arsenal",
+        "arsenal fc"
+      ]
+    },
+    {
+      "id": "Q18711",
+      "canonicalName": "Aston Villa Football Club",
+      "league": "premier",
+      "inEasyScope": true,
+      "aliases": [
+        "Aston Villa",
+        "Aston Villa FC",
+        "Aston Villa Football Club"
+      ],
+      "normalizedKeys": [
+        "aston villa",
+        "aston villa fc"
+      ]
+    },
+    {
+      "id": "Q19571",
+      "canonicalName": "Brentford Football Club",
+      "league": "premier",
+      "inEasyScope": true,
+      "aliases": [
+        "Brentford",
+        "Brentford FC",
+        "Brentford Football Club"
+      ],
+      "normalizedKeys": [
+        "brentford",
+        "brentford fc"
+      ]
+    },
+    {
+      "id": "Q19453",
+      "canonicalName": "Brighton & Hove Albion Football Club",
+      "league": "premier",
+      "inEasyScope": true,
+      "aliases": [
+        "Brighton",
+        "Brighton & Hove Albion",
+        "Brighton & Hove Albion FC",
+        "Brighton & Hove Albion Football Club",
+        "Brighton and Hove Albion"
+      ],
+      "normalizedKeys": [
+        "brighton",
+        "brighton and hove albion",
+        "brighton and hove albion fc"
+      ]
+    },
+    {
+      "id": "Q19580",
+      "canonicalName": "Coventry City Football Club",
+      "league": "premier",
+      "inEasyScope": true,
+      "aliases": [
+        "Coventry",
+        "Coventry City",
+        "Coventry City FC",
+        "Coventry City Football Club"
+      ],
+      "normalizedKeys": [
+        "coventry",
+        "coventry city",
+        "coventry city fc"
+      ]
+    },
+    {
+      "id": "Q19467",
+      "canonicalName": "Crystal Palace Football Club",
+      "league": "premier",
+      "inEasyScope": true,
+      "aliases": [
+        "Crystal Palace",
+        "Crystal Palace FC",
+        "Crystal Palace Football Club"
+      ],
+      "normalizedKeys": [
+        "crystal palace",
+        "crystal palace fc"
+      ]
+    },
+    {
+      "id": "Q5794",
+      "canonicalName": "Everton F.C.",
+      "league": "premier",
+      "inEasyScope": true,
+      "aliases": [
+        "Everton",
+        "Everton F.C.",
+        "Everton FC"
+      ],
+      "normalizedKeys": [
+        "everton",
+        "everton f c",
+        "everton fc"
+      ]
+    },
+    {
+      "id": "Q18708",
+      "canonicalName": "Fulham Football Club",
+      "league": "premier",
+      "inEasyScope": true,
+      "aliases": [
+        "Fulham",
+        "Fulham FC",
+        "Fulham Football Club"
+      ],
+      "normalizedKeys": [
+        "fulham",
+        "fulham fc"
+      ]
+    },
+    {
+      "id": "Q19477",
+      "canonicalName": "Hull City Association Football Club",
+      "league": "premier",
+      "inEasyScope": true,
+      "aliases": [
+        "Hull",
+        "Hull City",
+        "Hull City Association Football Club",
+        "Hull City FC"
+      ],
+      "normalizedKeys": [
+        "hull",
+        "hull city",
+        "hull city fc"
+      ]
+    },
+    {
+      "id": "Q9653",
+      "canonicalName": "Ipswich Town Football Club",
+      "league": "premier",
+      "inEasyScope": true,
+      "aliases": [
+        "Ipswich",
+        "Ipswich Town",
+        "Ipswich Town FC",
+        "Ipswich Town Football Club"
+      ],
+      "normalizedKeys": [
+        "ipswich",
+        "ipswich town",
+        "ipswich town fc"
+      ]
+    },
+    {
+      "id": "Q1128631",
+      "canonicalName": "Leeds United Association Football Club",
+      "league": "premier",
+      "inEasyScope": true,
+      "aliases": [
+        "Leeds",
+        "Leeds United",
+        "Leeds United Association Football Club",
+        "Leeds United FC"
+      ],
+      "normalizedKeys": [
+        "leeds",
+        "leeds united",
+        "leeds united fc"
+      ]
+    },
+    {
+      "id": "Q1130849",
+      "canonicalName": "Liverpool Fútbol Club",
+      "league": "premier",
+      "inEasyScope": true,
+      "aliases": [
+        "Liverpool",
+        "Liverpool FC",
+        "Liverpool Fútbol Club"
+      ],
+      "normalizedKeys": [
+        "liverpool",
+        "liverpool fc"
+      ]
+    },
+    {
+      "id": "Q50602",
+      "canonicalName": "Manchester City Football Club",
+      "league": "premier",
+      "inEasyScope": true,
+      "aliases": [
+        "Man City",
+        "Manchester City",
+        "Manchester City FC",
+        "Manchester City Football Club"
+      ],
+      "normalizedKeys": [
+        "man city",
+        "manchester city",
+        "manchester city fc"
+      ]
+    },
+    {
+      "id": "Q18656",
+      "canonicalName": "Manchester United Football Club",
+      "league": "premier",
+      "inEasyScope": true,
+      "aliases": [
+        "Man United",
+        "Man Utd",
+        "Manchester United",
+        "Manchester United FC",
+        "Manchester United Football Club"
+      ],
+      "normalizedKeys": [
+        "man united",
+        "man utd",
+        "manchester united",
+        "manchester united fc"
+      ]
+    },
+    {
+      "id": "Q18716",
+      "canonicalName": "Newcastle United Football Club",
+      "league": "premier",
+      "inEasyScope": true,
+      "aliases": [
+        "Newcastle",
+        "Newcastle United",
+        "Newcastle United FC",
+        "Newcastle United Football Club"
+      ],
+      "normalizedKeys": [
+        "newcastle",
+        "newcastle united",
+        "newcastle united fc"
+      ]
+    },
+    {
+      "id": "Q19490",
+      "canonicalName": "Nottingham Forest Football Club",
+      "league": "premier",
+      "inEasyScope": true,
+      "aliases": [
+        "Forest",
+        "Nottingham Forest",
+        "Nottingham Forest FC",
+        "Nottingham Forest Football Club"
+      ],
+      "normalizedKeys": [
+        "forest",
+        "nottingham forest",
+        "nottingham forest fc"
+      ]
+    },
+    {
+      "id": "Q18739",
+      "canonicalName": "Sunderland Association Football Club",
+      "league": "premier",
+      "inEasyScope": true,
+      "aliases": [
+        "Sunderland",
+        "Sunderland AFC",
+        "Sunderland Association Football Club",
+        "Sunderland FC"
+      ],
+      "normalizedKeys": [
+        "sunderland",
+        "sunderland afc",
+        "sunderland fc"
+      ]
+    },
+    {
+      "id": "Q18741",
+      "canonicalName": "Tottenham Hotspur Football Club",
+      "league": "premier",
+      "inEasyScope": true,
+      "aliases": [
+        "Spurs",
+        "Tottenham",
+        "Tottenham Hotspur",
+        "Tottenham Hotspur FC",
+        "Tottenham Hotspur Football Club"
+      ],
+      "normalizedKeys": [
+        "spurs",
+        "tottenham",
+        "tottenham hotspur",
+        "tottenham hotspur fc"
+      ]
+    },
+    {
+      "id": "Q290781",
+      "canonicalName": "Agrupación Deportiva Almería",
+      "league": "laliga",
+      "inEasyScope": false,
+      "aliases": [
+        "Agrupación Deportiva Almería",
+        "Almería",
+        "UD Almería"
+      ],
+      "normalizedKeys": [
+        "agrupacion deportiva almeria",
+        "almeria",
+        "ud almeria"
+      ]
+    },
+    {
+      "id": "Q8687",
+      "canonicalName": "Athletic Club",
+      "league": "laliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Athletic Bilbao",
+        "Athletic Club",
+        "Athletic Club de Bilbao"
+      ],
+      "normalizedKeys": [
+        "athletic",
+        "athletic bilbao"
+      ]
+    },
+    {
+      "id": "Q8701",
+      "canonicalName": "Atlético de Madrid",
+      "league": "laliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Atleti",
+        "Atlético",
+        "Atlético de Madrid",
+        "Atlético Madrid"
+      ],
+      "normalizedKeys": [
+        "atleti",
+        "atletico",
+        "atletico madrid"
+      ]
+    },
+    {
+      "id": "Q10286",
+      "canonicalName": "Club Atlético Osasuna",
+      "league": "laliga",
+      "inEasyScope": true,
+      "aliases": [
+        "CA Osasuna",
+        "Club Atlético Osasuna",
+        "Osasuna"
+      ],
+      "normalizedKeys": [
+        "atletico osasuna",
+        "ca osasuna",
+        "osasuna"
+      ]
+    },
+    {
+      "id": "Q223620",
+      "canonicalName": "Deportivo Alavés",
+      "league": "laliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Alavés",
+        "Deportivo Alavés"
+      ],
+      "normalizedKeys": [
+        "alaves",
+        "deportivo alaves"
+      ]
+    },
+    {
+      "id": "Q10512",
+      "canonicalName": "Elche Club de Fútbol",
+      "league": "laliga",
+      "inEasyScope": false,
+      "aliases": [
+        "Elche",
+        "Elche CF",
+        "Elche Club de Fútbol"
+      ],
+      "normalizedKeys": [
+        "elche",
+        "elche cf"
+      ]
+    },
+    {
+      "id": "Q8806",
+      "canonicalName": "Getafe Club de Fútbol",
+      "league": "laliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Getafe",
+        "Getafe CF",
+        "Getafe Club de Fútbol"
+      ],
+      "normalizedKeys": [
+        "getafe",
+        "getafe cf"
+      ]
+    },
+    {
+      "id": "Q8823",
+      "canonicalName": "Levante Unión Deportiva",
+      "league": "laliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Levante",
+        "Levante UD",
+        "Levante Unión Deportiva"
+      ],
+      "normalizedKeys": [
+        "levante",
+        "levante ud",
+        "levante union deportiva"
+      ]
+    },
+    {
+      "id": "Q8857",
+      "canonicalName": "Málaga Club de Fútbol",
+      "league": "laliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Málaga",
+        "Málaga CF",
+        "Málaga Club de Fútbol"
+      ],
+      "normalizedKeys": [
+        "malaga",
+        "malaga cf"
+      ]
+    },
+    {
+      "id": "Q12236",
+      "canonicalName": "Racing de Santander",
+      "league": "laliga",
+      "inEasyScope": false,
+      "aliases": [
+        "Racing de Santander",
+        "Racing Santander"
+      ],
+      "normalizedKeys": [
+        "racing santander"
+      ]
+    },
+    {
+      "id": "Q10300",
+      "canonicalName": "Rayo Vallecano",
+      "league": "laliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Rayo",
+        "Rayo Vallecano"
+      ],
+      "normalizedKeys": [
+        "rayo",
+        "rayo vallecano"
+      ]
+    },
+    {
+      "id": "Q8723",
+      "canonicalName": "Real Betis Balompié",
+      "league": "laliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Betis",
+        "Real Betis",
+        "Real Betis Balompié"
+      ],
+      "normalizedKeys": [
+        "betis",
+        "real betis",
+        "real betis balompie"
+      ]
+    },
+    {
+      "id": "Q8749",
+      "canonicalName": "Real Club Celta de Vigo",
+      "league": "laliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Celta",
+        "Celta de Vigo",
+        "RC Celta",
+        "Real Club Celta de Vigo"
+      ],
+      "normalizedKeys": [
+        "celta",
+        "celta vigo",
+        "rc celta",
+        "real celta vigo"
+      ]
+    },
+    {
+      "id": "Q8780",
+      "canonicalName": "Real Club Deportivo Espanyol de Barcelona",
+      "league": "laliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Espanyol",
+        "RCD Espanyol",
+        "Real Club Deportivo Espanyol de Barcelona"
+      ],
+      "normalizedKeys": [
+        "espanyol",
+        "rcd espanyol",
+        "real deportivo espanyol barcelona"
+      ]
+    },
+    {
+      "id": "Q8760",
+      "canonicalName": "Real Club Deportivo de La Coruña",
+      "league": "laliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Deportivo",
+        "Deportivo La Coruña",
+        "RC Deportivo",
+        "Real Club Deportivo de La Coruña"
+      ],
+      "normalizedKeys": [
+        "deportivo",
+        "deportivo la coruna",
+        "rc deportivo",
+        "real deportivo la coruna"
+      ]
+    },
+    {
+      "id": "Q8682",
+      "canonicalName": "Real Madrid Club de Fútbol",
+      "league": "laliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Real Madrid",
+        "Real Madrid CF",
+        "Real Madrid Club de Fútbol"
+      ],
+      "normalizedKeys": [
+        "real madrid",
+        "real madrid cf"
+      ]
+    },
+    {
+      "id": "Q10315",
+      "canonicalName": "Real Sociedad de Fútbol",
+      "league": "laliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Real Sociedad",
+        "Real Sociedad de Fútbol"
+      ],
+      "normalizedKeys": [
+        "real sociedad"
+      ]
+    },
+    {
+      "id": "Q10329",
+      "canonicalName": "Sevilla Fútbol Club",
+      "league": "laliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Sevilla",
+        "Sevilla FC",
+        "Sevilla Fútbol Club"
+      ],
+      "normalizedKeys": [
+        "sevilla",
+        "sevilla fc"
+      ]
+    },
+    {
+      "id": "Q10333",
+      "canonicalName": "Valencia Club de Fútbol",
+      "league": "laliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Valencia",
+        "Valencia CF",
+        "Valencia Club de Fútbol"
+      ],
+      "normalizedKeys": [
+        "valencia",
+        "valencia cf"
+      ]
+    },
+    {
+      "id": "Q12297",
+      "canonicalName": "Villarreal Club de Fútbol",
+      "league": "laliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Villarreal",
+        "Villarreal CF",
+        "Villarreal Club de Fútbol"
+      ],
+      "normalizedKeys": [
+        "villarreal",
+        "villarreal cf"
+      ]
+    },
+    {
+      "id": "Q116949682",
+      "canonicalName": "Società Ginnastica di Torino",
+      "league": "seriea",
+      "inEasyScope": false,
+      "aliases": [
+        "Società Ginnastica di Torino"
+      ],
+      "normalizedKeys": [
+        "ginnastica torino"
+      ]
+    },
+    {
+      "id": "Q1543",
+      "canonicalName": "A.C. Milan",
+      "league": "seriea",
+      "inEasyScope": true,
+      "aliases": [
+        "A.C. Milan",
+        "AC Milan",
+        "Milan"
+      ],
+      "normalizedKeys": [
+        "a c milan",
+        "ac milan",
+        "milan"
+      ]
+    },
+    {
+      "id": "Q289482",
+      "canonicalName": "A.C. Monza",
+      "league": "seriea",
+      "inEasyScope": true,
+      "aliases": [
+        "A.C. Monza",
+        "AC Monza",
+        "Monza"
+      ],
+      "normalizedKeys": [
+        "a c monza",
+        "ac monza",
+        "monza"
+      ]
+    },
+    {
+      "id": "Q2739",
+      "canonicalName": "A.S. Roma",
+      "league": "seriea",
+      "inEasyScope": true,
+      "aliases": [
+        "A.S. Roma",
+        "AS Roma",
+        "Roma"
+      ],
+      "normalizedKeys": [
+        "a s roma",
+        "as roma",
+        "roma"
+      ]
+    },
+    {
+      "id": "Q2052",
+      "canonicalName": "ACF Fiorentina",
+      "league": "seriea",
+      "inEasyScope": true,
+      "aliases": [
+        "ACF Fiorentina",
+        "Fiorentina"
+      ],
+      "normalizedKeys": [
+        "acf fiorentina",
+        "fiorentina"
+      ]
+    },
+    {
+      "id": "Q1886",
+      "canonicalName": "Atalanta Bergamasca Calcio",
+      "league": "seriea",
+      "inEasyScope": true,
+      "aliases": [
+        "Atalanta",
+        "Atalanta Bergamasca Calcio"
+      ],
+      "normalizedKeys": [
+        "atalanta",
+        "atalanta bergamasca"
+      ]
+    },
+    {
+      "id": "Q1893",
+      "canonicalName": "Bologna Football Club 1909",
+      "league": "seriea",
+      "inEasyScope": false,
+      "aliases": [
+        "Bologna",
+        "Bologna FC",
+        "Bologna FC 1909",
+        "Bologna Football Club 1909"
+      ],
+      "normalizedKeys": [
+        "bologna",
+        "bologna 1909",
+        "bologna fc",
+        "bologna fc 1909"
+      ]
+    },
+    {
+      "id": "Q1900",
+      "canonicalName": "Cagliari Calcio",
+      "league": "seriea",
+      "inEasyScope": true,
+      "aliases": [
+        "Cagliari",
+        "Cagliari Calcio"
+      ],
+      "normalizedKeys": [
+        "cagliari"
+      ]
+    },
+    {
+      "id": "Q1120838",
+      "canonicalName": "Calcio Como 1907",
+      "league": "seriea",
+      "inEasyScope": true,
+      "aliases": [
+        "Calcio Como 1907",
+        "Como",
+        "Como 1907"
+      ],
+      "normalizedKeys": [
+        "como",
+        "como 1907"
+      ]
+    },
+    {
+      "id": "Q534448",
+      "canonicalName": "Football Club Torinese",
+      "league": "seriea",
+      "inEasyScope": false,
+      "aliases": [
+        "FC Torinese",
+        "Football Club Torinese"
+      ],
+      "normalizedKeys": [
+        "fc torinese",
+        "torinese"
+      ]
+    },
+    {
+      "id": "Q845043",
+      "canonicalName": "Frosinone Calcio",
+      "league": "seriea",
+      "inEasyScope": false,
+      "aliases": [
+        "Frosinone",
+        "Frosinone Calcio"
+      ],
+      "normalizedKeys": [
+        "frosinone"
+      ]
+    },
+    {
+      "id": "Q2074",
+      "canonicalName": "Genoa Cricket & Football Club",
+      "league": "seriea",
+      "inEasyScope": true,
+      "aliases": [
+        "Genoa",
+        "Genoa CFC",
+        "Genoa Cricket & FC",
+        "Genoa Cricket & Football Club"
+      ],
+      "normalizedKeys": [
+        "genoa",
+        "genoa cfc",
+        "genoa cricket and",
+        "genoa cricket and fc"
+      ]
+    },
+    {
+      "id": "Q631",
+      "canonicalName": "Inter de Milán",
+      "league": "seriea",
+      "inEasyScope": true,
+      "aliases": [
+        "Inter",
+        "Inter de Milán",
+        "Inter Milan",
+        "Internazionale"
+      ],
+      "normalizedKeys": [
+        "inter",
+        "inter milan",
+        "internazionale"
+      ]
+    },
+    {
+      "id": "Q1538737",
+      "canonicalName": "Internazionale Torino",
+      "league": "seriea",
+      "inEasyScope": false,
+      "aliases": [
+        "Internazionale Torino"
+      ],
+      "normalizedKeys": [
+        "internazionale torino"
+      ]
+    },
+    {
+      "id": "Q1422",
+      "canonicalName": "Juventus",
+      "league": "seriea",
+      "inEasyScope": true,
+      "aliases": [
+        "Juve",
+        "Juventus",
+        "Juventus FC"
+      ],
+      "normalizedKeys": [
+        "juve",
+        "juventus",
+        "juventus fc"
+      ]
+    },
+    {
+      "id": "Q2693",
+      "canonicalName": "Parma Calcio 1913",
+      "league": "seriea",
+      "inEasyScope": true,
+      "aliases": [
+        "Parma",
+        "Parma Calcio",
+        "Parma Calcio 1913"
+      ],
+      "normalizedKeys": [
+        "parma",
+        "parma 1913"
+      ]
+    },
+    {
+      "id": "Q2641",
+      "canonicalName": "Società Sportiva Calcio Napoli",
+      "league": "seriea",
+      "inEasyScope": true,
+      "aliases": [
+        "Napoli",
+        "Società Sportiva Calcio Napoli",
+        "SS Calcio Napoli",
+        "SSC Napoli"
+      ],
+      "normalizedKeys": [
+        "napoli",
+        "ss napoli",
+        "ssc napoli"
+      ]
+    },
+    {
+      "id": "Q2609",
+      "canonicalName": "Società Sportiva Lazio",
+      "league": "seriea",
+      "inEasyScope": true,
+      "aliases": [
+        "Lazio",
+        "Società Sportiva Lazio",
+        "SS Lazio"
+      ],
+      "normalizedKeys": [
+        "lazio",
+        "ss lazio"
+      ]
+    },
+    {
+      "id": "Q665690",
+      "canonicalName": "Società di Ginnastica e Scherma Fortitudo Roma",
+      "league": "seriea",
+      "inEasyScope": false,
+      "aliases": [
+        "Società di Ginnastica e Scherma Fortitudo Roma"
+      ],
+      "normalizedKeys": [
+        "ginnastica e scherma fortitudo roma"
+      ]
+    },
+    {
+      "id": "Q2768",
+      "canonicalName": "Torino Football Club",
+      "league": "seriea",
+      "inEasyScope": true,
+      "aliases": [
+        "Torino",
+        "Torino FC",
+        "Torino Football Club"
+      ],
+      "normalizedKeys": [
+        "torino",
+        "torino fc"
+      ]
+    },
+    {
+      "id": "Q1328077",
+      "canonicalName": "U.S. Fiumana",
+      "league": "seriea",
+      "inEasyScope": false,
+      "aliases": [
+        "U.S. Fiumana"
+      ],
+      "normalizedKeys": [
+        "u s fiumana"
+      ]
+    },
+    {
+      "id": "Q13391",
+      "canonicalName": "U.S. Lecce",
+      "league": "seriea",
+      "inEasyScope": true,
+      "aliases": [
+        "Lecce",
+        "U.S. Lecce",
+        "US Lecce"
+      ],
+      "normalizedKeys": [
+        "lecce",
+        "u s lecce",
+        "us lecce"
+      ]
+    },
+    {
+      "id": "Q2798",
+      "canonicalName": "Udinese Calcio",
+      "league": "seriea",
+      "inEasyScope": false,
+      "aliases": [
+        "Udinese",
+        "Udinese Calcio"
+      ],
+      "normalizedKeys": [
+        "udinese"
+      ]
+    },
+    {
+      "id": "Q610482",
+      "canonicalName": "Unione Sportiva Alba Audace",
+      "league": "seriea",
+      "inEasyScope": false,
+      "aliases": [
+        "Unione Sportiva Alba Audace",
+        "US Alba Audace"
+      ],
+      "normalizedKeys": [
+        "alba audace",
+        "us alba audace"
+      ]
+    },
+    {
+      "id": "Q728986",
+      "canonicalName": "Unione Sportiva Internazionale Napoli",
+      "league": "seriea",
+      "inEasyScope": false,
+      "aliases": [
+        "Unione Sportiva Internazionale Napoli",
+        "US Internazionale Napoli"
+      ],
+      "normalizedKeys": [
+        "internazionale napoli",
+        "us internazionale napoli"
+      ]
+    },
+    {
+      "id": "Q8603",
+      "canonicalName": "Unione Sportiva Sassuolo Calcio",
+      "league": "seriea",
+      "inEasyScope": true,
+      "aliases": [
+        "Sassuolo",
+        "Unione Sportiva Sassuolo Calcio",
+        "US Sassuolo",
+        "US Sassuolo Calcio"
+      ],
+      "normalizedKeys": [
+        "sassuolo",
+        "us sassuolo"
+      ]
+    },
+    {
+      "id": "Q501245",
+      "canonicalName": "Venezia F.C.",
+      "league": "seriea",
+      "inEasyScope": true,
+      "aliases": [
+        "Venezia",
+        "Venezia F.C.",
+        "Venezia FC"
+      ],
+      "normalizedKeys": [
+        "venezia",
+        "venezia f c",
+        "venezia fc"
+      ]
+    },
+    {
+      "id": "Q105254",
+      "canonicalName": "1. FSV Mainz 05",
+      "league": "bundesliga",
+      "inEasyScope": true,
+      "aliases": [
+        "1. FSV Mainz 05",
+        "FSV Mainz 05",
+        "Mainz",
+        "Mainz 05"
+      ],
+      "normalizedKeys": [
+        "1 fsv mainz 05",
+        "fsv mainz 05",
+        "mainz",
+        "mainz 05"
+      ]
+    },
+    {
+      "id": "Q104761",
+      "canonicalName": "Bayer 04 Leverkusen",
+      "league": "bundesliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Bayer 04 Leverkusen",
+        "Bayer Leverkusen",
+        "Leverkusen"
+      ],
+      "normalizedKeys": [
+        "bayer 04 leverkusen",
+        "bayer leverkusen",
+        "leverkusen"
+      ]
+    },
+    {
+      "id": "Q41420",
+      "canonicalName": "Borussia Dortmund",
+      "league": "bundesliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Borussia Dortmund",
+        "BVB",
+        "Dortmund"
+      ],
+      "normalizedKeys": [
+        "borussia dortmund",
+        "bvb",
+        "dortmund"
+      ]
+    },
+    {
+      "id": "Q101959",
+      "canonicalName": "Borussia Mönchengladbach",
+      "league": "bundesliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Borussia Monchengladbach",
+        "Borussia Mönchengladbach",
+        "Gladbach",
+        "Mönchengladbach"
+      ],
+      "normalizedKeys": [
+        "borussia monchengladbach",
+        "gladbach",
+        "monchengladbach"
+      ]
+    },
+    {
+      "id": "Q38245",
+      "canonicalName": "Eintracht Frankfurt",
+      "league": "bundesliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Eintracht",
+        "Eintracht Frankfurt"
+      ],
+      "normalizedKeys": [
+        "eintracht",
+        "eintracht frankfurt"
+      ]
+    },
+    {
+      "id": "Q15789",
+      "canonicalName": "F. C. Bayern Múnich",
+      "league": "bundesliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Bayern",
+        "Bayern München",
+        "Bayern Munich",
+        "F. C. Bayern Múnich",
+        "FC Bayern"
+      ],
+      "normalizedKeys": [
+        "bayern",
+        "bayern munchen",
+        "bayern munich",
+        "f c bayern munich",
+        "fc bayern"
+      ]
+    },
+    {
+      "id": "Q104770",
+      "canonicalName": "F. C. Colonia",
+      "league": "bundesliga",
+      "inEasyScope": true,
+      "aliases": [
+        "1. FC Köln",
+        "Colonia",
+        "F. C. Colonia",
+        "FC Köln",
+        "Köln"
+      ],
+      "normalizedKeys": [
+        "1 fc koln",
+        "colonia",
+        "f c colonia",
+        "fc koln",
+        "koln"
+      ]
+    },
+    {
+      "id": "Q141971",
+      "canonicalName": "F. C. Unión Berlín",
+      "league": "bundesliga",
+      "inEasyScope": true,
+      "aliases": [
+        "1. FC Union Berlin",
+        "F. C. Unión Berlín",
+        "Union Berlin"
+      ],
+      "normalizedKeys": [
+        "1 fc union berlin",
+        "f c union berlin",
+        "union berlin"
+      ]
+    },
+    {
+      "id": "Q32494",
+      "canonicalName": "FC Schalke 04",
+      "league": "bundesliga",
+      "inEasyScope": true,
+      "aliases": [
+        "FC Schalke 04",
+        "Schalke",
+        "Schalke 04"
+      ],
+      "normalizedKeys": [
+        "fc schalke 04",
+        "schalke",
+        "schalke 04"
+      ]
+    },
+    {
+      "id": "Q51974",
+      "canonicalName": "Hamburgo S.V.",
+      "league": "bundesliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Hamburger SV",
+        "Hamburgo",
+        "Hamburgo S.V.",
+        "HSV"
+      ],
+      "normalizedKeys": [
+        "hamburger sv",
+        "hamburgo",
+        "hamburgo s v",
+        "hsv"
+      ]
+    },
+    {
+      "id": "Q702455",
+      "canonicalName": "RB Leipzig",
+      "league": "bundesliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Leipzig",
+        "RB Leipzig"
+      ],
+      "normalizedKeys": [
+        "leipzig",
+        "rb leipzig"
+      ]
+    },
+    {
+      "id": "Q106394",
+      "canonicalName": "SC Friburgo",
+      "league": "bundesliga",
+      "inEasyScope": false,
+      "aliases": [
+        "Freiburg",
+        "Friburgo",
+        "SC Freiburg",
+        "SC Friburgo"
+      ],
+      "normalizedKeys": [
+        "freiburg",
+        "friburgo",
+        "sc freiburg",
+        "sc friburgo"
+      ]
+    },
+    {
+      "id": "Q160532",
+      "canonicalName": "SC Paderborn 07",
+      "league": "bundesliga",
+      "inEasyScope": false,
+      "aliases": [
+        "Paderborn",
+        "SC Paderborn",
+        "SC Paderborn 07"
+      ],
+      "normalizedKeys": [
+        "paderborn",
+        "sc paderborn",
+        "sc paderborn 07"
+      ]
+    },
+    {
+      "id": "Q692691",
+      "canonicalName": "SV Elversberg",
+      "league": "bundesliga",
+      "inEasyScope": false,
+      "aliases": [
+        "Elversberg",
+        "SV Elversberg"
+      ],
+      "normalizedKeys": [
+        "elversberg",
+        "sv elversberg"
+      ]
+    },
+    {
+      "id": "Q22707",
+      "canonicalName": "TSG 1899 Hoffenheim",
+      "league": "bundesliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Hoffenheim",
+        "TSG 1899 Hoffenheim",
+        "TSG Hoffenheim"
+      ],
+      "normalizedKeys": [
+        "hoffenheim",
+        "tsg 1899 hoffenheim",
+        "tsg hoffenheim"
+      ]
+    },
+    {
+      "id": "Q4512",
+      "canonicalName": "VfB Stuttgart",
+      "league": "bundesliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Stuttgart",
+        "VfB Stuttgart"
+      ],
+      "normalizedKeys": [
+        "stuttgart",
+        "vfb stuttgart"
+      ]
+    },
+    {
+      "id": "Q51976",
+      "canonicalName": "Werder Bremen",
+      "league": "bundesliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Bremen",
+        "Werder",
+        "Werder Bremen"
+      ],
+      "normalizedKeys": [
+        "bremen",
+        "werder",
+        "werder bremen"
+      ]
+    },
+    {
+      "id": "Q3590859",
+      "canonicalName": "ÉF Reims-Champagne",
+      "league": "ligue1",
+      "inEasyScope": false,
+      "aliases": [
+        "ÉF Reims-Champagne"
+      ],
+      "normalizedKeys": [
+        "ef reims champagne"
+      ]
+    },
+    {
+      "id": "Q180305",
+      "canonicalName": "A.S. Monaco F.C.",
+      "league": "ligue1",
+      "inEasyScope": true,
+      "aliases": [
+        "A.S. Monaco F.C.",
+        "AS Monaco",
+        "Monaco"
+      ],
+      "normalizedKeys": [
+        "a s monaco f c",
+        "as monaco",
+        "monaco"
+      ]
+    },
+    {
+      "id": "Q845137",
+      "canonicalName": "Angers SCO",
+      "league": "ligue1",
+      "inEasyScope": false,
+      "aliases": [
+        "Angers",
+        "Angers SCO"
+      ],
+      "normalizedKeys": [
+        "angers",
+        "angers sco"
+      ]
+    },
+    {
+      "id": "Q182876",
+      "canonicalName": "Association de la Jeunesse Auxerroise",
+      "league": "ligue1",
+      "inEasyScope": true,
+      "aliases": [
+        "AJ Auxerre",
+        "Association de la Jeunesse Auxerroise",
+        "Auxerre"
+      ],
+      "normalizedKeys": [
+        "aj auxerre",
+        "auxerre",
+        "la jeunesse auxerroise"
+      ]
+    },
+    {
+      "id": "Q501693",
+      "canonicalName": "Espérance Sportive Troyes Aube Champagne",
+      "league": "ligue1",
+      "inEasyScope": true,
+      "aliases": [
+        "Espérance Sportive Troyes Aube Champagne",
+        "ESTAC Troyes",
+        "Troyes"
+      ],
+      "normalizedKeys": [
+        "esperance sportive troyes aube champagne",
+        "estac troyes",
+        "troyes"
+      ]
+    },
+    {
+      "id": "Q48911",
+      "canonicalName": "Football Club Lorient-Bretagne Sud",
+      "league": "ligue1",
+      "inEasyScope": false,
+      "aliases": [
+        "FC Lorient",
+        "FC Lorient-Bretagne Sud",
+        "Football Club Lorient-Bretagne Sud",
+        "Lorient"
+      ],
+      "normalizedKeys": [
+        "fc lorient",
+        "fc lorient bretagne sud",
+        "lorient",
+        "lorient bretagne sud"
+      ]
+    },
+    {
+      "id": "Q328658",
+      "canonicalName": "Le Havre Athletic Club Football Association",
+      "league": "ligue1",
+      "inEasyScope": true,
+      "aliases": [
+        "Le Havre",
+        "Le Havre AC",
+        "Le Havre Athletic Club Football Association"
+      ],
+      "normalizedKeys": [
+        "le havre",
+        "le havre ac",
+        "le havre athletic"
+      ]
+    },
+    {
+      "id": "Q210864",
+      "canonicalName": "Le Mans Football Club",
+      "league": "ligue1",
+      "inEasyScope": true,
+      "aliases": [
+        "Le Mans",
+        "Le Mans FC",
+        "Le Mans Football Club"
+      ],
+      "normalizedKeys": [
+        "le mans",
+        "le mans fc"
+      ]
+    },
+    {
+      "id": "Q19516",
+      "canonicalName": "Lille Olympique Sporting Club",
+      "league": "ligue1",
+      "inEasyScope": true,
+      "aliases": [
+        "Lille",
+        "Lille Olympique Sporting Club",
+        "LOSC",
+        "LOSC Lille"
+      ],
+      "normalizedKeys": [
+        "lille",
+        "lille olympique sporting",
+        "losc",
+        "losc lille"
+      ]
+    },
+    {
+      "id": "Q185163",
+      "canonicalName": "OGC Niza",
+      "league": "ligue1",
+      "inEasyScope": true,
+      "aliases": [
+        "Nice",
+        "Niza",
+        "OGC Nice",
+        "OGC Niza"
+      ],
+      "normalizedKeys": [
+        "nice",
+        "niza",
+        "ogc nice",
+        "ogc niza"
+      ]
+    },
+    {
+      "id": "Q2338486",
+      "canonicalName": "Olympique Lillois",
+      "league": "ligue1",
+      "inEasyScope": false,
+      "aliases": [
+        "Olympique Lillois"
+      ],
+      "normalizedKeys": [
+        "olympique lillois"
+      ]
+    },
+    {
+      "id": "Q704",
+      "canonicalName": "Olympique de Lyon",
+      "league": "ligue1",
+      "inEasyScope": true,
+      "aliases": [
+        "Lyon",
+        "OL",
+        "Olympique de Lyon",
+        "Olympique Lyonnais"
+      ],
+      "normalizedKeys": [
+        "lyon",
+        "ol",
+        "olympique lyon",
+        "olympique lyonnais"
+      ]
+    },
+    {
+      "id": "Q132885",
+      "canonicalName": "Olympique de Marsella",
+      "league": "ligue1",
+      "inEasyScope": true,
+      "aliases": [
+        "Marseille",
+        "Marsella",
+        "Olympique de Marsella",
+        "Olympique Marseille",
+        "OM"
+      ],
+      "normalizedKeys": [
+        "marseille",
+        "marsella",
+        "olympique marseille",
+        "olympique marsella",
+        "om"
+      ]
+    },
+    {
+      "id": "Q1051013",
+      "canonicalName": "Paris FC",
+      "league": "ligue1",
+      "inEasyScope": true,
+      "aliases": [
+        "Paris FC"
+      ],
+      "normalizedKeys": [
+        "paris fc"
+      ]
+    },
+    {
+      "id": "Q483020",
+      "canonicalName": "Paris Saint-Germain FC",
+      "league": "ligue1",
+      "inEasyScope": true,
+      "aliases": [
+        "Paris Saint Germain",
+        "Paris Saint-Germain",
+        "Paris Saint-Germain FC",
+        "PSG"
+      ],
+      "normalizedKeys": [
+        "paris saint germain",
+        "paris saint germain fc",
+        "psg"
+      ]
+    },
+    {
+      "id": "Q191843",
+      "canonicalName": "Racing Club de Lens",
+      "league": "ligue1",
+      "inEasyScope": true,
+      "aliases": [
+        "Lens",
+        "Racing Club de Lens",
+        "RC Lens"
+      ],
+      "normalizedKeys": [
+        "lens",
+        "racing lens",
+        "rc lens"
+      ]
+    },
+    {
+      "id": "Q126334",
+      "canonicalName": "Racing Estrasburgo",
+      "league": "ligue1",
+      "inEasyScope": true,
+      "aliases": [
+        "Estrasburgo",
+        "Racing Estrasburgo",
+        "RC Strasbourg",
+        "Strasbourg"
+      ],
+      "normalizedKeys": [
+        "estrasburgo",
+        "racing estrasburgo",
+        "rc strasbourg",
+        "strasbourg"
+      ]
+    },
+    {
+      "id": "Q1514915",
+      "canonicalName": "SC Fives",
+      "league": "ligue1",
+      "inEasyScope": false,
+      "aliases": [
+        "SC Fives"
+      ],
+      "normalizedKeys": [
+        "sc fives"
+      ]
+    },
+    {
+      "id": "Q218372",
+      "canonicalName": "Stade Brestois 29",
+      "league": "ligue1",
+      "inEasyScope": true,
+      "aliases": [
+        "Brest",
+        "Stade Brestois",
+        "Stade Brestois 29"
+      ],
+      "normalizedKeys": [
+        "brest",
+        "stade brestois",
+        "stade brestois 29"
+      ]
+    },
+    {
+      "id": "Q19509",
+      "canonicalName": "Stade Rennais Football Club",
+      "league": "ligue1",
+      "inEasyScope": true,
+      "aliases": [
+        "Rennes",
+        "Stade Rennais",
+        "Stade Rennais FC",
+        "Stade Rennais Football Club"
+      ],
+      "normalizedKeys": [
+        "rennes",
+        "stade rennais",
+        "stade rennais fc"
+      ]
+    },
+    {
+      "id": "Q2422417",
+      "canonicalName": "Toulouse FC",
+      "league": "ligue1",
+      "inEasyScope": false,
+      "aliases": [
+        "Toulouse FC"
+      ],
+      "normalizedKeys": [
+        "toulouse fc"
+      ]
+    },
+    {
+      "id": "Q19518",
+      "canonicalName": "Toulouse Football Club",
+      "league": "ligue1",
+      "inEasyScope": true,
+      "aliases": [
+        "Toulouse",
+        "Toulouse FC",
+        "Toulouse Football Club"
+      ],
+      "normalizedKeys": [
+        "toulouse",
+        "toulouse fc"
+      ]
+    },
+    {
+      "id": "Q7156",
+      "canonicalName": "F. C. Barcelona",
+      "league": "laliga",
+      "inEasyScope": true,
+      "aliases": [
+        "Barça",
+        "Barcelona",
+        "F. C. Barcelona",
+        "FC Barcelona"
+      ],
+      "normalizedKeys": [
+        "barca",
+        "barcelona",
+        "f c barcelona",
+        "fc barcelona"
+      ]
+    },
+    {
+      "id": "Q9616",
+      "canonicalName": "Chelsea F. C.",
+      "league": "premier",
+      "inEasyScope": true,
+      "aliases": [
+        "Chelsea",
+        "Chelsea F. C.",
+        "Chelsea FC"
+      ],
+      "normalizedKeys": [
+        "chelsea",
+        "chelsea f c",
+        "chelsea fc"
+      ]
+    }
+  ]
+}
+
