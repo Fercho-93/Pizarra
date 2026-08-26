@@ -10,9 +10,11 @@ const context = { window: {} };
 vm.runInNewContext(await readFile(new URL("./data/players.js", import.meta.url), "utf8"), context);
 vm.runInNewContext(await readFile(new URL("./data/enrichment.js", import.meta.url), "utf8"), context);
 vm.runInNewContext(await readFile(new URL("./data/verified.js", import.meta.url), "utf8"), context);
+vm.runInNewContext(await readFile(new URL("./data/official-corrections.js", import.meta.url), "utf8"), context);
 const data = context.window.PIZARRA_DATA;
 const enrichment = context.window.PIZARRA_ENRICHMENT;
 const verified = context.window.PIZARRA_VERIFIED;
+const officialCorrections = context.window.PIZARRA_OFFICIAL_CORRECTIONS;
 const identityProfiles = { ...enrichment, ...verified };
 
 assert.equal(data.players.length, 2400, "La selección debe contener 2.400 jugadores");
@@ -30,7 +32,7 @@ for (const [id, profile] of Object.entries(enrichment)) {
 }
 assert.equal(verified.Q483837.club.id, verified.Q30055335.club.id, "Modrić y Leão deben compartir su club verificado");
 assert.equal(verified.Q483837.club.league, verified.Q30055335.club.league, "Modrić y Leão deben compartir su liga verificada");
-assert.ok(appSource.includes("Q96755") && appSource.includes("Real Madrid Club de Fútbol"), "Rüdiger debe contar como defensa del Real Madrid en la cuadrícula");
+assert.ok(officialCorrections.Q96755.positions.includes("Defensa") && officialCorrections.Q96755.clubs.some(club => club.id === "Q8682"), "Rüdiger debe contar como defensa del Real Madrid en la cuadrícula");
 
 for (let day = 1; day <= 120; day++) {
   const grid = core.generateGrid(data.players, `test-2026-${String(day).padStart(3, "0")}`);
