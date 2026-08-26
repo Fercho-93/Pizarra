@@ -693,6 +693,6 @@
     return;
   }
   render();
-  if ("serviceWorker" in navigator && location.protocol !== "file:" && !["localhost", "127.0.0.1"].includes(location.hostname)) navigator.serviceWorker.register("./service-worker.js?v=15").catch(() => {});
+  if ("serviceWorker" in navigator && location.protocol !== "file:" && !["localhost", "127.0.0.1"].includes(location.hostname)) navigator.serviceWorker.register("./service-worker.js?v=16").catch(() => {});
 })();
 
