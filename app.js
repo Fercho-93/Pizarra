@@ -6,17 +6,16 @@
   const app = document.getElementById("app");
   const toast = document.getElementById("toast");
   const players = data?.players ?? [];
-  // Correcciones de carrera contrastadas tras la última importación de Wikidata.
-  // Se aplican antes de construir cualquier condición del juego.
-  const CURRENT_CAREER_OVERRIDES = {
-    Q96755: { id: "Q8682", name: "Real Madrid Club de Fútbol", league: "laliga", leagueName: "LaLiga", start: 2022, end: null }
-  };
+  // Correcciones contrastadas con una fuente oficial. Se aplican antes de
+  // construir cualquier condición para que la base importada no decida sola.
+  const officialCorrections = window.PIZARRA_OFFICIAL_CORRECTIONS ?? {};
   for (const player of players) {
-    const club = CURRENT_CAREER_OVERRIDES[player.id];
-    if (club && !player.clubs.some(item => item.id === club.id)) {
-      player.clubs.push(club);
-      player.leagues = [...new Set([...player.leagues, club.league])];
+    const correction = officialCorrections[player.id];
+    if (correction?.clubs) {
+      player.clubs = correction.clubs.map(club => ({ ...club }));
+      player.leagues = [...new Set(player.clubs.map(club => club.league))];
     }
+    if (correction?.positions) player.positions = [...correction.positions];
   }
   const verifiedPlayers = { ...(window.PIZARRA_ENRICHMENT ?? {}), ...(window.PIZARRA_VERIFIED ?? {}) };
   const playerById = new Map(players.map(player => [player.id, player]));
@@ -699,6 +698,6 @@
     return;
   }
   render();
-  if ("serviceWorker" in navigator && location.protocol !== "file:" && !["localhost", "127.0.0.1"].includes(location.hostname)) navigator.serviceWorker.register("./service-worker.js?v=19").catch(() => {});
+  if ("serviceWorker" in navigator && location.protocol !== "file:" && !["localhost", "127.0.0.1"].includes(location.hostname)) navigator.serviceWorker.register("./service-worker.js?v=20").catch(() => {});
 })();
 
