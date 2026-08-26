@@ -6,6 +6,7 @@ import vm from "node:vm";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const DATA = resolve(ROOT, "data", "players.js");
 const EVIDENCE = resolve(ROOT, "data", "official-evidence.js");
+const CORRECTIONS = resolve(ROOT, "data", "official-corrections.js");
 const OUT = resolve(ROOT, "audit", "easy-official-report.json");
 const EASY_MIN_SITELINKS = 60;
 
@@ -21,14 +22,17 @@ function samePeriod(actual, official) {
 
 const dataWindow = await load(DATA);
 const evidenceWindow = await load(EVIDENCE);
+const correctionsWindow = await load(CORRECTIONS);
 const data = dataWindow.PIZARRA_DATA;
 const evidence = evidenceWindow.PIZARRA_OFFICIAL_EVIDENCE;
+const corrections = correctionsWindow.PIZARRA_OFFICIAL_CORRECTIONS;
 const easyPlayers = data.players.filter(player => player.sitelinks >= EASY_MIN_SITELINKS);
 
 const findings = [];
 const pendingEvidence = [];
 let verifiedRelations = 0;
 let mismatches = 0;
+let resolvedMismatches = 0;
 let pendingRelations = 0;
 
 for (const player of easyPlayers) {
@@ -46,16 +50,21 @@ for (const player of easyPlayers) {
 
   const officialByClub = new Map(record.clubs.map(club => [club.id, club]));
   const currentByClub = new Map(player.clubs.map(club => [club.id, club]));
+  const correctedClubs = [...(corrections[player.id]?.clubs ?? []), ...(corrections[player.id]?.addClubs ?? [])];
   const relationFindings = [];
 
   for (const official of record.clubs) {
     const current = currentByClub.get(official.id);
     if (!current) {
       mismatches++;
-      relationFindings.push({ clubId: official.id, status: "missing", official });
+      const resolved = correctedClubs.some(club => club.id === official.id && samePeriod(club, official));
+      if (resolved) resolvedMismatches++;
+      relationFindings.push({ clubId: official.id, status: "missing", official, resolvedByCorrection: resolved });
     } else if (!samePeriod(current, official)) {
       mismatches++;
-      relationFindings.push({ clubId: official.id, status: "period-mismatch", imported: current, official });
+      const resolved = correctedClubs.some(club => club.id === official.id && samePeriod(club, official));
+      if (resolved) resolvedMismatches++;
+      relationFindings.push({ clubId: official.id, status: "period-mismatch", imported: current, official, resolvedByCorrection: resolved });
     } else {
       verifiedRelations++;
       relationFindings.push({ clubId: official.id, status: "verified", official });
@@ -86,6 +95,7 @@ const report = {
     playersWithOfficialEvidence: findings.length,
     verifiedRelations,
     mismatches,
+    resolvedMismatches,
     pendingRelations
   },
   findings,
