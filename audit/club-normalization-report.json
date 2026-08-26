@@ -1,0 +1,133 @@
+{
+  "generatedAt": "2026-08-26T14:21:17.230Z",
+  "sourceUpdatedAt": "2026-08-26T08:39:30.763Z",
+  "scope": {
+    "allCatalogClubs": 107,
+    "easyPlayers": 369,
+    "easyClubs": 85
+  },
+  "summary": {
+    "aliases": 325,
+    "normalizedKeys": 279,
+    "collisions": 1,
+    "historicalEntities": 11,
+    "historicalEntitiesInEasy": 0,
+    "unknownRelationIds": 0,
+    "missingEasyCatalogIds": 0,
+    "anomalies": 13
+  },
+  "anomalies": [
+    {
+      "severity": "warning",
+      "type": "scope-count-mismatch",
+      "expected": 93,
+      "actual": 85,
+      "detail": "El alcance observado en players.js no coincide con los 93 clubes indicados; usar el conjunto derivado de los 369 jugadores Fácil."
+    },
+    {
+      "severity": "warning",
+      "type": "historical-entity",
+      "id": "Q116949682",
+      "name": "Società Ginnastica di Torino",
+      "inEasyScope": false,
+      "detail": "Club histórico de Turín; no debe confundirse con Torino FC."
+    },
+    {
+      "severity": "warning",
+      "type": "historical-entity",
+      "id": "Q534448",
+      "name": "Football Club Torinese",
+      "inEasyScope": false,
+      "detail": "Club histórico/disuelto de Turín; no debe fusionarse con Torino FC."
+    },
+    {
+      "severity": "warning",
+      "type": "historical-entity",
+      "id": "Q1538737",
+      "name": "Internazionale Torino",
+      "inEasyScope": false,
+      "detail": "Club histórico/disuelto de Turín; no es Inter de Milán."
+    },
+    {
+      "severity": "warning",
+      "type": "historical-entity",
+      "id": "Q665690",
+      "name": "Società di Ginnastica e Scherma Fortitudo Roma",
+      "inEasyScope": false,
+      "detail": "Entidad histórica que participó en la formación de AS Roma."
+    },
+    {
+      "severity": "warning",
+      "type": "historical-entity",
+      "id": "Q1328077",
+      "name": "U.S. Fiumana",
+      "inEasyScope": false,
+      "detail": "Club histórico de Fiume/Rijeka; entidad disuelta."
+    },
+    {
+      "severity": "warning",
+      "type": "historical-entity",
+      "id": "Q610482",
+      "name": "Unione Sportiva Alba Audace",
+      "inEasyScope": false,
+      "detail": "Entidad histórica que participó en la formación de AS Roma."
+    },
+    {
+      "severity": "warning",
+      "type": "historical-entity",
+      "id": "Q728986",
+      "name": "Unione Sportiva Internazionale Napoli",
+      "inEasyScope": false,
+      "detail": "Club histórico de Nápoles; no debe fusionarse automáticamente con SSC Napoli."
+    },
+    {
+      "severity": "warning",
+      "type": "historical-entity",
+      "id": "Q3590859",
+      "name": "ÉF Reims-Champagne",
+      "inEasyScope": false,
+      "detail": "Entidad histórica de Reims; revisar la relación antes de atribuirla al club moderno."
+    },
+    {
+      "severity": "warning",
+      "type": "historical-entity",
+      "id": "Q2338486",
+      "name": "Olympique Lillois",
+      "inEasyScope": false,
+      "detail": "Club histórico que participó en la formación de Lille OSC."
+    },
+    {
+      "severity": "warning",
+      "type": "historical-entity",
+      "id": "Q1514915",
+      "name": "SC Fives",
+      "inEasyScope": false,
+      "detail": "Club histórico que participó en la formación de Lille OSC."
+    },
+    {
+      "severity": "warning",
+      "type": "historical-entity",
+      "id": "Q2422417",
+      "name": "Toulouse FC",
+      "inEasyScope": false,
+      "detail": "Toulouse FC histórico (1937); no es la entidad moderna Q19518."
+    },
+    {
+      "severity": "warning",
+      "type": "alias-collision",
+      "normalizedKey": "toulouse fc",
+      "clubs": [
+        {
+          "id": "Q2422417",
+          "name": "Toulouse FC"
+        },
+        {
+          "id": "Q19518",
+          "name": "Toulouse Football Club"
+        }
+      ],
+      "detail": "No resolver por nombre: conservar el QID y revisar manualmente."
+    }
+  ]
+}
+
