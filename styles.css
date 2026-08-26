@@ -75,6 +75,9 @@ h3 { margin-bottom: 6px; font-size: 1rem; }
 .mode-picker { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px; margin: 0 0 16px; }
 .mode-option { min-height: 38px; border: 1px solid var(--line); border-radius: 12px; padding: 8px; color: var(--green); background: var(--card); font-size: .68rem; font-weight: 850; cursor: pointer; }
 .mode-option.active { color: var(--lime); border-color: var(--green); background: var(--green); cursor: default; }
+.difficulty-picker { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin: -7px 0 16px; }
+.difficulty-option { min-height: 36px; border: 1px solid var(--line); border-radius: 12px; padding: 7px 4px; color: var(--muted); background: var(--paper); font-size: .64rem; font-weight: 850; cursor: pointer; }
+.difficulty-option.active { color: var(--green); border-color: var(--lime); background: var(--lime); cursor: default; }
 
 .grid-scroll { overflow-x: auto; margin-inline: -16px; padding: 0 16px 12px; scrollbar-width: none; }
 .football-grid { width: max(100%, 650px); display: grid; grid-template-columns: 132px repeat(3, minmax(150px, 1fr)); grid-template-rows: 112px repeat(3, 132px); gap: 7px; }
