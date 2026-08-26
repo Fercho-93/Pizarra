@@ -1,0 +1,6457 @@
+{
+  "generatedAt": "2026-08-26T14:35:04.458Z",
+  "scope": {
+    "difficulty": "easy",
+    "minSitelinks": 60,
+    "players": 369,
+    "playerClubRelations": 1037,
+    "currentYear": 2026
+  },
+  "disclaimer": "Auditoría interna heurística. Detecta incoherencias y riesgos para revisión con evidencia externa; la ausencia de alertas no certifica que un dato sea verdadero.",
+  "state": "raw-import",
+  "summary": {
+    "findings": 232,
+    "affectedPlayers": 154,
+    "cleanPlayers": 215,
+    "countsBySeverity": {
+      "critical": 72,
+      "high": 51,
+      "medium": 109,
+      "low": 0
+    },
+    "countsByCode": {
+      "defective-name": 1,
+      "impossible-senior-start-age": 8,
+      "long-open-club-needs-current-status-check": 15,
+      "many-nationalities": 4,
+      "missing-or-invalid-start": 1,
+      "missing-position": 30,
+      "official-correction-not-consolidated-in-base": 1,
+      "open-club-followed-by-later-club": 4,
+      "overlapping-club-periods": 166,
+      "possible-youth-or-reserve-relation": 2
+    }
+  },
+  "priorityRules": {
+    "critical": "Incoherencia estructural o cronológica fuerte; excluir temporalmente la afirmación del juego hasta contrastarla.",
+    "high": "Probable contaminación de cantera/filial, clasificación incompatible o dato que exige revisión prioritaria.",
+    "medium": "Dato plausible, pero ambiguo, histórico o potencialmente desactualizado."
+  },
+  "findings": [
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q107051",
+      "player": "Andrea Barzagli",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "official-correction-not-consolidated-in-base",
+      "severity": "critical",
+      "playerId": "Q96755",
+      "player": "Antonio Rüdiger",
+      "details": {
+        "source": "https://www.realmadrid.com/es-ES/futbol/primer-equipo-masculino/plantilla/antonio-rudiger",
+        "verifiedAt": "2026-08-26",
+        "base": {
+          "positions": [
+            "Defensa"
+          ],
+          "clubs": [
+            {
+              "id": "Q4512",
+              "start": 2012,
+              "end": 2016
+            },
+            {
+              "id": "Q2739",
+              "start": 2015,
+              "end": 2017
+            },
+            {
+              "id": "Q9616",
+              "start": 2017,
+              "end": 2022
+            }
+          ]
+        },
+        "corrected": {
+          "positions": [
+            "Defensa"
+          ],
+          "clubs": [
+            {
+              "id": "Q4512",
+              "start": 2011,
+              "end": 2015
+            },
+            {
+              "id": "Q2739",
+              "start": 2015,
+              "end": 2017
+            },
+            {
+              "id": "Q9616",
+              "start": 2017,
+              "end": 2022
+            },
+            {
+              "id": "Q8682",
+              "start": 2022,
+              "end": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q10602",
+      "player": "Ashley Young",
+      "details": {
+        "overlap": {
+          "start": 2011,
+          "end": 2020,
+          "fullYears": 9
+        },
+        "periods": [
+          {
+            "id": "Q18711",
+            "name": "Aston Villa Football Club",
+            "start": 2007,
+            "end": 2023
+          },
+          {
+            "id": "Q18656",
+            "name": "Manchester United Football Club",
+            "start": 2011,
+            "end": 2020
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q152897",
+      "player": "Benedikt Höwedes",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "missing-or-invalid-start",
+      "severity": "critical",
+      "playerId": "Q179172",
+      "player": "Bojan Krkić",
+      "relation": {
+        "clubId": "Q105254",
+        "club": "1. FSV Mainz 05",
+        "start": null,
+        "end": null
+      },
+      "details": {
+        "start": null
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q193000",
+      "player": "Bruno Alves",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q17158",
+      "player": "Carles Puyol",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "impossible-senior-start-age",
+      "severity": "critical",
+      "playerId": "Q294806",
+      "player": "César Azpilicueta",
+      "relation": {
+        "clubId": "Q10286",
+        "club": "Club Atlético Osasuna",
+        "start": 2001,
+        "end": 2010
+      },
+      "details": {
+        "birthYear": 1989,
+        "age": 12
+      }
+    },
+    {
+      "code": "impossible-senior-start-age",
+      "severity": "critical",
+      "playerId": "Q17499",
+      "player": "Cesc Fàbregas",
+      "relation": {
+        "clubId": "Q7156",
+        "club": "F. C. Barcelona",
+        "start": 1997,
+        "end": 2014
+      },
+      "details": {
+        "birthYear": 1987,
+        "age": 10
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q17499",
+      "player": "Cesc Fàbregas",
+      "details": {
+        "overlap": {
+          "start": 2003,
+          "end": 2011,
+          "fullYears": 8
+        },
+        "periods": [
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 1997,
+            "end": 2014
+          },
+          {
+            "id": "Q9617",
+            "name": "Arsenal Fútbol Club",
+            "start": 2003,
+            "end": 2011
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q29491",
+      "player": "Christopher Smalling",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q11571",
+      "player": "Cristiano Ronaldo",
+      "details": {
+        "overlap": {
+          "start": 2009,
+          "end": 2018,
+          "fullYears": 9
+        },
+        "periods": [
+          {
+            "id": "Q18656",
+            "name": "Manchester United Football Club",
+            "start": 2003,
+            "end": 2022
+          },
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2009,
+            "end": 2018
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q193706",
+      "player": "David Luiz",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q349125",
+      "player": "Dejan Lovren",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q349125",
+      "player": "Dejan Lovren",
+      "details": {
+        "overlap": {
+          "start": 2014,
+          "end": 2020,
+          "fullYears": 6
+        },
+        "periods": [
+          {
+            "id": "Q704",
+            "name": "Olympique de Lyon",
+            "start": 2010,
+            "end": 2024
+          },
+          {
+            "id": "Q1130849",
+            "name": "Liverpool Fútbol Club",
+            "start": 2014,
+            "end": 2020
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q214903",
+      "player": "Diego Godín",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q258115",
+      "player": "Diego Simeone",
+      "details": {
+        "overlap": {
+          "start": 1999,
+          "end": 2003,
+          "fullYears": 4
+        },
+        "periods": [
+          {
+            "id": "Q8701",
+            "name": "Atlético de Madrid",
+            "start": 1994,
+            "end": 2005
+          },
+          {
+            "id": "Q2609",
+            "name": "Società Sportiva Lazio",
+            "start": 1999,
+            "end": 2003
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q1935",
+      "player": "Éric Abidal",
+      "details": {
+        "overlap": {
+          "start": 2007,
+          "end": 2013,
+          "fullYears": 6
+        },
+        "periods": [
+          {
+            "id": "Q180305",
+            "name": "A.S. Monaco F.C.",
+            "start": 2000,
+            "end": 2014
+          },
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 2007,
+            "end": 2013
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q191139",
+      "player": "Fabien Barthez",
+      "details": {
+        "overlap": {
+          "start": 1995,
+          "end": 2000,
+          "fullYears": 5
+        },
+        "periods": [
+          {
+            "id": "Q132885",
+            "name": "Olympique de Marsella",
+            "start": 1992,
+            "end": 2006
+          },
+          {
+            "id": "Q180305",
+            "name": "A.S. Monaco F.C.",
+            "start": 1995,
+            "end": 2000
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q191139",
+      "player": "Fabien Barthez",
+      "details": {
+        "overlap": {
+          "start": 2000,
+          "end": 2004,
+          "fullYears": 4
+        },
+        "periods": [
+          {
+            "id": "Q132885",
+            "name": "Olympique de Marsella",
+            "start": 1992,
+            "end": 2006
+          },
+          {
+            "id": "Q18656",
+            "name": "Manchester United Football Club",
+            "start": 2000,
+            "end": 2004
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "impossible-senior-start-age",
+      "severity": "critical",
+      "playerId": "Q187891",
+      "player": "Fernando Llorente",
+      "relation": {
+        "clubId": "Q8687",
+        "club": "Athletic Club",
+        "start": 1996,
+        "end": 2013
+      },
+      "details": {
+        "birthYear": 1985,
+        "age": 11
+      }
+    },
+    {
+      "code": "impossible-senior-start-age",
+      "severity": "critical",
+      "playerId": "Q42731",
+      "player": "Fernando Torres",
+      "relation": {
+        "clubId": "Q8701",
+        "club": "Atlético de Madrid",
+        "start": 1995,
+        "end": 2018
+      },
+      "details": {
+        "birthYear": 1984,
+        "age": 11
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q42731",
+      "player": "Fernando Torres",
+      "details": {
+        "overlap": {
+          "start": 2007,
+          "end": 2011,
+          "fullYears": 4
+        },
+        "periods": [
+          {
+            "id": "Q8701",
+            "name": "Atlético de Madrid",
+            "start": 1995,
+            "end": 2018
+          },
+          {
+            "id": "Q1130849",
+            "name": "Liverpool Fútbol Club",
+            "start": 2007,
+            "end": 2011
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q42731",
+      "player": "Fernando Torres",
+      "details": {
+        "overlap": {
+          "start": 2011,
+          "end": 2015,
+          "fullYears": 4
+        },
+        "periods": [
+          {
+            "id": "Q8701",
+            "name": "Atlético de Madrid",
+            "start": 1995,
+            "end": 2018
+          },
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2011,
+            "end": 2015
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q184586",
+      "player": "Gareth Bale",
+      "details": {
+        "overlap": {
+          "start": 2013,
+          "end": 2021,
+          "fullYears": 8
+        },
+        "periods": [
+          {
+            "id": "Q18741",
+            "name": "Tottenham Hotspur Football Club",
+            "start": 2007,
+            "end": 2021
+          },
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2013,
+            "end": 2022
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q223827",
+      "player": "Gary Cahill",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "impossible-senior-start-age",
+      "severity": "critical",
+      "playerId": "Q17507",
+      "player": "Gerard Piqué",
+      "relation": {
+        "clubId": "Q7156",
+        "club": "F. C. Barcelona",
+        "start": 1997,
+        "end": 2022
+      },
+      "details": {
+        "birthYear": 1987,
+        "age": 10
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q17507",
+      "player": "Gerard Piqué",
+      "details": {
+        "overlap": {
+          "start": 2004,
+          "end": 2008,
+          "fullYears": 4
+        },
+        "periods": [
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 1997,
+            "end": 2022
+          },
+          {
+            "id": "Q18656",
+            "name": "Manchester United Football Club",
+            "start": 2004,
+            "end": 2008
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q68060",
+      "player": "Gianluigi Buffon",
+      "details": {
+        "overlap": {
+          "start": 2001,
+          "end": 2021,
+          "fullYears": 20
+        },
+        "periods": [
+          {
+            "id": "Q2693",
+            "name": "Parma Calcio 1913",
+            "start": 1995,
+            "end": 2023
+          },
+          {
+            "id": "Q1422",
+            "name": "Juventus",
+            "start": 2001,
+            "end": 2021
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q165772",
+      "player": "Harry Maguire",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q196219",
+      "player": "Henrikh Mkhitaryan",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q160206",
+      "player": "Hernán Crespo",
+      "details": {
+        "overlap": {
+          "start": 2002,
+          "end": 2009,
+          "fullYears": 7
+        },
+        "periods": [
+          {
+            "id": "Q2693",
+            "name": "Parma Calcio 1913",
+            "start": 1996,
+            "end": 2012
+          },
+          {
+            "id": "Q631",
+            "name": "Inter de Milán",
+            "start": 2002,
+            "end": 2009
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q160206",
+      "player": "Hernán Crespo",
+      "details": {
+        "overlap": {
+          "start": 2003,
+          "end": 2008,
+          "fullYears": 5
+        },
+        "periods": [
+          {
+            "id": "Q2693",
+            "name": "Parma Calcio 1913",
+            "start": 1996,
+            "end": 2012
+          },
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2003,
+            "end": 2008
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q160206",
+      "player": "Hernán Crespo",
+      "details": {
+        "overlap": {
+          "start": 2003,
+          "end": 2008,
+          "fullYears": 5
+        },
+        "periods": [
+          {
+            "id": "Q631",
+            "name": "Inter de Milán",
+            "start": 2002,
+            "end": 2009
+          },
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2003,
+            "end": 2008
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q115453",
+      "player": "Ivan Rakitić",
+      "details": {
+        "overlap": {
+          "start": 2014,
+          "end": 2020,
+          "fullYears": 6
+        },
+        "periods": [
+          {
+            "id": "Q10329",
+            "name": "Sevilla Fútbol Club",
+            "start": 2011,
+            "end": 2024
+          },
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 2014,
+            "end": 2020
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q313170",
+      "player": "Jan Vertonghen",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q185093",
+      "player": "Jesús Navas",
+      "details": {
+        "overlap": {
+          "start": 2013,
+          "end": 2017,
+          "fullYears": 4
+        },
+        "periods": [
+          {
+            "id": "Q10329",
+            "name": "Sevilla Fútbol Club",
+            "start": 2003,
+            "end": 2023
+          },
+          {
+            "id": "Q50602",
+            "name": "Manchester City Football Club",
+            "start": 2013,
+            "end": 2017
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q83456",
+      "player": "John Terry",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q531814",
+      "player": "Kaká",
+      "details": {
+        "overlap": {
+          "start": 2009,
+          "end": 2013,
+          "fullYears": 4
+        },
+        "periods": [
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 2003,
+            "end": 2014
+          },
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2009,
+            "end": 2013
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "impossible-senior-start-age",
+      "severity": "critical",
+      "playerId": "Q3195361",
+      "player": "Kepa Arrizabalaga",
+      "relation": {
+        "clubId": "Q8687",
+        "club": "Athletic Club",
+        "start": 2004,
+        "end": 2018
+      },
+      "details": {
+        "birthYear": 1994,
+        "age": 10
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q16499882",
+      "player": "Leroy Sané",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "impossible-senior-start-age",
+      "severity": "critical",
+      "playerId": "Q160472",
+      "player": "Marc-André ter Stegen",
+      "relation": {
+        "clubId": "Q101959",
+        "club": "Borussia Mönchengladbach",
+        "start": 1996,
+        "end": 2014
+      },
+      "details": {
+        "birthYear": 1992,
+        "age": 4
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q193625",
+      "player": "Marcel Desailly",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q507890",
+      "player": "Marcos Rojo",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q45766",
+      "player": "Mario Gómez",
+      "details": {
+        "overlap": {
+          "start": 2009,
+          "end": 2013,
+          "fullYears": 4
+        },
+        "periods": [
+          {
+            "id": "Q4512",
+            "name": "VfB Stuttgart",
+            "start": 2003,
+            "end": 2020
+          },
+          {
+            "id": "Q15789",
+            "name": "F. C. Bayern Múnich",
+            "start": 2009,
+            "end": 2013
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q110053",
+      "player": "Mats Hummels",
+      "details": {
+        "overlap": {
+          "start": 2008,
+          "end": 2019,
+          "fullYears": 11
+        },
+        "periods": [
+          {
+            "id": "Q15789",
+            "name": "F. C. Bayern Múnich",
+            "start": 2007,
+            "end": 2019
+          },
+          {
+            "id": "Q41420",
+            "name": "Borussia Dortmund",
+            "start": 2008,
+            "end": 2024
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q248141",
+      "player": "Maya Yoshida",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q11948",
+      "player": "Michael Ballack",
+      "details": {
+        "overlap": {
+          "start": 2002,
+          "end": 2006,
+          "fullYears": 4
+        },
+        "periods": [
+          {
+            "id": "Q104761",
+            "name": "Bayer 04 Leverkusen",
+            "start": 1999,
+            "end": 2012
+          },
+          {
+            "id": "Q15789",
+            "name": "F. C. Bayern Múnich",
+            "start": 2002,
+            "end": 2006
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q11948",
+      "player": "Michael Ballack",
+      "details": {
+        "overlap": {
+          "start": 2006,
+          "end": 2010,
+          "fullYears": 4
+        },
+        "periods": [
+          {
+            "id": "Q104761",
+            "name": "Bayer 04 Leverkusen",
+            "start": 1999,
+            "end": 2012
+          },
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2006,
+            "end": 2010
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q163564",
+      "player": "Nemanja Vidić",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q483027",
+      "player": "Paolo Maldini",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q129027",
+      "player": "Paul Pogba",
+      "details": {
+        "overlap": {
+          "start": 2012,
+          "end": 2022,
+          "fullYears": 10
+        },
+        "periods": [
+          {
+            "id": "Q18656",
+            "name": "Manchester United Football Club",
+            "start": 2011,
+            "end": 2022
+          },
+          {
+            "id": "Q1422",
+            "name": "Juventus",
+            "start": 2012,
+            "end": 2024
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q66606355",
+      "player": "Pedri González",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q485697",
+      "player": "Pepe",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q163666",
+      "player": "Pepe Reina",
+      "details": {
+        "overlap": {
+          "start": 2005,
+          "end": 2014,
+          "fullYears": 9
+        },
+        "periods": [
+          {
+            "id": "Q12297",
+            "name": "Villarreal Club de Fútbol",
+            "start": 2002,
+            "end": 2024
+          },
+          {
+            "id": "Q1130849",
+            "name": "Liverpool Fútbol Club",
+            "start": 2005,
+            "end": 2014
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q163666",
+      "player": "Pepe Reina",
+      "details": {
+        "overlap": {
+          "start": 2013,
+          "end": 2018,
+          "fullYears": 5
+        },
+        "periods": [
+          {
+            "id": "Q12297",
+            "name": "Villarreal Club de Fútbol",
+            "start": 2002,
+            "end": 2024
+          },
+          {
+            "id": "Q2641",
+            "name": "Società Sportiva Calcio Napoli",
+            "start": 2013,
+            "end": 2018
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q186330",
+      "player": "Rafael Márquez Álvarez",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q489039",
+      "player": "Raphaël Varane",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q570811",
+      "player": "Ricardo Carvalho",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q313316",
+      "player": "Romelu Lukaku",
+      "details": {
+        "overlap": {
+          "start": 2013,
+          "end": 2017,
+          "fullYears": 4
+        },
+        "periods": [
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2011,
+            "end": 2024
+          },
+          {
+            "id": "Q5794",
+            "name": "Everton F.C.",
+            "start": 2013,
+            "end": 2017
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q313316",
+      "player": "Romelu Lukaku",
+      "details": {
+        "overlap": {
+          "start": 2019,
+          "end": 2023,
+          "fullYears": 4
+        },
+        "periods": [
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2011,
+            "end": 2024
+          },
+          {
+            "id": "Q631",
+            "name": "Inter de Milán",
+            "start": 2019,
+            "end": 2023
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q185225",
+      "player": "Santi Cazorla",
+      "details": {
+        "overlap": {
+          "start": 2012,
+          "end": 2018,
+          "fullYears": 6
+        },
+        "periods": [
+          {
+            "id": "Q12297",
+            "name": "Villarreal Club de Fútbol",
+            "start": 2003,
+            "end": 2020
+          },
+          {
+            "id": "Q9617",
+            "name": "Arsenal Fútbol Club",
+            "start": 2012,
+            "end": 2018
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "impossible-senior-start-age",
+      "severity": "critical",
+      "playerId": "Q49704",
+      "player": "Sergio Busquets",
+      "relation": {
+        "clubId": "Q7156",
+        "club": "F. C. Barcelona",
+        "start": 2000,
+        "end": 2023
+      },
+      "details": {
+        "birthYear": 1988,
+        "age": 12
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q483309",
+      "player": "Sergio Ramos",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q483309",
+      "player": "Sergio Ramos",
+      "details": {
+        "overlap": {
+          "start": 2005,
+          "end": 2021,
+          "fullYears": 16
+        },
+        "periods": [
+          {
+            "id": "Q10329",
+            "name": "Sevilla Fútbol Club",
+            "start": 2004,
+            "end": 2024
+          },
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2005,
+            "end": 2021
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q694014",
+      "player": "Shkodran Mustafi",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q210453",
+      "player": "Thiago Silva",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q184177",
+      "player": "Thomas Vermaelen",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q128840",
+      "player": "Toby Alderweireld",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "missing-position",
+      "severity": "critical",
+      "playerId": "Q201381",
+      "player": "Vincent Kompany",
+      "details": {
+        "positions": []
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q266613",
+      "player": "Wayne Rooney",
+      "details": {
+        "overlap": {
+          "start": 2004,
+          "end": 2017,
+          "fullYears": 13
+        },
+        "periods": [
+          {
+            "id": "Q5794",
+            "name": "Everton F.C.",
+            "start": 2002,
+            "end": 2018
+          },
+          {
+            "id": "Q18656",
+            "name": "Manchester United Football Club",
+            "start": 2004,
+            "end": 2017
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "critical",
+      "playerId": "Q46896",
+      "player": "Zlatan Ibrahimović",
+      "details": {
+        "overlap": {
+          "start": 2012,
+          "end": 2016,
+          "fullYears": 4
+        },
+        "periods": [
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 2010,
+            "end": 2023
+          },
+          {
+            "id": "Q483020",
+            "name": "Paris Saint-Germain FC",
+            "start": 2012,
+            "end": 2016
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q26932598",
+      "player": "Achraf Hakimi",
+      "details": {
+        "overlap": {
+          "start": 2018,
+          "end": 2020,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2017,
+            "end": 2020
+          },
+          {
+            "id": "Q41420",
+            "name": "Borussia Dortmund",
+            "start": 2018,
+            "end": 2020
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q182451",
+      "player": "Alberto Gilardino",
+      "details": {
+        "overlap": {
+          "start": 2012,
+          "end": 2014,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q2052",
+            "name": "ACF Fiorentina",
+            "start": 2008,
+            "end": 2015
+          },
+          {
+            "id": "Q2074",
+            "name": "Genoa Cricket & Football Club",
+            "start": 2012,
+            "end": 2014
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q250901",
+      "player": "Álvaro Arbeloa",
+      "details": {
+        "overlap": {
+          "start": 2007,
+          "end": 2009,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2004,
+            "end": 2016
+          },
+          {
+            "id": "Q1130849",
+            "name": "Liverpool Fútbol Club",
+            "start": 2007,
+            "end": 2009
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q48770",
+      "player": "Álvaro Morata",
+      "details": {
+        "overlap": {
+          "start": 2014,
+          "end": 2017,
+          "fullYears": 3
+        },
+        "periods": [
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2010,
+            "end": 2017
+          },
+          {
+            "id": "Q1422",
+            "name": "Juventus",
+            "start": 2014,
+            "end": 2022
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q48770",
+      "player": "Álvaro Morata",
+      "details": {
+        "overlap": {
+          "start": 2017,
+          "end": 2019,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q1422",
+            "name": "Juventus",
+            "start": 2014,
+            "end": 2022
+          },
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2017,
+            "end": 2019
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q48770",
+      "player": "Álvaro Morata",
+      "details": {
+        "overlap": {
+          "start": 2019,
+          "end": 2022,
+          "fullYears": 3
+        },
+        "periods": [
+          {
+            "id": "Q1422",
+            "name": "Juventus",
+            "start": 2014,
+            "end": 2022
+          },
+          {
+            "id": "Q8701",
+            "name": "Atlético de Madrid",
+            "start": 2019,
+            "end": 2024
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q41244",
+      "player": "Andriy Shevchenko",
+      "details": {
+        "overlap": {
+          "start": 2006,
+          "end": 2009,
+          "fullYears": 3
+        },
+        "periods": [
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 1999,
+            "end": 2009
+          },
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2006,
+            "end": 2009
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q455462",
+      "player": "Antoine Griezmann",
+      "details": {
+        "overlap": {
+          "start": 2019,
+          "end": 2022,
+          "fullYears": 3
+        },
+        "periods": [
+          {
+            "id": "Q8701",
+            "name": "Atlético de Madrid",
+            "start": 2014,
+            "end": 2026
+          },
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 2019,
+            "end": 2022
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q179172",
+      "player": "Bojan Krkić",
+      "details": {
+        "overlap": {
+          "start": 2011,
+          "end": 2013,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 2007,
+            "end": 2014
+          },
+          {
+            "id": "Q2739",
+            "name": "A.S. Roma",
+            "start": 2011,
+            "end": 2013
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q11571",
+      "player": "Cristiano Ronaldo",
+      "details": {
+        "overlap": {
+          "start": 2018,
+          "end": 2021,
+          "fullYears": 3
+        },
+        "periods": [
+          {
+            "id": "Q18656",
+            "name": "Manchester United Football Club",
+            "start": 2003,
+            "end": 2022
+          },
+          {
+            "id": "Q1422",
+            "name": "Juventus",
+            "start": 2018,
+            "end": 2021
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q172720",
+      "player": "Daniel Alves",
+      "details": {
+        "overlap": {
+          "start": 2017,
+          "end": 2019,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 2008,
+            "end": 2022
+          },
+          {
+            "id": "Q483020",
+            "name": "Paris Saint-Germain FC",
+            "start": 2017,
+            "end": 2019
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q193706",
+      "player": "David Luiz",
+      "details": {
+        "overlap": {
+          "start": 2014,
+          "end": 2016,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2011,
+            "end": 2019
+          },
+          {
+            "id": "Q483020",
+            "name": "Paris Saint-Germain FC",
+            "start": 2014,
+            "end": 2016
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q246417",
+      "player": "Denís Chéryshev",
+      "details": {
+        "overlap": {
+          "start": 2014,
+          "end": 2016,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2013,
+            "end": 2016
+          },
+          {
+            "id": "Q12297",
+            "name": "Villarreal Club de Fútbol",
+            "start": 2014,
+            "end": 2019
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q246417",
+      "player": "Denís Chéryshev",
+      "details": {
+        "overlap": {
+          "start": 2016,
+          "end": 2019,
+          "fullYears": 3
+        },
+        "periods": [
+          {
+            "id": "Q12297",
+            "name": "Villarreal Club de Fútbol",
+            "start": 2014,
+            "end": 2019
+          },
+          {
+            "id": "Q10333",
+            "name": "Valencia Club de Fútbol",
+            "start": 2016,
+            "end": 2022
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q459707",
+      "player": "Diego Costa",
+      "details": {
+        "overlap": {
+          "start": 2014,
+          "end": 2017,
+          "fullYears": 3
+        },
+        "periods": [
+          {
+            "id": "Q8701",
+            "name": "Atlético de Madrid",
+            "start": 2007,
+            "end": 2020
+          },
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2014,
+            "end": 2017
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q258115",
+      "player": "Diego Simeone",
+      "details": {
+        "overlap": {
+          "start": 1997,
+          "end": 1999,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q8701",
+            "name": "Atlético de Madrid",
+            "start": 1994,
+            "end": 2005
+          },
+          {
+            "id": "Q631",
+            "name": "Inter de Milán",
+            "start": 1997,
+            "end": 1999
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "possible-youth-or-reserve-relation",
+      "severity": "high",
+      "playerId": "Q4254043",
+      "player": "Divock Origi",
+      "relation": {
+        "clubId": "Q19516",
+        "club": "Lille Olympique Sporting Club",
+        "start": 2010,
+        "end": 2015
+      },
+      "details": {
+        "birthYear": 1995,
+        "age": 15
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q1935",
+      "player": "Éric Abidal",
+      "details": {
+        "overlap": {
+          "start": 2002,
+          "end": 2004,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q180305",
+            "name": "A.S. Monaco F.C.",
+            "start": 2000,
+            "end": 2014
+          },
+          {
+            "id": "Q19516",
+            "name": "Lille Olympique Sporting Club",
+            "start": 2002,
+            "end": 2004
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q1935",
+      "player": "Éric Abidal",
+      "details": {
+        "overlap": {
+          "start": 2004,
+          "end": 2007,
+          "fullYears": 3
+        },
+        "periods": [
+          {
+            "id": "Q180305",
+            "name": "A.S. Monaco F.C.",
+            "start": 2000,
+            "end": 2014
+          },
+          {
+            "id": "Q704",
+            "name": "Olympique de Lyon",
+            "start": 2004,
+            "end": 2007
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q102027",
+      "player": "Fabio Cannavaro",
+      "details": {
+        "overlap": {
+          "start": 2006,
+          "end": 2009,
+          "fullYears": 3
+        },
+        "periods": [
+          {
+            "id": "Q1422",
+            "name": "Juventus",
+            "start": 2004,
+            "end": 2010
+          },
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2006,
+            "end": 2009
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q26704703",
+      "player": "Federico Chiesa",
+      "details": {
+        "overlap": {
+          "start": 2020,
+          "end": 2022,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q2052",
+            "name": "ACF Fiorentina",
+            "start": 2016,
+            "end": 2022
+          },
+          {
+            "id": "Q1422",
+            "name": "Juventus",
+            "start": 2020,
+            "end": 2024
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q42731",
+      "player": "Fernando Torres",
+      "details": {
+        "overlap": {
+          "start": 2014,
+          "end": 2016,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q8701",
+            "name": "Atlético de Madrid",
+            "start": 1995,
+            "end": 2018
+          },
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 2014,
+            "end": 2016
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "defective-name",
+      "severity": "high",
+      "playerId": "Q41533",
+      "player": "Frank Watson  Lampard",
+      "details": {
+        "name": "Frank Watson  Lampard"
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q160206",
+      "player": "Hernán Crespo",
+      "details": {
+        "overlap": {
+          "start": 2000,
+          "end": 2002,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q2693",
+            "name": "Parma Calcio 1913",
+            "start": 1996,
+            "end": 2012
+          },
+          {
+            "id": "Q2609",
+            "name": "Società Sportiva Lazio",
+            "start": 2000,
+            "end": 2002
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q15199",
+      "player": "Jack Wilshere",
+      "details": {
+        "overlap": {
+          "start": 2016,
+          "end": 2018,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q9617",
+            "name": "Arsenal Fútbol Club",
+            "start": 2008,
+            "end": 2018
+          },
+          {
+            "id": "Q19568",
+            "name": "AFC Bournemouth",
+            "start": 2016,
+            "end": 2021
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q30148558",
+      "player": "Jadon Sancho",
+      "details": {
+        "overlap": {
+          "start": 2021,
+          "end": 2024,
+          "fullYears": 3
+        },
+        "periods": [
+          {
+            "id": "Q41420",
+            "name": "Borussia Dortmund",
+            "start": 2017,
+            "end": 2024
+          },
+          {
+            "id": "Q18656",
+            "name": "Manchester United Football Club",
+            "start": 2021,
+            "end": 2026
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q191136",
+      "player": "James Milner",
+      "details": {
+        "overlap": {
+          "start": 2005,
+          "end": 2008,
+          "fullYears": 3
+        },
+        "periods": [
+          {
+            "id": "Q18716",
+            "name": "Newcastle United Football Club",
+            "start": 2004,
+            "end": 2008
+          },
+          {
+            "id": "Q18711",
+            "name": "Aston Villa Football Club",
+            "start": 2005,
+            "end": 2010
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q368441",
+      "player": "James Rodríguez",
+      "details": {
+        "overlap": {
+          "start": 2017,
+          "end": 2019,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2014,
+            "end": 2020
+          },
+          {
+            "id": "Q15789",
+            "name": "F. C. Bayern Múnich",
+            "start": 2017,
+            "end": 2019
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q57114",
+      "player": "Jens Lehmann",
+      "details": {
+        "overlap": {
+          "start": 2008,
+          "end": 2010,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q9617",
+            "name": "Arsenal Fútbol Club",
+            "start": 2003,
+            "end": 2011
+          },
+          {
+            "id": "Q4512",
+            "name": "VfB Stuttgart",
+            "start": 2008,
+            "end": 2010
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q192965",
+      "player": "Juan Román Riquelme",
+      "details": {
+        "overlap": {
+          "start": 2003,
+          "end": 2005,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 2002,
+            "end": 2005
+          },
+          {
+            "id": "Q12297",
+            "name": "Villarreal Club de Fútbol",
+            "start": 2003,
+            "end": 2007
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q151034",
+      "player": "Kevin-Prince Boateng",
+      "details": {
+        "overlap": {
+          "start": 2013,
+          "end": 2015,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 2010,
+            "end": 2016
+          },
+          {
+            "id": "Q32494",
+            "name": "FC Schalke 04",
+            "start": 2013,
+            "end": 2015
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q134976",
+      "player": "Lukas Podolski",
+      "details": {
+        "overlap": {
+          "start": 2006,
+          "end": 2009,
+          "fullYears": 3
+        },
+        "periods": [
+          {
+            "id": "Q104770",
+            "name": "F. C. Colonia",
+            "start": 2003,
+            "end": 2012
+          },
+          {
+            "id": "Q15789",
+            "name": "F. C. Bayern Múnich",
+            "start": 2006,
+            "end": 2009
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q129700",
+      "player": "Mario Balotelli",
+      "details": {
+        "overlap": {
+          "start": 2014,
+          "end": 2016,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 2013,
+            "end": 2016
+          },
+          {
+            "id": "Q1130849",
+            "name": "Liverpool Fútbol Club",
+            "start": 2014,
+            "end": 2016
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q45766",
+      "player": "Mario Gómez",
+      "details": {
+        "overlap": {
+          "start": 2013,
+          "end": 2015,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q4512",
+            "name": "VfB Stuttgart",
+            "start": 2003,
+            "end": 2020
+          },
+          {
+            "id": "Q2052",
+            "name": "ACF Fiorentina",
+            "start": 2013,
+            "end": 2015
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q104454",
+      "player": "Mario Götze",
+      "details": {
+        "overlap": {
+          "start": 2013,
+          "end": 2016,
+          "fullYears": 3
+        },
+        "periods": [
+          {
+            "id": "Q41420",
+            "name": "Borussia Dortmund",
+            "start": 2009,
+            "end": 2020
+          },
+          {
+            "id": "Q15789",
+            "name": "F. C. Bayern Múnich",
+            "start": 2013,
+            "end": 2016
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "possible-youth-or-reserve-relation",
+      "severity": "high",
+      "playerId": "Q185572",
+      "player": "Mikel Arteta",
+      "relation": {
+        "clubId": "Q7156",
+        "club": "F. C. Barcelona",
+        "start": 1997,
+        "end": 1999
+      },
+      "details": {
+        "birthYear": 1982,
+        "age": 15
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q1939",
+      "player": "Nicolas Anelka",
+      "details": {
+        "overlap": {
+          "start": 1997,
+          "end": 1999,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q483020",
+            "name": "Paris Saint-Germain FC",
+            "start": 1996,
+            "end": 2002
+          },
+          {
+            "id": "Q9617",
+            "name": "Arsenal Fútbol Club",
+            "start": 1997,
+            "end": 1999
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q163666",
+      "player": "Pepe Reina",
+      "details": {
+        "overlap": {
+          "start": 2018,
+          "end": 2020,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q12297",
+            "name": "Villarreal Club de Fútbol",
+            "start": 2002,
+            "end": 2024
+          },
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 2018,
+            "end": 2020
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q163666",
+      "player": "Pepe Reina",
+      "details": {
+        "overlap": {
+          "start": 2020,
+          "end": 2022,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q12297",
+            "name": "Villarreal Club de Fútbol",
+            "start": 2002,
+            "end": 2024
+          },
+          {
+            "id": "Q2609",
+            "name": "Società Sportiva Lazio",
+            "start": 2020,
+            "end": 2022
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q43682",
+      "player": "Philipp Lahm",
+      "details": {
+        "overlap": {
+          "start": 2003,
+          "end": 2005,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q15789",
+            "name": "F. C. Bayern Múnich",
+            "start": 2002,
+            "end": 2017
+          },
+          {
+            "id": "Q4512",
+            "name": "VfB Stuttgart",
+            "start": 2003,
+            "end": 2005
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q163974",
+      "player": "Rafael van der Vaart",
+      "details": {
+        "overlap": {
+          "start": 2008,
+          "end": 2010,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q51974",
+            "name": "Hamburgo S.V.",
+            "start": 2005,
+            "end": 2015
+          },
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2008,
+            "end": 2010
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q163974",
+      "player": "Rafael van der Vaart",
+      "details": {
+        "overlap": {
+          "start": 2010,
+          "end": 2012,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q51974",
+            "name": "Hamburgo S.V.",
+            "start": 2005,
+            "end": 2015
+          },
+          {
+            "id": "Q18741",
+            "name": "Tottenham Hotspur Football Club",
+            "start": 2010,
+            "end": 2012
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q313316",
+      "player": "Romelu Lukaku",
+      "details": {
+        "overlap": {
+          "start": 2017,
+          "end": 2019,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2011,
+            "end": 2024
+          },
+          {
+            "id": "Q18656",
+            "name": "Manchester United Football Club",
+            "start": 2017,
+            "end": 2019
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q483309",
+      "player": "Sergio Ramos",
+      "details": {
+        "overlap": {
+          "start": 2021,
+          "end": 2023,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q10329",
+            "name": "Sevilla Fútbol Club",
+            "start": 2004,
+            "end": 2024
+          },
+          {
+            "id": "Q483020",
+            "name": "Paris Saint-Germain FC",
+            "start": 2021,
+            "end": 2023
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q154708",
+      "player": "Shinji Kagawa",
+      "details": {
+        "overlap": {
+          "start": 2012,
+          "end": 2014,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q41420",
+            "name": "Borussia Dortmund",
+            "start": 2010,
+            "end": 2019
+          },
+          {
+            "id": "Q18656",
+            "name": "Manchester United Football Club",
+            "start": 2012,
+            "end": 2014
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q11557367",
+      "player": "Takuma Asano",
+      "details": {
+        "overlap": {
+          "start": 2016,
+          "end": 2018,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q9617",
+            "name": "Arsenal Fútbol Club",
+            "start": 2016,
+            "end": 2019
+          },
+          {
+            "id": "Q4512",
+            "name": "VfB Stuttgart",
+            "start": 2016,
+            "end": 2018
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q73360",
+      "player": "Thibaut Courtois",
+      "details": {
+        "overlap": {
+          "start": 2011,
+          "end": 2014,
+          "fullYears": 3
+        },
+        "periods": [
+          {
+            "id": "Q8701",
+            "name": "Atlético de Madrid",
+            "start": 2011,
+            "end": 2014
+          },
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2011,
+            "end": 2018
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q45901",
+      "player": "Thierry Henry",
+      "details": {
+        "overlap": {
+          "start": 2007,
+          "end": 2010,
+          "fullYears": 3
+        },
+        "periods": [
+          {
+            "id": "Q9617",
+            "name": "Arsenal Fútbol Club",
+            "start": 1999,
+            "end": 2012
+          },
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 2007,
+            "end": 2010
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q3529022",
+      "player": "Timo Werner",
+      "details": {
+        "overlap": {
+          "start": 2020,
+          "end": 2022,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q702455",
+            "name": "RB Leipzig",
+            "start": 2016,
+            "end": 2026
+          },
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2020,
+            "end": 2022
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q188997",
+      "player": "Wojciech Szczęsny",
+      "details": {
+        "overlap": {
+          "start": 2015,
+          "end": 2017,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q9617",
+            "name": "Arsenal Fútbol Club",
+            "start": 2006,
+            "end": 2017
+          },
+          {
+            "id": "Q2739",
+            "name": "A.S. Roma",
+            "start": 2015,
+            "end": 2017
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "high",
+      "playerId": "Q46896",
+      "player": "Zlatan Ibrahimović",
+      "details": {
+        "overlap": {
+          "start": 2016,
+          "end": 2018,
+          "fullYears": 2
+        },
+        "periods": [
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 2010,
+            "end": 2023
+          },
+          {
+            "id": "Q18656",
+            "name": "Manchester United Football Club",
+            "start": 2016,
+            "end": 2018
+          }
+        ],
+        "note": "Posible fusión de dos etapas o fechas incorrectas; revisar cesiones."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q213427",
+      "player": "Aaron Ramsey",
+      "details": {
+        "overlap": {
+          "start": 2010,
+          "end": 2011,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q9617",
+            "name": "Arsenal Fútbol Club",
+            "start": 2008,
+            "end": 2019
+          },
+          {
+            "id": "Q19490",
+            "name": "Nottingham Forest Football Club",
+            "start": 2010,
+            "end": 2011
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q180553",
+      "player": "Alexis Sánchez",
+      "details": {
+        "overlap": {
+          "start": 2019,
+          "end": 2020,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q18656",
+            "name": "Manchester United Football Club",
+            "start": 2018,
+            "end": 2020
+          },
+          {
+            "id": "Q631",
+            "name": "Inter de Milán",
+            "start": 2019,
+            "end": 2024
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q180553",
+      "player": "Alexis Sánchez",
+      "details": {
+        "overlap": {
+          "start": 2022,
+          "end": 2023,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q631",
+            "name": "Inter de Milán",
+            "start": 2019,
+            "end": 2024
+          },
+          {
+            "id": "Q132885",
+            "name": "Olympique de Marsella",
+            "start": 2022,
+            "end": 2023
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "long-open-club-needs-current-status-check",
+      "severity": "medium",
+      "playerId": "Q18237361",
+      "player": "Alisson Becker",
+      "relation": {
+        "clubId": "Q1130849",
+        "club": "Liverpool Fútbol Club",
+        "start": 2018,
+        "end": null
+      },
+      "details": {
+        "yearsOpen": 8
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q250901",
+      "player": "Álvaro Arbeloa",
+      "details": {
+        "overlap": {
+          "start": 2006,
+          "end": 2007,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2004,
+            "end": 2016
+          },
+          {
+            "id": "Q8760",
+            "name": "Real Club Deportivo de La Coruña",
+            "start": 2006,
+            "end": 2007
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q48770",
+      "player": "Álvaro Morata",
+      "details": {
+        "overlap": {
+          "start": 2025,
+          "end": 2026,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 2024,
+            "end": 2026
+          },
+          {
+            "id": "Q1120838",
+            "name": "Calcio Como 1907",
+            "start": 2025,
+            "end": 2026
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q58377",
+      "player": "André Schürrle",
+      "details": {
+        "overlap": {
+          "start": 2018,
+          "end": 2019,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q41420",
+            "name": "Borussia Dortmund",
+            "start": 2016,
+            "end": 2020
+          },
+          {
+            "id": "Q18708",
+            "name": "Fulham Football Club",
+            "start": 2018,
+            "end": 2019
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "open-club-followed-by-later-club",
+      "severity": "medium",
+      "playerId": "Q66743376",
+      "player": "Ansu Fati",
+      "details": {
+        "openClub": {
+          "id": "Q7156",
+          "name": "F. C. Barcelona",
+          "start": 2019
+        },
+        "laterClubs": [
+          {
+            "id": "Q19453",
+            "name": "Brighton & Hove Albion Football Club",
+            "start": 2023,
+            "end": 2024
+          },
+          {
+            "id": "Q180305",
+            "name": "A.S. Monaco F.C.",
+            "start": 2025,
+            "end": 2026
+          }
+        ]
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q66743376",
+      "player": "Ansu Fati",
+      "details": {
+        "overlap": {
+          "start": 2023,
+          "end": 2024,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 2019,
+            "end": null
+          },
+          {
+            "id": "Q19453",
+            "name": "Brighton & Hove Albion Football Club",
+            "start": 2023,
+            "end": 2024
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q66743376",
+      "player": "Ansu Fati",
+      "details": {
+        "overlap": {
+          "start": 2025,
+          "end": 2026,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 2019,
+            "end": null
+          },
+          {
+            "id": "Q180305",
+            "name": "A.S. Monaco F.C.",
+            "start": 2025,
+            "end": 2026
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q96755",
+      "player": "Antonio Rüdiger",
+      "details": {
+        "overlap": {
+          "start": 2015,
+          "end": 2016,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q4512",
+            "name": "VfB Stuttgart",
+            "start": 2012,
+            "end": 2016
+          },
+          {
+            "id": "Q2739",
+            "name": "A.S. Roma",
+            "start": 2015,
+            "end": 2017
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q133556",
+      "player": "Ashley Cole",
+      "details": {
+        "overlap": {
+          "start": 1999,
+          "end": 2000,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q9617",
+            "name": "Arsenal Fútbol Club",
+            "start": 1998,
+            "end": 2006
+          },
+          {
+            "id": "Q19467",
+            "name": "Crystal Palace Football Club",
+            "start": 1999,
+            "end": 2000
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q10602",
+      "player": "Ashley Young",
+      "details": {
+        "overlap": {
+          "start": 2020,
+          "end": 2021,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q18711",
+            "name": "Aston Villa Football Club",
+            "start": 2007,
+            "end": 2023
+          },
+          {
+            "id": "Q631",
+            "name": "Inter de Milán",
+            "start": 2020,
+            "end": 2021
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "long-open-club-needs-current-status-check",
+      "severity": "medium",
+      "playerId": "Q310607",
+      "player": "Atsuto Uchida",
+      "relation": {
+        "clubId": "Q141971",
+        "club": "F. C. Unión Berlín",
+        "start": 2017,
+        "end": null
+      },
+      "details": {
+        "yearsOpen": 9
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q152897",
+      "player": "Benedikt Höwedes",
+      "details": {
+        "overlap": {
+          "start": 2017,
+          "end": 2018,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q32494",
+            "name": "FC Schalke 04",
+            "start": 2007,
+            "end": 2018
+          },
+          {
+            "id": "Q1422",
+            "name": "Juventus",
+            "start": 2017,
+            "end": 2018
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "open-club-followed-by-later-club",
+      "severity": "medium",
+      "playerId": "Q19599124",
+      "player": "Benjamin Pavard",
+      "details": {
+        "openClub": {
+          "id": "Q631",
+          "name": "Inter de Milán",
+          "start": 2023
+        },
+        "laterClubs": [
+          {
+            "id": "Q132885",
+            "name": "Olympique de Marsella",
+            "start": 2025,
+            "end": 2026
+          }
+        ]
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q19599124",
+      "player": "Benjamin Pavard",
+      "details": {
+        "overlap": {
+          "start": 2025,
+          "end": 2026,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q631",
+            "name": "Inter de Milán",
+            "start": 2023,
+            "end": null
+          },
+          {
+            "id": "Q132885",
+            "name": "Olympique de Marsella",
+            "start": 2025,
+            "end": 2026
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "open-club-followed-by-later-club",
+      "severity": "medium",
+      "playerId": "Q179172",
+      "player": "Bojan Krkić",
+      "details": {
+        "openClub": {
+          "id": "Q105254",
+          "name": "1. FSV Mainz 05",
+          "start": null
+        },
+        "laterClubs": [
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 2007,
+            "end": 2014
+          },
+          {
+            "id": "Q2739",
+            "name": "A.S. Roma",
+            "start": 2011,
+            "end": 2013
+          },
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 2012,
+            "end": 2013
+          },
+          {
+            "id": "Q223620",
+            "name": "Deportivo Alavés",
+            "start": 2017,
+            "end": 2018
+          }
+        ]
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q179172",
+      "player": "Bojan Krkić",
+      "details": {
+        "overlap": {
+          "start": 2012,
+          "end": 2013,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 2007,
+            "end": 2014
+          },
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 2012,
+            "end": 2013
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q179172",
+      "player": "Bojan Krkić",
+      "details": {
+        "overlap": {
+          "start": 2012,
+          "end": 2013,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q2739",
+            "name": "A.S. Roma",
+            "start": 2011,
+            "end": 2013
+          },
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 2012,
+            "end": 2013
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "long-open-club-needs-current-status-check",
+      "severity": "medium",
+      "playerId": "Q59306386",
+      "player": "Bukayo Saka",
+      "relation": {
+        "clubId": "Q9617",
+        "club": "Arsenal Fútbol Club",
+        "start": 2018,
+        "end": null
+      },
+      "details": {
+        "yearsOpen": 8
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q29491",
+      "player": "Christopher Smalling",
+      "details": {
+        "overlap": {
+          "start": 2019,
+          "end": 2020,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q18656",
+            "name": "Manchester United Football Club",
+            "start": 2010,
+            "end": 2020
+          },
+          {
+            "id": "Q2739",
+            "name": "A.S. Roma",
+            "start": 2019,
+            "end": 2024
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q458101",
+      "player": "Ciro Immobile",
+      "details": {
+        "overlap": {
+          "start": 2014,
+          "end": 2015,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q2768",
+            "name": "Torino Football Club",
+            "start": 2013,
+            "end": 2016
+          },
+          {
+            "id": "Q41420",
+            "name": "Borussia Dortmund",
+            "start": 2014,
+            "end": 2015
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q458101",
+      "player": "Ciro Immobile",
+      "details": {
+        "overlap": {
+          "start": 2015,
+          "end": 2016,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q2768",
+            "name": "Torino Football Club",
+            "start": 2013,
+            "end": 2016
+          },
+          {
+            "id": "Q10329",
+            "name": "Sevilla Fútbol Club",
+            "start": 2015,
+            "end": 2016
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q484909",
+      "player": "Clarence Seedorf",
+      "details": {
+        "overlap": {
+          "start": 2002,
+          "end": 2003,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q631",
+            "name": "Inter de Milán",
+            "start": 2000,
+            "end": 2003
+          },
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 2002,
+            "end": 2011
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q172720",
+      "player": "Daniel Alves",
+      "details": {
+        "overlap": {
+          "start": 2016,
+          "end": 2017,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 2008,
+            "end": 2022
+          },
+          {
+            "id": "Q1422",
+            "name": "Juventus",
+            "start": 2016,
+            "end": 2017
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q188457",
+      "player": "Danny Welbeck",
+      "details": {
+        "overlap": {
+          "start": 2010,
+          "end": 2011,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q18656",
+            "name": "Manchester United Football Club",
+            "start": 2008,
+            "end": 2014
+          },
+          {
+            "id": "Q18739",
+            "name": "Sunderland Association Football Club",
+            "start": 2010,
+            "end": 2011
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q161069",
+      "player": "David Silva",
+      "details": {
+        "overlap": {
+          "start": 2005,
+          "end": 2006,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q10333",
+            "name": "Valencia Club de Fútbol",
+            "start": 2004,
+            "end": 2010
+          },
+          {
+            "id": "Q8749",
+            "name": "Real Club Celta de Vigo",
+            "start": 2005,
+            "end": 2006
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q246417",
+      "player": "Denís Chéryshev",
+      "details": {
+        "overlap": {
+          "start": 2013,
+          "end": 2014,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2013,
+            "end": 2016
+          },
+          {
+            "id": "Q10329",
+            "name": "Sevilla Fútbol Club",
+            "start": 2013,
+            "end": 2014
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q459707",
+      "player": "Diego Costa",
+      "details": {
+        "overlap": {
+          "start": 2007,
+          "end": 2008,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q8701",
+            "name": "Atlético de Madrid",
+            "start": 2007,
+            "end": 2020
+          },
+          {
+            "id": "Q8749",
+            "name": "Real Club Celta de Vigo",
+            "start": 2007,
+            "end": 2008
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q4254043",
+      "player": "Divock Origi",
+      "details": {
+        "overlap": {
+          "start": 2014,
+          "end": 2015,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q19516",
+            "name": "Lille Olympique Sporting Club",
+            "start": 2010,
+            "end": 2015
+          },
+          {
+            "id": "Q1130849",
+            "name": "Liverpool Fútbol Club",
+            "start": 2014,
+            "end": 2022
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q4254043",
+      "player": "Divock Origi",
+      "details": {
+        "overlap": {
+          "start": 2023,
+          "end": 2024,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 2022,
+            "end": 2025
+          },
+          {
+            "id": "Q19490",
+            "name": "Nottingham Forest Football Club",
+            "start": 2023,
+            "end": 2024
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q153786",
+      "player": "Edin Džeko",
+      "details": {
+        "overlap": {
+          "start": 2015,
+          "end": 2016,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q50602",
+            "name": "Manchester City Football Club",
+            "start": 2011,
+            "end": 2016
+          },
+          {
+            "id": "Q2739",
+            "name": "A.S. Roma",
+            "start": 2015,
+            "end": 2021
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q3275904",
+      "player": "Emiliano Martínez",
+      "details": {
+        "overlap": {
+          "start": 2017,
+          "end": 2018,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q9617",
+            "name": "Arsenal Fútbol Club",
+            "start": 2010,
+            "end": 2020
+          },
+          {
+            "id": "Q8806",
+            "name": "Getafe Club de Fútbol",
+            "start": 2017,
+            "end": 2018
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q386876",
+      "player": "Emmanuel Adebayor",
+      "details": {
+        "overlap": {
+          "start": 2010,
+          "end": 2011,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q50602",
+            "name": "Manchester City Football Club",
+            "start": 2009,
+            "end": 2012
+          },
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2010,
+            "end": 2011
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q386876",
+      "player": "Emmanuel Adebayor",
+      "details": {
+        "overlap": {
+          "start": 2011,
+          "end": 2012,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q50602",
+            "name": "Manchester City Football Club",
+            "start": 2009,
+            "end": 2012
+          },
+          {
+            "id": "Q18741",
+            "name": "Tottenham Hotspur Football Club",
+            "start": 2011,
+            "end": 2015
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q484384",
+      "player": "Fábio Coentrão",
+      "details": {
+        "overlap": {
+          "start": 2015,
+          "end": 2016,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2011,
+            "end": 2018
+          },
+          {
+            "id": "Q180305",
+            "name": "A.S. Monaco F.C.",
+            "start": 2015,
+            "end": 2016
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "long-open-club-needs-current-status-check",
+      "severity": "medium",
+      "playerId": "Q19509544",
+      "player": "Federico Valverde",
+      "relation": {
+        "clubId": "Q8682",
+        "club": "Real Madrid Club de Fútbol",
+        "start": 2018,
+        "end": null
+      },
+      "details": {
+        "yearsOpen": 8
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q42731",
+      "player": "Fernando Torres",
+      "details": {
+        "overlap": {
+          "start": 2014,
+          "end": 2015,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2011,
+            "end": 2015
+          },
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 2014,
+            "end": 2016
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q68060",
+      "player": "Gianluigi Buffon",
+      "details": {
+        "overlap": {
+          "start": 2018,
+          "end": 2019,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q2693",
+            "name": "Parma Calcio 1913",
+            "start": 1995,
+            "end": 2023
+          },
+          {
+            "id": "Q483020",
+            "name": "Paris Saint-Germain FC",
+            "start": 2018,
+            "end": 2019
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q68060",
+      "player": "Gianluigi Buffon",
+      "details": {
+        "overlap": {
+          "start": 2018,
+          "end": 2019,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q1422",
+            "name": "Juventus",
+            "start": 2001,
+            "end": 2021
+          },
+          {
+            "id": "Q483020",
+            "name": "Paris Saint-Germain FC",
+            "start": 2018,
+            "end": 2019
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q80306",
+      "player": "Giorgio Chiellini",
+      "details": {
+        "overlap": {
+          "start": 2004,
+          "end": 2005,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q2052",
+            "name": "ACF Fiorentina",
+            "start": 2004,
+            "end": 2005
+          },
+          {
+            "id": "Q1422",
+            "name": "Juventus",
+            "start": 2004,
+            "end": 2022
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q173360",
+      "player": "Giovanni van Bronckhorst",
+      "details": {
+        "overlap": {
+          "start": 2003,
+          "end": 2004,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q9617",
+            "name": "Arsenal Fútbol Club",
+            "start": 2001,
+            "end": 2004
+          },
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 2003,
+            "end": 2007
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q483846",
+      "player": "Gonzalo Higuaín",
+      "details": {
+        "overlap": {
+          "start": 2018,
+          "end": 2019,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q1422",
+            "name": "Juventus",
+            "start": 2016,
+            "end": 2020
+          },
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 2018,
+            "end": 2019
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q196219",
+      "player": "Henrikh Mkhitaryan",
+      "details": {
+        "overlap": {
+          "start": 2019,
+          "end": 2020,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q9617",
+            "name": "Arsenal Fútbol Club",
+            "start": 2018,
+            "end": 2020
+          },
+          {
+            "id": "Q2739",
+            "name": "A.S. Roma",
+            "start": 2019,
+            "end": 2022
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q160206",
+      "player": "Hernán Crespo",
+      "details": {
+        "overlap": {
+          "start": 2004,
+          "end": 2005,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q2693",
+            "name": "Parma Calcio 1913",
+            "start": 1996,
+            "end": 2012
+          },
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 2004,
+            "end": 2005
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q160206",
+      "player": "Hernán Crespo",
+      "details": {
+        "overlap": {
+          "start": 2009,
+          "end": 2010,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q2693",
+            "name": "Parma Calcio 1913",
+            "start": 1996,
+            "end": 2012
+          },
+          {
+            "id": "Q2074",
+            "name": "Genoa Cricket & Football Club",
+            "start": 2009,
+            "end": 2010
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q160206",
+      "player": "Hernán Crespo",
+      "details": {
+        "overlap": {
+          "start": 2004,
+          "end": 2005,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q631",
+            "name": "Inter de Milán",
+            "start": 2002,
+            "end": 2009
+          },
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 2004,
+            "end": 2005
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q160206",
+      "player": "Hernán Crespo",
+      "details": {
+        "overlap": {
+          "start": 2004,
+          "end": 2005,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2003,
+            "end": 2008
+          },
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 2004,
+            "end": 2005
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q187125",
+      "player": "Hristo Stoichkov",
+      "details": {
+        "overlap": {
+          "start": 1995,
+          "end": 1996,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 1990,
+            "end": 1998
+          },
+          {
+            "id": "Q2693",
+            "name": "Parma Calcio 1913",
+            "start": 1995,
+            "end": 1996
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q165014",
+      "player": "Ibrahim Afellay",
+      "details": {
+        "overlap": {
+          "start": 2012,
+          "end": 2013,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 2011,
+            "end": 2015
+          },
+          {
+            "id": "Q32494",
+            "name": "FC Schalke 04",
+            "start": 2012,
+            "end": 2013
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q161089",
+      "player": "İlkay Gündoğan",
+      "details": {
+        "overlap": {
+          "start": 2023,
+          "end": 2024,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q50602",
+            "name": "Manchester City Football Club",
+            "start": 2016,
+            "end": 2025
+          },
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 2023,
+            "end": 2024
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q161054",
+      "player": "Ivan Perišić",
+      "details": {
+        "overlap": {
+          "start": 2019,
+          "end": 2020,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q631",
+            "name": "Inter de Milán",
+            "start": 2015,
+            "end": 2022
+          },
+          {
+            "id": "Q15789",
+            "name": "F. C. Bayern Múnich",
+            "start": 2019,
+            "end": 2020
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q30148558",
+      "player": "Jadon Sancho",
+      "details": {
+        "overlap": {
+          "start": 2024,
+          "end": 2025,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q18656",
+            "name": "Manchester United Football Club",
+            "start": 2021,
+            "end": 2026
+          },
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2024,
+            "end": 2025
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q30148558",
+      "player": "Jadon Sancho",
+      "details": {
+        "overlap": {
+          "start": 2025,
+          "end": 2026,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q18656",
+            "name": "Manchester United Football Club",
+            "start": 2021,
+            "end": 2026
+          },
+          {
+            "id": "Q18711",
+            "name": "Aston Villa Football Club",
+            "start": 2025,
+            "end": 2026
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q151025",
+      "player": "Jakub Błaszczykowski",
+      "details": {
+        "overlap": {
+          "start": 2015,
+          "end": 2016,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q41420",
+            "name": "Borussia Dortmund",
+            "start": 2007,
+            "end": 2016
+          },
+          {
+            "id": "Q2052",
+            "name": "ACF Fiorentina",
+            "start": 2015,
+            "end": 2016
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q187184",
+      "player": "Joe Hart",
+      "details": {
+        "overlap": {
+          "start": 2016,
+          "end": 2017,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q50602",
+            "name": "Manchester City Football Club",
+            "start": 2006,
+            "end": 2018
+          },
+          {
+            "id": "Q2768",
+            "name": "Torino Football Club",
+            "start": 2016,
+            "end": 2017
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "long-open-club-needs-current-status-check",
+      "severity": "medium",
+      "playerId": "Q13014035",
+      "player": "Jordan Pickford",
+      "relation": {
+        "clubId": "Q5794",
+        "club": "Everton F.C.",
+        "start": 2017,
+        "end": null
+      },
+      "details": {
+        "yearsOpen": 9
+      }
+    },
+    {
+      "code": "long-open-club-needs-current-status-check",
+      "severity": "medium",
+      "playerId": "Q13865408",
+      "player": "Joshua Kimmich",
+      "relation": {
+        "clubId": "Q15789",
+        "club": "F. C. Bayern Múnich",
+        "start": 2015,
+        "end": null
+      },
+      "details": {
+        "yearsOpen": 11
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q3195361",
+      "player": "Kepa Arrizabalaga",
+      "details": {
+        "overlap": {
+          "start": 2023,
+          "end": 2024,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2018,
+            "end": 2025
+          },
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2023,
+            "end": 2024
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q3195361",
+      "player": "Kepa Arrizabalaga",
+      "details": {
+        "overlap": {
+          "start": 2024,
+          "end": 2025,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2018,
+            "end": 2025
+          },
+          {
+            "id": "Q19568",
+            "name": "AFC Bournemouth",
+            "start": 2024,
+            "end": 2025
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q357984",
+      "player": "Kevin De Bruyne",
+      "details": {
+        "overlap": {
+          "start": 2012,
+          "end": 2013,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2012,
+            "end": 2014
+          },
+          {
+            "id": "Q51976",
+            "name": "Werder Bremen",
+            "start": 2012,
+            "end": 2013
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "long-open-club-needs-current-status-check",
+      "severity": "medium",
+      "playerId": "Q276091",
+      "player": "Koke Resurrección",
+      "relation": {
+        "clubId": "Q8701",
+        "club": "Atlético de Madrid",
+        "start": 2009,
+        "end": null
+      },
+      "details": {
+        "yearsOpen": 17
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q21621995",
+      "player": "Kylian Mbappé",
+      "details": {
+        "overlap": {
+          "start": 2017,
+          "end": 2018,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q180305",
+            "name": "A.S. Monaco F.C.",
+            "start": 2015,
+            "end": 2018
+          },
+          {
+            "id": "Q483020",
+            "name": "Paris Saint-Germain FC",
+            "start": 2017,
+            "end": 2024
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "many-nationalities",
+      "severity": "medium",
+      "playerId": "Q113704154",
+      "player": "Lamine Yamal",
+      "details": {
+        "nationalities": [
+          "España",
+          "Guinea Ecuatorial",
+          "Marruecos"
+        ]
+      }
+    },
+    {
+      "code": "long-open-club-needs-current-status-check",
+      "severity": "medium",
+      "playerId": "Q21484126",
+      "player": "Lautaro Martínez",
+      "relation": {
+        "clubId": "Q631",
+        "club": "Inter de Milán",
+        "start": 2018,
+        "end": null
+      },
+      "details": {
+        "yearsOpen": 8
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q208050",
+      "player": "Leonardo Bonucci",
+      "details": {
+        "overlap": {
+          "start": 2017,
+          "end": 2018,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q1422",
+            "name": "Juventus",
+            "start": 2010,
+            "end": 2023
+          },
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 2017,
+            "end": 2018
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "many-nationalities",
+      "severity": "medium",
+      "playerId": "Q615",
+      "player": "Lionel Messi",
+      "details": {
+        "nationalities": [
+          "Argentina",
+          "España",
+          "Italia"
+        ]
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q5981954",
+      "player": "Lucas Vázquez",
+      "details": {
+        "overlap": {
+          "start": 2014,
+          "end": 2015,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2007,
+            "end": 2025
+          },
+          {
+            "id": "Q8780",
+            "name": "Real Club Deportivo Espanyol de Barcelona",
+            "start": 2014,
+            "end": 2015
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q482947",
+      "player": "Luís Carlos Almeida da Cunha",
+      "details": {
+        "overlap": {
+          "start": 2017,
+          "end": 2018,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q10333",
+            "name": "Valencia Club de Fútbol",
+            "start": 2016,
+            "end": 2018
+          },
+          {
+            "id": "Q2609",
+            "name": "Società Sportiva Lazio",
+            "start": 2017,
+            "end": 2018
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "long-open-club-needs-current-status-check",
+      "severity": "medium",
+      "playerId": "Q93563",
+      "player": "Luke Shaw",
+      "relation": {
+        "clubId": "Q18656",
+        "club": "Manchester United Football Club",
+        "start": 2014,
+        "end": null
+      },
+      "details": {
+        "yearsOpen": 12
+      }
+    },
+    {
+      "code": "long-open-club-needs-current-status-check",
+      "severity": "medium",
+      "playerId": "Q164676",
+      "player": "Makoto Hasebe",
+      "relation": {
+        "clubId": "Q38245",
+        "club": "Eintracht Frankfurt",
+        "start": 2014,
+        "end": null
+      },
+      "details": {
+        "yearsOpen": 12
+      }
+    },
+    {
+      "code": "long-open-club-needs-current-status-check",
+      "severity": "medium",
+      "playerId": "Q107365",
+      "player": "Manuel Neuer",
+      "relation": {
+        "clubId": "Q15789",
+        "club": "F. C. Bayern Múnich",
+        "start": 2011,
+        "end": null
+      },
+      "details": {
+        "yearsOpen": 15
+      }
+    },
+    {
+      "code": "long-open-club-needs-current-status-check",
+      "severity": "medium",
+      "playerId": "Q160472",
+      "player": "Marc-André ter Stegen",
+      "relation": {
+        "clubId": "Q7156",
+        "club": "F. C. Barcelona",
+        "start": 2014,
+        "end": null
+      },
+      "details": {
+        "yearsOpen": 12
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q16148978",
+      "player": "Marco Asensio",
+      "details": {
+        "overlap": {
+          "start": 2015,
+          "end": 2016,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2014,
+            "end": 2023
+          },
+          {
+            "id": "Q8780",
+            "name": "Real Club Deportivo Espanyol de Barcelona",
+            "start": 2015,
+            "end": 2016
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "open-club-followed-by-later-club",
+      "severity": "medium",
+      "playerId": "Q22951255",
+      "player": "Marcus Rashford",
+      "details": {
+        "openClub": {
+          "id": "Q18656",
+          "name": "Manchester United Football Club",
+          "start": 2015
+        },
+        "laterClubs": [
+          {
+            "id": "Q18711",
+            "name": "Aston Villa Football Club",
+            "start": 2025,
+            "end": 2025
+          },
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 2025,
+            "end": 2026
+          }
+        ]
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q22951255",
+      "player": "Marcus Rashford",
+      "details": {
+        "overlap": {
+          "start": 2025,
+          "end": 2026,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q18656",
+            "name": "Manchester United Football Club",
+            "start": 2015,
+            "end": null
+          },
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 2025,
+            "end": 2026
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q16902219",
+      "player": "Martin Ødegaard",
+      "details": {
+        "overlap": {
+          "start": 2019,
+          "end": 2020,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2015,
+            "end": 2021
+          },
+          {
+            "id": "Q10315",
+            "name": "Real Sociedad de Fútbol",
+            "start": 2019,
+            "end": 2020
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q701297",
+      "player": "Mateo Kovačić",
+      "details": {
+        "overlap": {
+          "start": 2018,
+          "end": 2019,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2015,
+            "end": 2019
+          },
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2018,
+            "end": 2023
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q136986",
+      "player": "Mauro Icardi",
+      "details": {
+        "overlap": {
+          "start": 2019,
+          "end": 2020,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q631",
+            "name": "Inter de Milán",
+            "start": 2013,
+            "end": 2020
+          },
+          {
+            "id": "Q483020",
+            "name": "Paris Saint-Germain FC",
+            "start": 2019,
+            "end": 2023
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q83488",
+      "player": "Mesut Özil",
+      "details": {
+        "overlap": {
+          "start": 2009,
+          "end": 2010,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q51976",
+            "name": "Werder Bremen",
+            "start": 2008,
+            "end": 2010
+          },
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2009,
+            "end": 2013
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q969520",
+      "player": "Michael Essien",
+      "details": {
+        "overlap": {
+          "start": 2012,
+          "end": 2013,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2005,
+            "end": 2014
+          },
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 2012,
+            "end": 2013
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q167240",
+      "player": "Nicklas Bendtner",
+      "details": {
+        "overlap": {
+          "start": 2011,
+          "end": 2012,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q9617",
+            "name": "Arsenal Fútbol Club",
+            "start": 2005,
+            "end": 2014
+          },
+          {
+            "id": "Q18739",
+            "name": "Sunderland Association Football Club",
+            "start": 2011,
+            "end": 2012
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q167240",
+      "player": "Nicklas Bendtner",
+      "details": {
+        "overlap": {
+          "start": 2012,
+          "end": 2013,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q9617",
+            "name": "Arsenal Fútbol Club",
+            "start": 2005,
+            "end": 2014
+          },
+          {
+            "id": "Q1422",
+            "name": "Juventus",
+            "start": 2012,
+            "end": 2013
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q1939",
+      "player": "Nicolas Anelka",
+      "details": {
+        "overlap": {
+          "start": 1999,
+          "end": 2000,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q483020",
+            "name": "Paris Saint-Germain FC",
+            "start": 1996,
+            "end": 2002
+          },
+          {
+            "id": "Q8682",
+            "name": "Real Madrid Club de Fútbol",
+            "start": 1999,
+            "end": 2000
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q163666",
+      "player": "Pepe Reina",
+      "details": {
+        "overlap": {
+          "start": 2014,
+          "end": 2015,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q12297",
+            "name": "Villarreal Club de Fútbol",
+            "start": 2002,
+            "end": 2024
+          },
+          {
+            "id": "Q15789",
+            "name": "F. C. Bayern Múnich",
+            "start": 2014,
+            "end": 2015
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q163666",
+      "player": "Pepe Reina",
+      "details": {
+        "overlap": {
+          "start": 2013,
+          "end": 2014,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q1130849",
+            "name": "Liverpool Fútbol Club",
+            "start": 2005,
+            "end": 2014
+          },
+          {
+            "id": "Q2641",
+            "name": "Società Sportiva Calcio Napoli",
+            "start": 2013,
+            "end": 2018
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q163666",
+      "player": "Pepe Reina",
+      "details": {
+        "overlap": {
+          "start": 2014,
+          "end": 2015,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q2641",
+            "name": "Società Sportiva Calcio Napoli",
+            "start": 2013,
+            "end": 2018
+          },
+          {
+            "id": "Q15789",
+            "name": "F. C. Bayern Múnich",
+            "start": 2014,
+            "end": 2015
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "long-open-club-needs-current-status-check",
+      "severity": "medium",
+      "playerId": "Q30729096",
+      "player": "Phil Foden",
+      "relation": {
+        "clubId": "Q50602",
+        "club": "Manchester City Football Club",
+        "start": 2016,
+        "end": null
+      },
+      "details": {
+        "yearsOpen": 10
+      }
+    },
+    {
+      "code": "many-nationalities",
+      "severity": "medium",
+      "playerId": "Q311872",
+      "player": "Philippe Coutinho",
+      "details": {
+        "nationalities": [
+          "Brasil",
+          "España",
+          "Portugal"
+        ]
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q311872",
+      "player": "Philippe Coutinho",
+      "details": {
+        "overlap": {
+          "start": 2019,
+          "end": 2020,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 2018,
+            "end": 2022
+          },
+          {
+            "id": "Q15789",
+            "name": "F. C. Bayern Múnich",
+            "start": 2019,
+            "end": 2020
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "many-nationalities",
+      "severity": "medium",
+      "playerId": "Q44977",
+      "player": "Pierre-Emerick Aubameyang",
+      "details": {
+        "nationalities": [
+          "España",
+          "Francia",
+          "Gabón"
+        ]
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q44977",
+      "player": "Pierre-Emerick Aubameyang",
+      "details": {
+        "overlap": {
+          "start": 2009,
+          "end": 2010,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 2007,
+            "end": 2011
+          },
+          {
+            "id": "Q19516",
+            "name": "Lille Olympique Sporting Club",
+            "start": 2009,
+            "end": 2010
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q44977",
+      "player": "Pierre-Emerick Aubameyang",
+      "details": {
+        "overlap": {
+          "start": 2010,
+          "end": 2011,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q1543",
+            "name": "A.C. Milan",
+            "start": 2007,
+            "end": 2011
+          },
+          {
+            "id": "Q180305",
+            "name": "A.S. Monaco F.C.",
+            "start": 2010,
+            "end": 2011
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q138172",
+      "player": "Radamel Falcao García",
+      "details": {
+        "overlap": {
+          "start": 2014,
+          "end": 2015,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q180305",
+            "name": "A.S. Monaco F.C.",
+            "start": 2013,
+            "end": 2019
+          },
+          {
+            "id": "Q18656",
+            "name": "Manchester United Football Club",
+            "start": 2014,
+            "end": 2015
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q138172",
+      "player": "Radamel Falcao García",
+      "details": {
+        "overlap": {
+          "start": 2015,
+          "end": 2016,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q180305",
+            "name": "A.S. Monaco F.C.",
+            "start": 2013,
+            "end": 2019
+          },
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2015,
+            "end": 2016
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q312157",
+      "player": "Raheem Sterling",
+      "details": {
+        "overlap": {
+          "start": 2024,
+          "end": 2025,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2022,
+            "end": 2026
+          },
+          {
+            "id": "Q9617",
+            "name": "Arsenal Fútbol Club",
+            "start": 2024,
+            "end": 2025
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q4599",
+      "player": "Raúl Albiol",
+      "details": {
+        "overlap": {
+          "start": 2004,
+          "end": 2005,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q8806",
+            "name": "Getafe Club de Fútbol",
+            "start": 2004,
+            "end": 2005
+          },
+          {
+            "id": "Q10333",
+            "name": "Valencia Club de Fútbol",
+            "start": 2004,
+            "end": 2009
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q184612",
+      "player": "Robbie Keane",
+      "details": {
+        "overlap": {
+          "start": 2008,
+          "end": 2009,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q18741",
+            "name": "Tottenham Hotspur Football Club",
+            "start": 2002,
+            "end": 2011
+          },
+          {
+            "id": "Q1130849",
+            "name": "Liverpool Fútbol Club",
+            "start": 2008,
+            "end": 2009
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q313316",
+      "player": "Romelu Lukaku",
+      "details": {
+        "overlap": {
+          "start": 2023,
+          "end": 2024,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q9616",
+            "name": "Chelsea F. C.",
+            "start": 2011,
+            "end": 2024
+          },
+          {
+            "id": "Q2739",
+            "name": "A.S. Roma",
+            "start": 2023,
+            "end": 2024
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q1920",
+      "player": "Samir Nasri",
+      "details": {
+        "overlap": {
+          "start": 2016,
+          "end": 2017,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q50602",
+            "name": "Manchester City Football Club",
+            "start": 2011,
+            "end": 2017
+          },
+          {
+            "id": "Q10329",
+            "name": "Sevilla Fútbol Club",
+            "start": 2016,
+            "end": 2017
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q13308",
+      "player": "Samuel Umtiti",
+      "details": {
+        "overlap": {
+          "start": 2022,
+          "end": 2023,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 2016,
+            "end": 2023
+          },
+          {
+            "id": "Q13391",
+            "name": "U.S. Lecce",
+            "start": 2022,
+            "end": 2023
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q185225",
+      "player": "Santi Cazorla",
+      "details": {
+        "overlap": {
+          "start": 2011,
+          "end": 2012,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q12297",
+            "name": "Villarreal Club de Fútbol",
+            "start": 2003,
+            "end": 2020
+          },
+          {
+            "id": "Q8857",
+            "name": "Málaga Club de Fútbol",
+            "start": 2011,
+            "end": 2012
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q184177",
+      "player": "Thomas Vermaelen",
+      "details": {
+        "overlap": {
+          "start": 2016,
+          "end": 2017,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q7156",
+            "name": "F. C. Barcelona",
+            "start": 2014,
+            "end": 2019
+          },
+          {
+            "id": "Q2739",
+            "name": "A.S. Roma",
+            "start": 2016,
+            "end": 2017
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q3529022",
+      "player": "Timo Werner",
+      "details": {
+        "overlap": {
+          "start": 2024,
+          "end": 2025,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q702455",
+            "name": "RB Leipzig",
+            "start": 2016,
+            "end": 2026
+          },
+          {
+            "id": "Q18741",
+            "name": "Tottenham Hotspur Football Club",
+            "start": 2024,
+            "end": 2025
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q131234",
+      "player": "Toni Kroos",
+      "details": {
+        "overlap": {
+          "start": 2009,
+          "end": 2010,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q15789",
+            "name": "F. C. Bayern Múnich",
+            "start": 2007,
+            "end": 2014
+          },
+          {
+            "id": "Q104761",
+            "name": "Bayer 04 Leverkusen",
+            "start": 2009,
+            "end": 2010
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    },
+    {
+      "code": "long-open-club-needs-current-status-check",
+      "severity": "medium",
+      "playerId": "Q28973866",
+      "player": "Vinícius Júnior",
+      "relation": {
+        "clubId": "Q8682",
+        "club": "Real Madrid Club de Fútbol",
+        "start": 2018,
+        "end": null
+      },
+      "details": {
+        "yearsOpen": 8
+      }
+    },
+    {
+      "code": "long-open-club-needs-current-status-check",
+      "severity": "medium",
+      "playerId": "Q133903",
+      "player": "Virgil van Dijk",
+      "relation": {
+        "clubId": "Q1130849",
+        "club": "Liverpool Fútbol Club",
+        "start": 2018,
+        "end": null
+      },
+      "details": {
+        "yearsOpen": 8
+      }
+    },
+    {
+      "code": "overlapping-club-periods",
+      "severity": "medium",
+      "playerId": "Q188997",
+      "player": "Wojciech Szczęsny",
+      "details": {
+        "overlap": {
+          "start": 2009,
+          "end": 2010,
+          "fullYears": 1
+        },
+        "periods": [
+          {
+            "id": "Q9617",
+            "name": "Arsenal Fútbol Club",
+            "start": 2006,
+            "end": 2017
+          },
+          {
+            "id": "Q19571",
+            "name": "Brentford Football Club",
+            "start": 2009,
+            "end": 2010
+          }
+        ],
+        "note": "Puede ser una cesión o efecto de precisión anual."
+      }
+    }
+  ],
+  "cleanPlayers": [
+    {
+      "id": "Q142794",
+      "name": "Neymar"
+    },
+    {
+      "id": "Q1835",
+      "name": "Zinedine Zidane"
+    },
+    {
+      "id": "Q10520",
+      "name": "David Beckham"
+    },
+    {
+      "id": "Q20110",
+      "name": "Francesco Totti"
+    },
+    {
+      "id": "Q529207",
+      "name": "Ronaldo"
+    },
+    {
+      "id": "Q26517",
+      "name": "Luis Suárez"
+    },
+    {
+      "id": "Q39444",
+      "name": "Ronaldinho"
+    },
+    {
+      "id": "Q483837",
+      "name": "Luka Modrić"
+    },
+    {
+      "id": "Q1912",
+      "name": "Karim Benzema"
+    },
+    {
+      "id": "Q43729",
+      "name": "Andrés Iniesta"
+    },
+    {
+      "id": "Q151269",
+      "name": "Robert Lewandowski"
+    },
+    {
+      "id": "Q1354960",
+      "name": "Mohamed Salah"
+    },
+    {
+      "id": "Q80471",
+      "name": "Miroslav Klose"
+    },
+    {
+      "id": "Q11584",
+      "name": "Iker Casillas"
+    },
+    {
+      "id": "Q28967995",
+      "name": "Erling Haaland"
+    },
+    {
+      "id": "Q2339",
+      "name": "Robin van Persie"
+    },
+    {
+      "id": "Q459830",
+      "name": "Steven Gerrard"
+    },
+    {
+      "id": "Q17500",
+      "name": "Xavi Hernández"
+    },
+    {
+      "id": "Q969725",
+      "name": "Harry Kane"
+    },
+    {
+      "id": "Q164038",
+      "name": "Pep Guardiola"
+    },
+    {
+      "id": "Q173139",
+      "name": "George Weah"
+    },
+    {
+      "id": "Q43666",
+      "name": "Thomas Müller"
+    },
+    {
+      "id": "Q43913",
+      "name": "Arjen Robben"
+    },
+    {
+      "id": "Q214204",
+      "name": "Eden Hazard"
+    },
+    {
+      "id": "Q48892",
+      "name": "Didier Drogba"
+    },
+    {
+      "id": "Q67964",
+      "name": "Roberto Baggio"
+    },
+    {
+      "id": "Q209942",
+      "name": "Sadio Mané"
+    },
+    {
+      "id": "Q1255625",
+      "name": "Samuel Eto'o"
+    },
+    {
+      "id": "Q119562",
+      "name": "Sergio Agüero"
+    },
+    {
+      "id": "Q1918",
+      "name": "Franck Ribéry"
+    },
+    {
+      "id": "Q1911",
+      "name": "Oliver Giroud"
+    },
+    {
+      "id": "Q261534",
+      "name": "Diego Forlán"
+    },
+    {
+      "id": "Q624",
+      "name": "Alessandro Del Piero"
+    },
+    {
+      "id": "Q20851003",
+      "name": "Ousmane Dembélé"
+    },
+    {
+      "id": "Q10524",
+      "name": "Ryan Giggs"
+    },
+    {
+      "id": "Q208104",
+      "name": "Xabi Alonso"
+    },
+    {
+      "id": "Q43926",
+      "name": "Andrea Pirlo"
+    },
+    {
+      "id": "Q251683",
+      "name": "Ángel Di María"
+    },
+    {
+      "id": "Q83006",
+      "name": "David Villa"
+    },
+    {
+      "id": "Q83106",
+      "name": "Jürgen Klopp"
+    },
+    {
+      "id": "Q167790",
+      "name": "Edinson Cavani"
+    },
+    {
+      "id": "Q1907",
+      "name": "Hugo Lloris"
+    },
+    {
+      "id": "Q429039",
+      "name": "Roberto Carlos"
+    },
+    {
+      "id": "Q11576",
+      "name": "Raúl González Blanco"
+    },
+    {
+      "id": "Q131261",
+      "name": "Oliver Kahn"
+    },
+    {
+      "id": "Q150268",
+      "name": "David de Gea"
+    },
+    {
+      "id": "Q170328",
+      "name": "Éric Cantona"
+    },
+    {
+      "id": "Q187159",
+      "name": "Jorge Alba"
+    },
+    {
+      "id": "Q483145",
+      "name": "Luís Figo"
+    },
+    {
+      "id": "Q38136",
+      "name": "Marcelo Vieira"
+    },
+    {
+      "id": "Q178649",
+      "name": "Romário"
+    },
+    {
+      "id": "Q128829",
+      "name": "Michael Owen"
+    },
+    {
+      "id": "Q166317",
+      "name": "Paulo Dybala"
+    },
+    {
+      "id": "Q483577",
+      "name": "Rivaldo"
+    },
+    {
+      "id": "Q616664",
+      "name": "Casemiro"
+    },
+    {
+      "id": "Q508711",
+      "name": "Didier Deschamps"
+    },
+    {
+      "id": "Q151260",
+      "name": "Jérôme Boateng"
+    },
+    {
+      "id": "Q8338725",
+      "name": "Riyad Mahrez"
+    },
+    {
+      "id": "Q185389",
+      "name": "Dennis Bergkamp"
+    },
+    {
+      "id": "Q482955",
+      "name": "Edwin van der Sar"
+    },
+    {
+      "id": "Q273715",
+      "name": "Jordan Henderson"
+    },
+    {
+      "id": "Q152377",
+      "name": "Marco Reus"
+    },
+    {
+      "id": "Q58441",
+      "name": "Robinho"
+    },
+    {
+      "id": "Q439722",
+      "name": "Son Heung-min"
+    },
+    {
+      "id": "Q124086",
+      "name": "Wesley Sneijder"
+    },
+    {
+      "id": "Q44298",
+      "name": "Bastian Schweinsteiger"
+    },
+    {
+      "id": "Q50600",
+      "name": "Carlos Tévez"
+    },
+    {
+      "id": "Q66241169",
+      "name": "Jude Bellingham"
+    },
+    {
+      "id": "Q16665941",
+      "name": "N'Golo Kanté"
+    },
+    {
+      "id": "Q54094",
+      "name": "Sami Khedira"
+    },
+    {
+      "id": "Q483583",
+      "name": "Alan Shearer"
+    },
+    {
+      "id": "Q187171",
+      "name": "Mario Mandžukić"
+    },
+    {
+      "id": "Q483137",
+      "name": "Petr Čech"
+    },
+    {
+      "id": "Q45626",
+      "name": "Ruud van Nistelrooij"
+    },
+    {
+      "id": "Q184277",
+      "name": "Yaya Touré"
+    },
+    {
+      "id": "Q192671",
+      "name": "Arturo Vidal"
+    },
+    {
+      "id": "Q161571",
+      "name": "Javier Mascherano"
+    },
+    {
+      "id": "Q168740",
+      "name": "Juan Mata"
+    },
+    {
+      "id": "Q202054",
+      "name": "Keisuke Honda"
+    },
+    {
+      "id": "Q180326",
+      "name": "Lilian Thuram"
+    },
+    {
+      "id": "Q483417",
+      "name": "Rio Ferdinand"
+    },
+    {
+      "id": "Q47548",
+      "name": "Víctor Valdés"
+    },
+    {
+      "id": "Q45613",
+      "name": "Paul Scholes"
+    },
+    {
+      "id": "Q20994118",
+      "name": "Rodri Hernández"
+    },
+    {
+      "id": "Q128725",
+      "name": "Hidetoshi Nakata"
+    },
+    {
+      "id": "Q969423",
+      "name": "Keylor Navas"
+    },
+    {
+      "id": "Q602525",
+      "name": "Roberto Firmino"
+    },
+    {
+      "id": "Q47230",
+      "name": "Andréi Arshavin"
+    },
+    {
+      "id": "Q487459",
+      "name": "Arda Turan"
+    },
+    {
+      "id": "Q19518278",
+      "name": "Diogo Jota"
+    },
+    {
+      "id": "Q52876",
+      "name": "Javier Zanetti"
+    },
+    {
+      "id": "Q46347",
+      "name": "Patrick Vieira"
+    },
+    {
+      "id": "Q252190",
+      "name": "Xherdan Shaqiri"
+    },
+    {
+      "id": "Q127452",
+      "name": "Daniel Carvajal"
+    },
+    {
+      "id": "Q659634",
+      "name": "Deco"
+    },
+    {
+      "id": "Q26069",
+      "name": "Klaas-Jan Huntelaar"
+    },
+    {
+      "id": "Q294951",
+      "name": "Christian Eriksen"
+    },
+    {
+      "id": "Q183967",
+      "name": "David Trezeguet"
+    },
+    {
+      "id": "Q170376",
+      "name": "Gabriel Batistuta"
+    },
+    {
+      "id": "Q165125",
+      "name": "Javier Hernández Balcázar"
+    },
+    {
+      "id": "Q1894",
+      "name": "Memphis Depay"
+    },
+    {
+      "id": "Q1916",
+      "name": "Patrice Evra"
+    },
+    {
+      "id": "Q31981",
+      "name": "David Alaba"
+    },
+    {
+      "id": "Q126503",
+      "name": "Filippo Inzaghi"
+    },
+    {
+      "id": "Q222789",
+      "name": "Luis Enrique Martínez García"
+    },
+    {
+      "id": "Q29566",
+      "name": "Michael Carrick"
+    },
+    {
+      "id": "Q50603",
+      "name": "Park Ji-Sung"
+    },
+    {
+      "id": "Q310612",
+      "name": "Shinji Okazaki"
+    },
+    {
+      "id": "Q4979316",
+      "name": "Bruno Fernandes"
+    },
+    {
+      "id": "Q166984",
+      "name": "John Obi Mikel"
+    },
+    {
+      "id": "Q315697",
+      "name": "Julian Draxler"
+    },
+    {
+      "id": "Q70550",
+      "name": "Per Mertesacker"
+    },
+    {
+      "id": "Q776878",
+      "name": "Takumi Minamino"
+    },
+    {
+      "id": "Q29516",
+      "name": "Theo Walcott"
+    },
+    {
+      "id": "Q281734",
+      "name": "Yūto Nagatomo"
+    },
+    {
+      "id": "Q294214",
+      "name": "Dirk Kuijt"
+    },
+    {
+      "id": "Q108111889",
+      "name": "Gavi"
+    },
+    {
+      "id": "Q189892",
+      "name": "Gheorghe Hagi"
+    },
+    {
+      "id": "Q80892",
+      "name": "Isco Alarcón"
+    },
+    {
+      "id": "Q27310755",
+      "name": "Kai Havertz"
+    },
+    {
+      "id": "Q18976",
+      "name": "Ole Gunnar Solskjær"
+    },
+    {
+      "id": "Q61886",
+      "name": "Takashi Inui"
+    },
+    {
+      "id": "Q10526787",
+      "name": "Wataru Endo"
+    },
+    {
+      "id": "Q181921",
+      "name": "Branislav Ivanović"
+    },
+    {
+      "id": "Q178683",
+      "name": "Cafú"
+    },
+    {
+      "id": "Q189217",
+      "name": "Davor Šuker"
+    },
+    {
+      "id": "Q10553748",
+      "name": "Dele Alli"
+    },
+    {
+      "id": "Q44297797",
+      "name": "Ferran Torres"
+    },
+    {
+      "id": "Q348857",
+      "name": "Gary Neville"
+    },
+    {
+      "id": "Q116980",
+      "name": "Gennaro Gattuso"
+    },
+    {
+      "id": "Q172211",
+      "name": "Jamie Carragher"
+    },
+    {
+      "id": "Q61780902",
+      "name": "Khvicha Kvaratskhelia"
+    },
+    {
+      "id": "Q174486",
+      "name": "Luis Antonio Valencia"
+    },
+    {
+      "id": "Q201825",
+      "name": "Marek Hamšík"
+    },
+    {
+      "id": "Q503137",
+      "name": "Nacho Fernández Iglesias"
+    },
+    {
+      "id": "Q171295",
+      "name": "Pavel Nedvěd"
+    },
+    {
+      "id": "Q188241",
+      "name": "Ricardo Quaresma"
+    },
+    {
+      "id": "Q17493",
+      "name": "Thiago Alcántara"
+    },
+    {
+      "id": "Q187238",
+      "name": "Tim Cahill"
+    },
+    {
+      "id": "Q195620",
+      "name": "Yuya Osako"
+    },
+    {
+      "id": "Q26580",
+      "name": "Antonio Conte"
+    },
+    {
+      "id": "Q108159340",
+      "name": "Arda Güler"
+    },
+    {
+      "id": "Q1938",
+      "name": "Bacary Sagna"
+    },
+    {
+      "id": "Q10560",
+      "name": "Fredrik Ljungberg"
+    },
+    {
+      "id": "Q20830808",
+      "name": "Gianluigi Donnarumma"
+    },
+    {
+      "id": "Q182459",
+      "name": "Júlio César Soares Espíndola"
+    },
+    {
+      "id": "Q295797",
+      "name": "Kasper Schmeichel"
+    },
+    {
+      "id": "Q46741",
+      "name": "Leonardo Nascimento de Araujo"
+    },
+    {
+      "id": "Q215463",
+      "name": "Sergio Romero"
+    },
+    {
+      "id": "Q27569376",
+      "name": "Trent Alexander-Arnold"
+    },
+    {
+      "id": "Q201866",
+      "name": "Aleksandr Kerzhakov"
+    },
+    {
+      "id": "Q15521306",
+      "name": "Bernardo Silva"
+    },
+    {
+      "id": "Q99760796",
+      "name": "Cole Palmer"
+    },
+    {
+      "id": "Q168497",
+      "name": "Daniele De Rossi"
+    },
+    {
+      "id": "Q30007142",
+      "name": "Declan Rice"
+    },
+    {
+      "id": "Q310610",
+      "name": "Eiji Kawashima"
+    },
+    {
+      "id": "Q459356",
+      "name": "Fernando Luiz Rosa"
+    },
+    {
+      "id": "Q312772",
+      "name": "Fred"
+    },
+    {
+      "id": "Q733494",
+      "name": "Hiroshi Kiyotake"
+    },
+    {
+      "id": "Q331953",
+      "name": "Kazuyoshi Miura"
+    },
+    {
+      "id": "Q59108",
+      "name": "Kyle Walker"
+    },
+    {
+      "id": "Q187989",
+      "name": "Leighton Baines"
+    },
+    {
+      "id": "Q206641",
+      "name": "Phil Jones"
+    },
+    {
+      "id": "Q188632",
+      "name": "Roy Keane"
+    },
+    {
+      "id": "Q73480",
+      "name": "Willian Huazanga da Silva"
+    },
+    {
+      "id": "Q222746",
+      "name": "Asamoah Gyan"
+    },
+    {
+      "id": "Q151838",
+      "name": "Axel Witsel"
+    },
+    {
+      "id": "Q57148",
+      "name": "Cacau"
+    },
+    {
+      "id": "Q313161",
+      "name": "Claudio Bravo"
+    },
+    {
+      "id": "Q76089",
+      "name": "Diego Milito"
+    },
+    {
+      "id": "Q170235",
+      "name": "Dimitar Berbatov"
+    },
+    {
+      "id": "Q2011456",
+      "name": "Gaku Shibasaki"
+    },
+    {
+      "id": "Q558820",
+      "name": "Gōtoku Sakai"
+    },
+    {
+      "id": "Q59381180",
+      "name": "Julián Alvarez"
+    },
+    {
+      "id": "Q275169",
+      "name": "Marouane Fellaini"
+    },
+    {
+      "id": "Q190929",
+      "name": "Maxi Rodríguez"
+    },
+    {
+      "id": "Q182063",
+      "name": "Nicolás Otamendi"
+    },
+    {
+      "id": "Q19497",
+      "name": "Oscar"
+    },
+    {
+      "id": "Q15401668",
+      "name": "Yoshinori Mutō"
+    },
+    {
+      "id": "Q18962",
+      "name": "Adrien Rabiot"
+    },
+    {
+      "id": "Q227892",
+      "name": "Alessandro Nesta"
+    },
+    {
+      "id": "Q138075",
+      "name": "Alexandre Pato"
+    },
+    {
+      "id": "Q179995",
+      "name": "Claudio Marchisio"
+    },
+    {
+      "id": "Q28801927",
+      "name": "Cody Gakpo"
+    },
+    {
+      "id": "Q184269",
+      "name": "Darijo Srna"
+    },
+    {
+      "id": "Q376247",
+      "name": "Dimitri Payet"
+    },
+    {
+      "id": "Q215522",
+      "name": "El Arrebato"
+    },
+    {
+      "id": "Q27694",
+      "name": "Emre Can"
+    },
+    {
+      "id": "Q514427",
+      "name": "Granit Xhaka"
+    },
+    {
+      "id": "Q327456",
+      "name": "Hakim Ziyech"
+    },
+    {
+      "id": "Q558887",
+      "name": "Hiroki Sakai"
+    },
+    {
+      "id": "Q27049064",
+      "name": "João Félix"
+    },
+    {
+      "id": "Q2025900",
+      "name": "John Stones"
+    },
+    {
+      "id": "Q147589",
+      "name": "Kolo Touré"
+    },
+    {
+      "id": "Q20806743",
+      "name": "Richarlison"
+    },
+    {
+      "id": "Q367474",
+      "name": "Takashi Usami"
+    },
+    {
+      "id": "Q191885",
+      "name": "Thiago Motta"
+    },
+    {
+      "id": "Q29162",
+      "name": "Tomáš Rosický"
+    },
+    {
+      "id": "Q84086",
+      "name": "Aleksandar Mitrović"
+    },
+    {
+      "id": "Q1921",
+      "name": "Blase Matuidi"
+    },
+    {
+      "id": "Q257548",
+      "name": "Dragan Stojković"
+    },
+    {
+      "id": "Q19898898",
+      "name": "Frenkie de Jong"
+    },
+    {
+      "id": "Q5530861",
+      "name": "Gen Shoji"
+    },
+    {
+      "id": "Q96072055",
+      "name": "Jamal Musiala"
+    },
+    {
+      "id": "Q1756086",
+      "name": "Lorenzo Insigne"
+    },
+    {
+      "id": "Q185081",
+      "name": "Marco Materazzi"
+    },
+    {
+      "id": "Q337623",
+      "name": "Marco Verratti"
+    },
+    {
+      "id": "Q151853",
+      "name": "Mark van Bommel"
+    },
+    {
+      "id": "Q62050484",
+      "name": "Michael Olise"
+    },
+    {
+      "id": "Q179773",
+      "name": "Pedro Rodríguez Ledesma"
+    },
+    {
+      "id": "Q30055335",
+      "name": "Rafael Leão"
+    },
+    {
+      "id": "Q42728914",
+      "name": "Rodrygo Goes"
+    },
+    {
+      "id": "Q294980",
+      "name": "Rui Patrício"
+    },
+    {
+      "id": "Q191138",
+      "name": "Shunsuke Nakamura"
+    },
+    {
+      "id": "Q25253293",
+      "name": "Victor Osimhen"
+    }
+  ]
+}
+
