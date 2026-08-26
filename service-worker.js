@@ -1,7 +1,7 @@
-const CACHE = "pizarra-v15";
+const CACHE = "pizarra-v16";
 const ASSETS = [
-  "./", "./index.html", "./styles.css?v=15", "./core.js?v=15", "./app.js?v=15",
-  "./data/players.js?v=15", "./data/enrichment.js?v=15", "./data/verified.js?v=15", "./manifest.webmanifest", "./icon.svg"
+  "./", "./index.html", "./styles.css?v=16", "./core.js?v=16", "./app.js?v=16",
+  "./data/players.js?v=16", "./data/enrichment.js?v=16", "./data/verified.js?v=16", "./manifest.webmanifest", "./icon.svg"
 ];
 
 self.addEventListener("install", event => {
