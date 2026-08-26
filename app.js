@@ -20,6 +20,7 @@
     timed: { label: "Contrarreloj", description: "Completa la cuadrícula antes de que se agoten 3:00" },
     flawless: { label: "Sin errores", description: "Un único fallo termina la partida" }
   };
+  const IDENTITY_PROFILE_VERSION = 12;
   let gridTimer = null;
 
   function escapeHtml(value) {
@@ -260,7 +261,7 @@
     if (state.identity) return;
     const player = core.selectDaily(players, `identity:${today}`, candidate => candidate.sitelinks >= 45 && candidate.clubs.length >= 2 && isIdentityEligible(candidate));
     const saved = safeParse(localStorage.getItem(gameKey("identity-state")), {});
-    const hasNewState = Array.isArray(saved.guesses);
+    const hasNewState = saved.profileVersion === IDENTITY_PROFILE_VERSION && saved.targetId === player.id && Array.isArray(saved.guesses);
     state.identity = { player, guesses: hasNewState ? saved.guesses : [], complete: hasNewState && Boolean(saved.complete), lost: hasNewState && Boolean(saved.lost) };
   }
 
@@ -435,7 +436,7 @@
     } else {
       showToast("Comparación añadida.");
     }
-    localStorage.setItem(gameKey("identity-state"), JSON.stringify({ guesses: game.guesses, complete: game.complete, lost: game.lost }));
+    localStorage.setItem(gameKey("identity-state"), JSON.stringify({ profileVersion: IDENTITY_PROFILE_VERSION, targetId: game.player.id, guesses: game.guesses, complete: game.complete, lost: game.lost }));
     state.selected.identity = null;
     render();
   }
@@ -503,6 +504,6 @@
     return;
   }
   render();
-  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./service-worker.js?v=11").catch(() => {});
+  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./service-worker.js?v=12").catch(() => {});
 })();
 
