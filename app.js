@@ -6,7 +6,7 @@
   const app = document.getElementById("app");
   const toast = document.getElementById("toast");
   const players = data?.players ?? [];
-  const verifiedPlayers = window.PIZARRA_VERIFIED ?? {};
+  const verifiedPlayers = { ...(window.PIZARRA_ENRICHMENT ?? {}), ...(window.PIZARRA_VERIFIED ?? {}) };
   const playerById = new Map(players.map(player => [player.id, player]));
   const today = core.dateKey();
   const TODAY_LABEL = new Intl.DateTimeFormat("es-ES", { weekday: "long", day: "numeric", month: "long" }).format(new Date());
@@ -49,6 +49,10 @@
   function birthYear(player) { return core.birthYear(player); }
   function primaryClub(player) { return verifiedPlayers[player.id]?.club || [...player.clubs].sort((a, b) => (b.start || 0) - (a.start || 0))[0]; }
   function shirtNumber(player) { return verifiedPlayers[player.id]?.shirtNumber ?? player.shirtNumber ?? null; }
+  function isIdentityEligible(player) {
+    const profile = verifiedPlayers[player.id];
+    return Boolean(profile?.club && Number.isInteger(profile.shirtNumber) && player.positions.length && player.nationalities.length && birthYear(player));
+  }
 
   function nav() {
     const items = [
@@ -96,7 +100,7 @@
       <div class="game-list">
         ${gameCard("grid", "01", "Cuadrícula 3×3", "Una condición por encabezado, nueve respuestas y ningún jugador repetido.")}
         ${gameCard("trajectory", "02", "Trayectoria", "Adivina al jugador siguiendo sus clubes en las cinco grandes ligas.")}
-        ${gameCard("identity", "03", "Quién soy", "Una identidad oculta y seis pistas que se revelan una a una.")}
+        ${gameCard("identity", "03", "Quién soy", "Ocho intentos para comparar nacionalidad, liga, equipo, posición, edad y dorsal.")}
         ${gameCard("duel", "04", "Mayor o menor", "Compara carreras y encadena tantos aciertos como puedas.", true)}
       </div>
     </section>`;
@@ -254,7 +258,7 @@
 
   function initIdentity() {
     if (state.identity) return;
-    const player = core.selectDaily(players, `identity:${today}`, candidate => candidate.sitelinks >= 45 && candidate.clubs.length >= 2 && candidate.positions.length);
+    const player = core.selectDaily(players, `identity:${today}`, candidate => candidate.sitelinks >= 45 && candidate.clubs.length >= 2 && isIdentityEligible(candidate));
     const saved = safeParse(localStorage.getItem(gameKey("identity-state")), {});
     const hasNewState = Array.isArray(saved.guesses);
     state.identity = { player, guesses: hasNewState ? saved.guesses : [], complete: hasNewState && Boolean(saved.complete), lost: hasNewState && Boolean(saved.lost) };
@@ -360,7 +364,7 @@
     const query = core.normalize(input.value);
     state.selected[context] = null;
     if (query.length < 2) { container.hidden = true; return; }
-    const matches = players.filter(player => core.normalize(player.name).includes(query))
+    const matches = players.filter(player => core.normalize(player.name).includes(query) && (context !== "identity" || isIdentityEligible(player)))
       .sort((a, b) => Number(core.normalize(b.name).startsWith(query)) - Number(core.normalize(a.name).startsWith(query)) || b.sitelinks - a.sitelinks).slice(0, 7);
     container.innerHTML = matches.map(player => `<button class="suggestion" data-select-player="${player.id}" data-context="${context}"><span><b>${escapeHtml(player.name)}</b></span><span>›</span></button>`).join("");
     container.hidden = !matches.length;
@@ -499,6 +503,6 @@
     return;
   }
   render();
-  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./service-worker.js?v=9").catch(() => {});
+  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./service-worker.js?v=10").catch(() => {});
 })();
 
