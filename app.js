@@ -11,17 +11,18 @@
   const today = core.dateKey();
   const TODAY_LABEL = new Intl.DateTimeFormat("es-ES", { weekday: "long", day: "numeric", month: "long" }).format(new Date());
   const state = {
-    view: "home", selected: {}, grid: null, gridMode: "daily", trajectory: null, identity: null,
-    duel: { streak: 0, best: Number(localStorage.getItem("pizarra-duel-best")) || 0 }
+    view: "home", selected: {}, grid: null, gridMode: "daily",
+    trajectory: null, trajectoryMode: "daily", identity: null, identityMode: "daily",
+    duel: null, duelMode: "daily", duelBest: Number(localStorage.getItem("pizarra-duel-best")) || 0
   };
-  const GRID_MODES = {
-    daily: { label: "Diario", description: "La misma cuadrícula para todos · se renueva a las 00:00" },
-    infinite: { label: "Infinito", description: "Una nueva cuadrícula cada vez que quieras" },
-    timed: { label: "Contrarreloj", description: "Completa la cuadrícula antes de que se agoten 3:00" },
+  const GAME_MODES = {
+    daily: { label: "Diario", description: "La misma prueba para todos · se renueva a las 00:00" },
+    infinite: { label: "Infinito", description: "Juega tantas partidas como quieras" },
+    timed: { label: "Contrarreloj", description: "Tres segundos de preparación y 3:00 para completar la prueba" },
     flawless: { label: "Sin errores", description: "Un único fallo termina la partida" }
   };
   const IDENTITY_PROFILE_VERSION = 12;
-  let gridTimer = null;
+  let gameTimer = null;
 
   function escapeHtml(value) {
     return String(value ?? "").replace(/[&<>'"]/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[char]);
@@ -84,37 +85,46 @@
     app.innerHTML = `<div class="shell">${topbar()}${content}</div>${nav()}`;
     bindSearchInputs();
     if (state.view === "grid" && state.grid) ensureGridTimer(state.grid);
+    else if (["trajectory", "identity", "duel"].includes(state.view) && state[state.view]) ensureChallengeTimer(state.view, state[state.view]);
     requestAnimationFrame(() => document.querySelector("[data-autofocus]")?.focus());
   }
 
   function renderHome() {
-    const done = ["grid", "trajectory", "identity"].filter(isDone).length;
+    const done = ["grid", "trajectory", "identity", "duel"].filter(isDone).length;
     return `<section class="hero">
       <div class="eyebrow">${escapeHtml(TODAY_LABEL)} · edición diaria</div>
       <h1>Cuatro formas de leer el fútbol.</h1>
       <p class="lead">Cruza carreras, sigue trayectorias y mide tu intuición con una selección histórica actualizada de las cinco grandes ligas.</p>
       <p class="help general-note">Las trayectorias y los hechos del juego se contabilizan desde 1990.</p>
       <div class="score-strip two-stat">
-        <div class="score-stat"><strong>${done}/3</strong><small>diarios</small></div>
-        <div class="score-stat"><strong>${state.duel.best}</strong><small>mejor racha</small></div>
+        <div class="score-stat"><strong>${done}/4</strong><small>diarios</small></div>
+        <div class="score-stat"><strong>${state.duelBest}</strong><small>mejor racha</small></div>
       </div>
       <div class="game-list">
         ${gameCard("grid", "01", "Cuadrícula 3×3", "Una condición por encabezado, nueve respuestas y ningún jugador repetido.")}
         ${gameCard("trajectory", "02", "Trayectoria", "Adivina al jugador siguiendo sus clubes en las cinco grandes ligas.")}
         ${gameCard("identity", "03", "Quién soy", "Ocho intentos para comparar nacionalidad, liga, equipo, posición, edad y dorsal.")}
-        ${gameCard("duel", "04", "Mayor o menor", "Compara carreras y encadena tantos aciertos como puedas.", true)}
+        ${gameCard("duel", "04", "Mayor o menor", "Compara carreras y encadena tantos aciertos como puedas.")}
       </div>
     </section>`;
   }
 
-  function gameCard(id, number, title, description, endless = false) {
-    const status = endless ? "Sin límite" : isDone(id) ? "Completado hoy" : "Nuevo hoy";
+  function gameCard(id, number, title, description) {
+    const status = isDone(id) ? "Completado hoy" : "Nuevo hoy";
     return `<button class="game-card" data-view="${id}" data-number="${number}"><span><span class="status">${status}</span><b>${title}</b><p>${description}</p></span></button>`;
   }
 
-  function clearGridTimer() {
-    if (gridTimer) clearInterval(gridTimer);
-    gridTimer = null;
+  function clearGameTimer() {
+    if (gameTimer) clearInterval(gameTimer);
+    gameTimer = null;
+  }
+
+  function modePicker(type, mode) {
+    return `<div class="mode-picker" aria-label="Modo de juego">${Object.entries(GAME_MODES).map(([id, option]) => `<button class="mode-option ${id === mode ? "active" : ""}" data-game="${type}" data-game-mode="${id}" ${id === mode ? "disabled" : ""}>${escapeHtml(option.label)}</button>`).join("")}</div>`;
+  }
+
+  function timedState(mode) {
+    return { preparing: mode === "timed", prepEndsAt: mode === "timed" ? Date.now() + 3000 : null, endsAt: null, lostReason: "" };
   }
 
   function gridSeed(mode) {
@@ -135,7 +145,7 @@
   }
 
   function resetGrid(mode = state.gridMode) {
-    clearGridTimer();
+    clearGameTimer();
     state.gridMode = mode;
     state.grid = null;
     state.selected.grid = null;
@@ -159,19 +169,19 @@
       game.active = null;
       game.lost = true;
       game.lostReason = "Se acabó el tiempo.";
-      clearGridTimer();
+      clearGameTimer();
       return true;
     }
     return false;
   }
 
   function ensureGridTimer(game) {
-    clearGridTimer();
+    clearGameTimer();
     if (game.mode !== "timed" || game.lost || game.answers.every(Boolean)) return;
-    gridTimer = setInterval(() => {
+    gameTimer = setInterval(() => {
       if (game.preparing) {
         const seconds = preparationSeconds(game);
-        const timer = document.querySelector("[data-grid-timer]");
+        const timer = document.querySelector("[data-game-timer]");
         if (seconds > 0) { if (timer) timer.textContent = `Prepárate · ${seconds}`; return; }
         game.preparing = false;
         game.endsAt = Date.now() + 180000;
@@ -179,9 +189,48 @@
         return;
       }
       if (expireTimedGrid(game)) { render(); return; }
-      const timer = document.querySelector("[data-grid-timer]");
+      const timer = document.querySelector("[data-game-timer]");
       if (timer) timer.textContent = formatTimer(remainingSeconds(game));
     }, 250);
+  }
+
+  function expireTimedChallenge(type, game) {
+    if (game.mode !== "timed" || game.preparing || game.complete || game.lost) return false;
+    if (remainingSeconds(game) > 0) return false;
+    game.lost = true;
+    game.lostReason = type === "duel" ? `Tiempo terminado: ${game.score || 0} aciertos.` : "Se acabó el tiempo.";
+    clearGameTimer();
+    return true;
+  }
+
+  function ensureChallengeTimer(type, game) {
+    clearGameTimer();
+    if (game.mode !== "timed" || game.complete || game.lost) return;
+    gameTimer = setInterval(() => {
+      if (game.preparing) {
+        const seconds = preparationSeconds(game);
+        const timer = document.querySelector("[data-game-timer]");
+        if (seconds > 0) { if (timer) timer.textContent = `Prepárate · ${seconds}`; return; }
+        game.preparing = false;
+        game.endsAt = Date.now() + 180000;
+        render();
+        return;
+      }
+      if (expireTimedChallenge(type, game)) { render(); return; }
+      const timer = document.querySelector("[data-game-timer]");
+      if (timer) timer.textContent = formatTimer(remainingSeconds(game));
+    }, 250);
+  }
+
+  function challengeSeed(type, mode) {
+    return mode === "daily" ? `${type}:${today}` : `${type}:${mode}:${Date.now()}:${Math.random()}`;
+  }
+
+  function resetChallenge(type, mode = state[`${type}Mode`]) {
+    clearGameTimer();
+    state[`${type}Mode`] = mode;
+    state[type] = null;
+    state.selected[type] = null;
   }
 
   function saveGrid() {
@@ -208,9 +257,9 @@
       }
     }
     return `<section>
-      <div class="game-header"><div class="eyebrow">${escapeHtml(GRID_MODES[game.mode].label)} · ${game.mode === "daily" ? today : "3×3"}</div><div class="game-header-line"><h2>Cuadrícula</h2><span class="badge">${game.mode === "timed" ? `<span data-grid-timer>${game.preparing ? `Prepárate · ${preparationSeconds(game)}` : formatTimer(remainingSeconds(game))}</span>` : `${game.answers.filter(Boolean).length}/9`}</span></div>
-      <p class="help">${escapeHtml(GRID_MODES[game.mode].description)}. Cruza una condición de la fila con una condición de la columna.</p></div>
-      <div class="mode-picker" aria-label="Modo de juego">${Object.entries(GRID_MODES).map(([id, mode]) => `<button class="mode-option ${id === game.mode ? "active" : ""}" data-grid-mode="${id}" ${id === game.mode ? "disabled" : ""}>${escapeHtml(mode.label)}</button>`).join("")}</div>
+      <div class="game-header"><div class="eyebrow">${escapeHtml(GAME_MODES[game.mode].label)} · ${game.mode === "daily" ? today : "3×3"}</div><div class="game-header-line"><h2>Cuadrícula</h2><span class="badge">${game.mode === "timed" ? `<span data-game-timer>${game.preparing ? `Prepárate · ${preparationSeconds(game)}` : formatTimer(remainingSeconds(game))}</span>` : `${game.answers.filter(Boolean).length}/9`}</span></div>
+      <p class="help">${escapeHtml(GAME_MODES[game.mode].description)}. Cruza una condición de la fila con una condición de la columna.</p></div>
+      ${modePicker("grid", game.mode)}
       <div class="score-strip two-stat"><div class="score-stat"><strong>${game.errors}</strong><small>fallos</small></div><div class="score-stat"><strong>${9 - game.answers.filter(Boolean).length}</strong><small>pendientes</small></div></div>
       <div class="grid-scroll"><div class="football-grid">${grid}</div></div>
       ${game.active !== null && !game.answers[game.active] && !game.lost ? renderGridEntry(game.active) : ""}
@@ -240,29 +289,33 @@
 
   function initTrajectory() {
     if (state.trajectory) return;
-    const player = core.selectDaily(players, `trajectory:${today}`, candidate => candidate.clubs.length >= 3 && candidate.positions.length && candidate.sitelinks >= 35);
-    const saved = safeParse(localStorage.getItem(gameKey("trajectory-state")), {});
-    state.trajectory = { player, attempts: saved.attempts || 0, complete: Boolean(saved.complete), lost: Boolean(saved.lost) };
+    const mode = state.trajectoryMode;
+    const player = core.selectDaily(players, challengeSeed("trajectory", mode), candidate => candidate.clubs.length >= 3 && candidate.positions.length && candidate.sitelinks >= 35);
+    const saved = mode === "daily" ? safeParse(localStorage.getItem(gameKey("trajectory-state")), {}) : {};
+    state.trajectory = { player, mode, attempts: saved.attempts || 0, complete: Boolean(saved.complete), lost: Boolean(saved.lost), ...timedState(mode) };
   }
 
   function renderTrajectory() {
     initTrajectory();
     const game = state.trajectory;
+    expireTimedChallenge("trajectory", game);
     const revealed = game.complete || game.lost ? game.player.clubs.length : Math.min(game.player.clubs.length, game.attempts + 1);
     return `<section>
-      <div class="game-header"><div class="eyebrow">Trayectoria diaria · ${today}</div><div class="game-header-line"><h2>¿Quién recorrió este camino?</h2><span class="badge">${Math.max(0, 5 - game.attempts)} intentos</span></div>
-      <p class="help">Solo mostramos su recorrido por los clubes incluidos en las cinco grandes ligas.</p></div>
+      <div class="game-header"><div class="eyebrow">${escapeHtml(GAME_MODES[game.mode].label)} · Trayectoria</div><div class="game-header-line"><h2>¿Quién recorrió este camino?</h2><span class="badge">${game.mode === "timed" ? `<span data-game-timer>${game.preparing ? `Prepárate · ${preparationSeconds(game)}` : formatTimer(remainingSeconds(game))}</span>` : `${Math.max(0, 5 - game.attempts)} intentos`}</span></div>
+      <p class="help">${escapeHtml(GAME_MODES[game.mode].description)}. Solo mostramos su recorrido por los clubes incluidos en las cinco grandes ligas.</p></div>
+      ${modePicker("trajectory", game.mode)}
       <div class="career">${game.player.clubs.map((club, index) => `<div class="career-row ${index < revealed ? "" : "hidden-club"}"><span class="year">${club.start || "—"}${club.end ? `–${club.end}` : ""}</span><span class="dot"></span><span><b>${index < revealed ? escapeHtml(club.name) : "Club oculto"}</b><small>${escapeHtml(core.LEAGUE_NAMES[club.league] || club.leagueName)}</small></span></div>`).join("")}</div>
-      ${!game.complete && !game.lost ? `<div class="panel">${game.attempts >= 2 ? `<p class="muted">Pista: ${escapeHtml(game.player.positions.join(" / "))}</p>` : ""}${searchBox("trajectory", "¿Qué jugador es?")}<div class="actions"><button class="btn btn-primary" data-action="submit-trajectory">Responder</button><button class="btn btn-secondary" data-action="reveal-trajectory">Revelar otro club</button></div></div>` : renderSimpleResult(game.complete, game.player, game.attempts)}
+      ${!game.complete && !game.lost && !game.preparing ? `<div class="panel">${game.attempts >= 2 ? `<p class="muted">Pista: ${escapeHtml(game.player.positions.join(" / "))}</p>` : ""}${searchBox("trajectory", "¿Qué jugador es?")}<div class="actions"><button class="btn btn-primary" data-action="submit-trajectory">Responder</button><button class="btn btn-secondary" data-action="reveal-trajectory">Revelar otro club</button></div></div>` : game.complete || game.lost ? renderSimpleResult(game.complete, game.player, game.attempts, "trajectory", game) : ""}
     </section>`;
   }
 
   function initIdentity() {
     if (state.identity) return;
-    const player = core.selectDaily(players, `identity:${today}`, candidate => candidate.sitelinks >= 45 && candidate.clubs.length >= 2 && isIdentityEligible(candidate));
-    const saved = safeParse(localStorage.getItem(gameKey("identity-state")), {});
+    const mode = state.identityMode;
+    const player = core.selectDaily(players, challengeSeed("identity", mode), candidate => candidate.sitelinks >= 45 && candidate.clubs.length >= 2 && isIdentityEligible(candidate));
+    const saved = mode === "daily" ? safeParse(localStorage.getItem(gameKey("identity-state")), {}) : {};
     const hasNewState = saved.profileVersion === IDENTITY_PROFILE_VERSION && saved.targetId === player.id && Array.isArray(saved.guesses);
-    state.identity = { player, guesses: hasNewState ? saved.guesses : [], complete: hasNewState && Boolean(saved.complete), lost: hasNewState && Boolean(saved.lost) };
+    state.identity = { player, mode, guesses: hasNewState ? saved.guesses : [], complete: hasNewState && Boolean(saved.complete), lost: hasNewState && Boolean(saved.lost), ...timedState(mode) };
   }
 
   function hasSharedValue(left, right) {
@@ -289,17 +342,20 @@
   function renderIdentity() {
     initIdentity();
     const game = state.identity;
+    expireTimedChallenge("identity", game);
     const remaining = Math.max(0, 8 - game.guesses.length);
     return `<section>
-      <div class="game-header"><div class="eyebrow">Identidad diaria · ${today}</div><div class="game-header-line"><h2>¿Quién soy?</h2><span class="badge">${remaining}/8 intentos</span></div><p class="help">Tienes 8 posibilidades. Tras cada jugador, compara Nacionalidad, Liga, Equipo, Posición, Edad y Dorsal con el futbolista misterioso.</p></div>
+      <div class="game-header"><div class="eyebrow">${escapeHtml(GAME_MODES[game.mode].label)} · Identidad</div><div class="game-header-line"><h2>¿Quién soy?</h2><span class="badge">${game.mode === "timed" ? `<span data-game-timer>${game.preparing ? `Prepárate · ${preparationSeconds(game)}` : formatTimer(remainingSeconds(game))}</span>` : `${remaining}/8 intentos`}</span></div><p class="help">${escapeHtml(GAME_MODES[game.mode].description)}. Tras cada jugador, compara Nacionalidad, Liga, Equipo, Posición, Edad y Dorsal con el futbolista misterioso.</p></div>
+      ${modePicker("identity", game.mode)}
       <div class="identity-key" aria-label="Cómo leer los resultados"><span class="match">Coincide</span><span class="miss">No coincide</span><span class="higher">↑ Mayor</span><span class="lower">↓ Menor</span></div>
       ${game.guesses.length ? `<div class="comparison-list">${game.guesses.map(id => { const guess = playerById.get(id); const results = identityComparison(guess, game.player); return `<article class="comparison-row"><strong>${escapeHtml(guess.name)}</strong><div class="comparison-cells">${results.map(item => `<span class="comparison-cell ${item.state}"><small>${item.label}</small><b>${item.text}</b></span>`).join("")}</div></article>`; }).join("")}</div>` : `<div class="empty-comparison">Introduce tu primer jugador para ver la comparación.</div>`}
-      ${!game.complete && !game.lost ? `<div class="panel">${searchBox("identity", "Escribe un jugador…")}<div class="actions"><button class="btn btn-primary" data-action="submit-identity">Comparar jugador</button></div></div>` : renderSimpleResult(game.complete, game.player, Math.max(0, game.guesses.length - 1))}
+      ${!game.complete && !game.lost && !game.preparing ? `<div class="panel">${searchBox("identity", "Escribe un jugador…")}<div class="actions"><button class="btn btn-primary" data-action="submit-identity">Comparar jugador</button></div></div>` : game.complete || game.lost ? renderSimpleResult(game.complete, game.player, Math.max(0, game.guesses.length - 1), "identity", game) : ""}
     </section>`;
   }
 
-  function renderSimpleResult(won, player, attempts) {
-    return `<div class="result"><h3>${won ? "¡Correcto!" : "Fin del intento"}</h3><p>Era <strong>${escapeHtml(player.name)}</strong> · ${escapeHtml(playerMeta(player))}.</p><p>${won ? `Lo resolviste usando ${attempts + 1} pista${attempts ? "s" : ""}.` : "Mañana habrá un nuevo jugador."}</p></div>`;
+  function renderSimpleResult(won, player, attempts, type, game) {
+    const ending = won ? `Lo resolviste usando ${attempts + 1} intento${attempts ? "s" : ""}.` : game.lostReason || (game.mode === "daily" ? "Mañana habrá un nuevo jugador." : "Puedes comenzar otra partida.");
+    return `<div class="result"><h3>${won ? "¡Correcto!" : "Fin del intento"}</h3><p>Era <strong>${escapeHtml(player.name)}</strong> · ${escapeHtml(playerMeta(player))}.</p><p>${escapeHtml(ending)}</p><button class="btn btn-secondary" data-new-game="${type}">${game.mode === "daily" ? "Jugar otro modo" : "Nueva partida"}</button></div>`;
   }
 
   const METRICS = [
@@ -309,8 +365,22 @@
     { id: "span", label: "¿Quién tuvo la trayectoria más larga en la base?", short: "años", value: player => core.careerSpan(player) }
   ];
 
+  function initDuel() {
+    if (state.duel) return;
+    const mode = state.duelMode;
+    state.duel = { mode, streak: 0, best: state.duelBest, score: 0, round: 0, complete: false, lost: false, ...timedState(mode) };
+    nextDuel();
+  }
+
+  function resetDuel(mode = state.duelMode) {
+    clearGameTimer();
+    state.duelMode = mode;
+    state.duel = null;
+  }
+
   function nextDuel(keepLeft) {
-    const random = Math.random;
+    const game = state.duel;
+    const random = game.mode === "daily" ? core.seededRandom(`duel:${today}:${game.round}`) : Math.random;
     const metric = METRICS[Math.floor(random() * METRICS.length)];
     let left = keepLeft || players[Math.floor(random() * Math.min(900, players.length))];
     let guard = 0;
@@ -318,18 +388,22 @@
     let right; guard = 0;
     do { right = players[Math.floor(random() * Math.min(1200, players.length))]; guard++; }
     while ((right.id === left.id || metric.value(right) === metric.value(left) || metric.value(right) <= 0) && guard < 200);
-    state.duel = { ...state.duel, metric, left, right, answered: false, correct: null };
+    state.duel = { ...game, metric, left, right, answered: false, correct: null, round: game.round + 1 };
   }
 
   function renderDuel() {
-    if (!state.duel.metric) nextDuel();
+    initDuel();
     const game = state.duel, metric = game.metric;
+    expireTimedChallenge("duel", game);
+    const badge = game.mode === "timed" ? `<span data-game-timer>${game.preparing ? `Prepárate · ${preparationSeconds(game)}` : formatTimer(remainingSeconds(game))}</span>` : game.mode === "daily" ? "1 duelo" : `Racha ${game.streak}`;
+    const result = game.lost ? `<div class="result"><h3>Partida terminada</h3><p>${escapeHtml(game.lostReason)}</p><button class="btn btn-secondary" data-new-game="duel">${game.mode === "daily" ? "Jugar otro modo" : "Nueva partida"}</button></div>` : game.answered ? `<div class="result"><h3>${game.correct ? "¡Acierto!" : "Fallo"}</h3><p>${escapeHtml(game.right.name)} registra ${metric.value(game.right)} ${metric.short}.</p>${game.complete ? `<button class="btn btn-secondary" data-new-game="duel">Jugar otro modo</button>` : `<button class="btn btn-primary" data-action="next-duel">Siguiente duelo</button>`}</div>` : "";
     return `<section>
-      <div class="game-header"><div class="eyebrow">Modo infinito</div><div class="game-header-line"><h2>Mayor o menor</h2><span class="badge">Racha ${game.streak}</span></div><p class="help">${escapeHtml(metric.label)}</p></div>
+      <div class="game-header"><div class="eyebrow">${escapeHtml(GAME_MODES[game.mode].label)} · Duelo</div><div class="game-header-line"><h2>Mayor o menor</h2><span class="badge">${badge}</span></div><p class="help">${escapeHtml(GAME_MODES[game.mode].description)}. ${escapeHtml(metric.label)}${game.mode === "timed" ? ` · ${game.score} aciertos` : ""}</p></div>
+      ${modePicker("duel", game.mode)}
       <div class="duel">
         ${duelCard(game.left, metric.value(game.left), metric.short, false)}<div class="duel-vs">VS</div>${duelCard(game.right, metric.value(game.right), metric.short, !game.answered)}
       </div>
-      ${!game.answered ? `<div class="duel-actions"><button class="btn btn-secondary" data-duel-choice="lower">Tiene menos</button><button class="btn btn-primary" data-duel-choice="higher">Tiene más</button></div>` : `<div class="result"><h3>${game.correct ? "¡Acierto!" : "Racha terminada"}</h3><p>${escapeHtml(game.right.name)} registra ${metric.value(game.right)} ${metric.short}.</p><button class="btn btn-primary" data-action="next-duel">Siguiente duelo</button></div>`}
+      ${!game.answered && !game.lost && !game.preparing ? `<div class="duel-actions"><button class="btn btn-secondary" data-duel-choice="lower">Tiene menos</button><button class="btn btn-primary" data-duel-choice="higher">Tiene más</button></div>` : result}
     </section>`;
   }
 
@@ -401,51 +475,59 @@
     game.active = null;
     state.selected.grid = null;
     saveGrid();
-    if (game.answers.every(Boolean)) clearGridTimer();
+    if (game.answers.every(Boolean)) clearGameTimer();
     render();
   }
 
   function submitGuess(type) {
     const game = state[type];
+    if (expireTimedChallenge(type, game) || game.lost || game.preparing) return render();
     const player = selectedPlayer(type);
     if (!player) return showToast("Selecciona un jugador de la lista.");
     if (player.id === game.player.id) {
       game.complete = true;
-      markDone(type);
+      if (game.mode === "daily") markDone(type);
+      clearGameTimer();
     } else {
       game.attempts++;
-      game.lost = game.attempts >= (type === "identity" ? 6 : 5);
-      showToast("No es él. Se ha revelado una pista.");
+      game.lost = game.mode === "flawless" || game.attempts >= 5;
+      game.lostReason = game.mode === "flawless" ? "Un fallo termina la partida en este modo." : "Has agotado los intentos.";
+      showToast(game.lost ? "Partida terminada." : "No es él. Se ha revelado una pista.");
     }
-    localStorage.setItem(gameKey(`${type}-state`), JSON.stringify({ attempts: game.attempts, complete: game.complete, lost: game.lost }));
+    if (game.mode === "daily") localStorage.setItem(gameKey(`${type}-state`), JSON.stringify({ attempts: game.attempts, complete: game.complete, lost: game.lost }));
     state.selected[type] = null;
     render();
   }
 
   function submitIdentity() {
     const game = state.identity;
+    if (expireTimedChallenge("identity", game) || game.lost || game.preparing) return render();
     const player = selectedPlayer("identity");
     if (!player) return showToast("Selecciona un jugador de la lista.");
     if (game.guesses.includes(player.id)) return showToast("Ese jugador ya está comparado.");
     game.guesses.push(player.id);
     if (player.id === game.player.id) {
       game.complete = true;
-      markDone("identity");
-    } else if (game.guesses.length >= 8) {
+      if (game.mode === "daily") markDone("identity");
+      clearGameTimer();
+    } else if (game.mode === "flawless" || game.guesses.length >= 8) {
       game.lost = true;
+      game.lostReason = game.mode === "flawless" ? "Un fallo termina la partida en este modo." : "Has agotado los 8 intentos.";
     } else {
       showToast("Comparación añadida.");
     }
-    localStorage.setItem(gameKey("identity-state"), JSON.stringify({ profileVersion: IDENTITY_PROFILE_VERSION, targetId: game.player.id, guesses: game.guesses, complete: game.complete, lost: game.lost }));
+    if (game.mode === "daily") localStorage.setItem(gameKey("identity-state"), JSON.stringify({ profileVersion: IDENTITY_PROFILE_VERSION, targetId: game.player.id, guesses: game.guesses, complete: game.complete, lost: game.lost }));
     state.selected.identity = null;
     render();
   }
 
   function reveal(type) {
     const game = state[type];
+    if (expireTimedChallenge(type, game) || game.lost || game.preparing) return render();
     game.attempts++;
-    game.lost = game.attempts >= (type === "identity" ? 6 : 5);
-    localStorage.setItem(gameKey(`${type}-state`), JSON.stringify({ attempts: game.attempts, complete: game.complete, lost: game.lost }));
+    game.lost = game.attempts >= 5;
+    if (game.lost) game.lostReason = "Has agotado las pistas disponibles.";
+    if (game.mode === "daily") localStorage.setItem(gameKey(`${type}-state`), JSON.stringify({ attempts: game.attempts, complete: game.complete, lost: game.lost }));
     render();
   }
 
@@ -461,7 +543,7 @@
 
   document.addEventListener("click", event => {
     const view = event.target.closest("[data-view]")?.dataset.view;
-    if (view) { state.view = view; render(); return; }
+    if (view) { clearGameTimer(); state.view = view; render(); return; }
     const suggestion = event.target.closest("[data-select-player]");
     if (suggestion) {
       const context = suggestion.dataset.context, player = playerById.get(suggestion.dataset.selectPlayer);
@@ -473,18 +555,37 @@
     }
     const cell = event.target.closest("[data-grid-cell]");
     if (cell) { state.grid.active = Number(cell.dataset.gridCell); state.selected.grid = null; render(); return; }
-    const gridMode = event.target.closest("[data-grid-mode]")?.dataset.gridMode;
-    if (gridMode) { resetGrid(gridMode); render(); return; }
+    const modeButton = event.target.closest("[data-game-mode]");
+    if (modeButton) {
+      const type = modeButton.dataset.game, mode = modeButton.dataset.gameMode;
+      if (type === "grid") resetGrid(mode);
+      else if (type === "duel") resetDuel(mode);
+      else resetChallenge(type, mode);
+      render(); return;
+    }
     const condition = event.target.closest("[data-condition]");
     if (condition) { showToast(condition.dataset.condition); return; }
     const choice = event.target.closest("[data-duel-choice]")?.dataset.duelChoice;
     if (choice) {
-      const game = state.duel, left = game.metric.value(game.left), right = game.metric.value(game.right);
+      const game = state.duel;
+      if (expireTimedChallenge("duel", game) || game.lost || game.preparing) return render();
+      const left = game.metric.value(game.left), right = game.metric.value(game.right);
       game.correct = choice === "higher" ? right > left : right < left;
       game.answered = true;
       game.streak = game.correct ? game.streak + 1 : 0;
+      if (game.correct) game.score++;
+      if (!game.correct && game.mode === "flawless") { game.lost = true; game.lostReason = "Un fallo termina la partida en este modo."; }
+      if (game.mode === "daily") { game.complete = true; markDone("duel"); }
       game.best = Math.max(game.best, game.streak);
+      state.duelBest = Math.max(state.duelBest, game.best);
       localStorage.setItem("pizarra-duel-best", game.best);
+      render(); return;
+    }
+    const newGame = event.target.closest("[data-new-game]")?.dataset.newGame;
+    if (newGame) {
+      const currentMode = state[`${newGame}Mode`];
+      const nextMode = currentMode === "daily" ? "infinite" : currentMode;
+      if (newGame === "duel") resetDuel(nextMode); else resetChallenge(newGame, nextMode);
       render(); return;
     }
     const action = event.target.closest("[data-action]")?.dataset.action;
@@ -504,6 +605,6 @@
     return;
   }
   render();
-  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./service-worker.js?v=12").catch(() => {});
+  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./service-worker.js?v=13").catch(() => {});
 })();
 
