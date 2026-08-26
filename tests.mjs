@@ -49,12 +49,23 @@ assert.ok(identity.clubs.length >= 2);
 assert.ok(identityProfiles[identity.id], "La identidad diaria debe tener equipo y dorsal contrastados");
 for (const game of ["grid", "trajectory", "identity", "duel"]) {
   assert.ok(appSource.includes(`modePicker("${game}"`), `${game} debe mostrar las cuatro modalidades`);
+  assert.ok(appSource.includes(`difficultyPicker("${game}"`), `${game} debe mostrar las cuatro dificultades`);
 }
 assert.ok(appSource.includes("Date.now() + 3000") && appSource.includes("Date.now() + 180000"), "El modo contrarreloj debe tener preparación y tres minutos");
+
+for (const [difficulty, minimum] of Object.entries({ easy: 60, medium: 50, hard: 40, expert: 35 })) {
+  const pool = data.players.filter(player => player.sitelinks >= minimum);
+  assert.ok(pool.length >= 350, `${difficulty} debe tener suficientes jugadores`);
+  for (let puzzle = 0; puzzle < 20; puzzle++) {
+    const grid = core.generateGrid(pool, `difficulty:${difficulty}:${puzzle}`);
+    assert.ok(core.hasDistinctAssignment(grid.cells), `La cuadrícula ${difficulty} debe ser resoluble`);
+  }
+}
 
 console.log(`✓ ${data.players.length} jugadores validados`);
 console.log("✓ 120 cuadrículas robustas, resolubles y sin repeticiones validadas");
 console.log("✓ Selección diaria de Trayectoria y Quién soy validada");
 console.log(`✓ ${Object.keys(enrichment).length} perfiles actuales con club y dorsal cruzados`);
 console.log("✓ Cuatro modalidades habilitadas en los cuatro juegos");
+console.log("✓ Cuatro dificultades progresivas validadas en los cuatro juegos");
 
