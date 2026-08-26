@@ -9,6 +9,15 @@ window.PIZARRA_OFFICIAL_CORRECTIONS = {
       { id: "Q9616", name: "Chelsea F. C.", league: "premier", leagueName: "Premier League", start: 2017, end: 2022 },
       { id: "Q8682", name: "Real Madrid Club de Fútbol", league: "laliga", leagueName: "LaLiga", start: 2022, end: null }
     ]
+  },
+  "Q30055335": {
+    verifiedAt: "2026-08-26",
+    source: "https://www.acmilan.com/en/news/articles/extra/2023-06-02/official-statement-rafael-leao",
+    positions: ["Delantero"],
+    clubs: [
+      { id: "Q19516", name: "Lille Olympique Sporting Club", league: "ligue1", leagueName: "Ligue 1", start: 2018, end: 2019 },
+      { id: "Q1543", name: "A.C. Milan", league: "seriea", leagueName: "Serie A", start: 2019, end: null }
+    ]
   }
 };
 
