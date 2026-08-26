@@ -11,15 +11,22 @@
   const today = core.dateKey();
   const TODAY_LABEL = new Intl.DateTimeFormat("es-ES", { weekday: "long", day: "numeric", month: "long" }).format(new Date());
   const state = {
-    view: "home", selected: {}, grid: null, gridMode: "daily",
-    trajectory: null, trajectoryMode: "daily", identity: null, identityMode: "daily",
-    duel: null, duelMode: "daily", duelBest: Number(localStorage.getItem("pizarra-duel-best")) || 0
+    view: "home", selected: {}, grid: null, gridMode: "daily", gridDifficulty: "medium",
+    trajectory: null, trajectoryMode: "daily", trajectoryDifficulty: "medium",
+    identity: null, identityMode: "daily", identityDifficulty: "medium",
+    duel: null, duelMode: "daily", duelDifficulty: "medium", duelBest: Number(localStorage.getItem("pizarra-duel-best")) || 0
   };
   const GAME_MODES = {
     daily: { label: "Diario", description: "La misma prueba para todos · se renueva a las 00:00" },
     infinite: { label: "Infinito", description: "Juega tantas partidas como quieras" },
     timed: { label: "Contrarreloj", description: "Tres segundos de preparación y 3:00 para completar la prueba" },
     flawless: { label: "Sin errores", description: "Un único fallo termina la partida" }
+  };
+  const DIFFICULTIES = {
+    easy: { label: "Fácil", minSitelinks: 60, description: "Figuras y clubes muy reconocibles" },
+    medium: { label: "Medio", minSitelinks: 50, description: "Nombres conocidos con alguna sorpresa" },
+    hard: { label: "Difícil", minSitelinks: 40, description: "Carreras menos evidentes y jugadores secundarios" },
+    expert: { label: "Experto", minSitelinks: 35, description: "Toda la base, incluidos los perfiles más rebuscados" }
   };
   const IDENTITY_PROFILE_VERSION = 12;
   let gameTimer = null;
@@ -123,22 +130,36 @@
     return `<div class="mode-picker" aria-label="Modo de juego">${Object.entries(GAME_MODES).map(([id, option]) => `<button class="mode-option ${id === mode ? "active" : ""}" data-game="${type}" data-game-mode="${id}" ${id === mode ? "disabled" : ""}>${escapeHtml(option.label)}</button>`).join("")}</div>`;
   }
 
+  function difficultyPicker(type, difficulty) {
+    return `<div class="difficulty-picker" aria-label="Dificultad">${Object.entries(DIFFICULTIES).map(([id, option]) => `<button class="difficulty-option ${id === difficulty ? "active" : ""}" data-game="${type}" data-difficulty="${id}" ${id === difficulty ? "disabled" : ""}>${escapeHtml(option.label)}</button>`).join("")}</div>`;
+  }
+
+  function difficultyPool(difficulty, predicate = () => true) {
+    const minimum = DIFFICULTIES[difficulty]?.minSitelinks ?? DIFFICULTIES.medium.minSitelinks;
+    return players.filter(player => player.sitelinks >= minimum && predicate(player));
+  }
+
+  function difficultyHelp(difficulty) {
+    return DIFFICULTIES[difficulty]?.description ?? DIFFICULTIES.medium.description;
+  }
+
   function timedState(mode) {
     return { preparing: mode === "timed", prepEndsAt: mode === "timed" ? Date.now() + 3000 : null, endsAt: null, lostReason: "" };
   }
 
-  function gridSeed(mode) {
-    return mode === "daily" ? `grid:${today}` : `grid:${mode}:${Date.now()}:${Math.random()}`;
+  function gridSeed(mode, difficulty) {
+    return mode === "daily" ? `grid:${today}:${difficulty}` : `grid:${mode}:${difficulty}:${Date.now()}:${Math.random()}`;
   }
 
   function initGrid() {
     if (state.grid) return;
     const mode = state.gridMode;
-    const puzzle = core.generateGrid(players, gridSeed(mode));
-    const saved = mode === "daily" ? safeParse(localStorage.getItem(gameKey("grid-state")), null) : null;
+    const difficulty = state.gridDifficulty;
+    const puzzle = core.generateGrid(difficultyPool(difficulty), gridSeed(mode, difficulty));
+    const saved = mode === "daily" ? safeParse(localStorage.getItem(gameKey(`grid-state-${difficulty}`)), null) : null;
     const answers = saved?.answers?.length === 9 ? saved.answers : Array(9).fill(null);
     state.grid = {
-      ...puzzle, mode, answers, active: null, errors: saved?.errors || 0,
+      ...puzzle, mode, difficulty, answers, active: null, errors: saved?.errors || 0,
       preparing: mode === "timed", prepEndsAt: mode === "timed" ? Date.now() + 3000 : null,
       endsAt: null, lost: false, lostReason: ""
     };
@@ -222,8 +243,8 @@
     }, 250);
   }
 
-  function challengeSeed(type, mode) {
-    return mode === "daily" ? `${type}:${today}` : `${type}:${mode}:${Date.now()}:${Math.random()}`;
+  function challengeSeed(type, mode, difficulty) {
+    return mode === "daily" ? `${type}:${today}:${difficulty}` : `${type}:${mode}:${difficulty}:${Date.now()}:${Math.random()}`;
   }
 
   function resetChallenge(type, mode = state[`${type}Mode`]) {
@@ -233,8 +254,15 @@
     state.selected[type] = null;
   }
 
+  function setDifficulty(type, difficulty) {
+    clearGameTimer();
+    state[`${type}Difficulty`] = difficulty;
+    state[type] = null;
+    state.selected[type] = null;
+  }
+
   function saveGrid() {
-    if (state.grid.mode === "daily") localStorage.setItem(gameKey("grid-state"), JSON.stringify({ answers: state.grid.answers, errors: state.grid.errors }));
+    if (state.grid.mode === "daily") localStorage.setItem(gameKey(`grid-state-${state.grid.difficulty}`), JSON.stringify({ answers: state.grid.answers, errors: state.grid.errors }));
   }
 
   function renderGrid() {
@@ -257,9 +285,10 @@
       }
     }
     return `<section>
-      <div class="game-header"><div class="eyebrow">${escapeHtml(GAME_MODES[game.mode].label)} · ${game.mode === "daily" ? today : "3×3"}</div><div class="game-header-line"><h2>Cuadrícula</h2><span class="badge">${game.mode === "timed" ? `<span data-game-timer>${game.preparing ? `Prepárate · ${preparationSeconds(game)}` : formatTimer(remainingSeconds(game))}</span>` : `${game.answers.filter(Boolean).length}/9`}</span></div>
-      <p class="help">${escapeHtml(GAME_MODES[game.mode].description)}. Cruza una condición de la fila con una condición de la columna.</p></div>
+      <div class="game-header"><div class="eyebrow">${escapeHtml(GAME_MODES[game.mode].label)} · ${escapeHtml(DIFFICULTIES[game.difficulty].label)} · ${game.mode === "daily" ? today : "3×3"}</div><div class="game-header-line"><h2>Cuadrícula</h2><span class="badge">${game.mode === "timed" ? `<span data-game-timer>${game.preparing ? `Prepárate · ${preparationSeconds(game)}` : formatTimer(remainingSeconds(game))}</span>` : `${game.answers.filter(Boolean).length}/9`}</span></div>
+      <p class="help">${escapeHtml(GAME_MODES[game.mode].description)}. ${escapeHtml(difficultyHelp(game.difficulty))}. Cruza una condición de la fila con una condición de la columna.</p></div>
       ${modePicker("grid", game.mode)}
+      ${difficultyPicker("grid", game.difficulty)}
       <div class="score-strip two-stat"><div class="score-stat"><strong>${game.errors}</strong><small>fallos</small></div><div class="score-stat"><strong>${9 - game.answers.filter(Boolean).length}</strong><small>pendientes</small></div></div>
       <div class="grid-scroll"><div class="football-grid">${grid}</div></div>
       ${game.active !== null && !game.answers[game.active] && !game.lost ? renderGridEntry(game.active) : ""}
@@ -290,9 +319,11 @@
   function initTrajectory() {
     if (state.trajectory) return;
     const mode = state.trajectoryMode;
-    const player = core.selectDaily(players, challengeSeed("trajectory", mode), candidate => candidate.clubs.length >= 3 && candidate.positions.length && candidate.sitelinks >= 35);
-    const saved = mode === "daily" ? safeParse(localStorage.getItem(gameKey("trajectory-state")), {}) : {};
-    state.trajectory = { player, mode, attempts: saved.attempts || 0, complete: Boolean(saved.complete), lost: Boolean(saved.lost), ...timedState(mode) };
+    const difficulty = state.trajectoryDifficulty;
+    const pool = difficultyPool(difficulty, candidate => candidate.clubs.length >= 3 && candidate.positions.length);
+    const player = core.selectDaily(pool, challengeSeed("trajectory", mode, difficulty));
+    const saved = mode === "daily" ? safeParse(localStorage.getItem(gameKey(`trajectory-state-${difficulty}`)), {}) : {};
+    state.trajectory = { player, mode, difficulty, attempts: saved.attempts || 0, complete: Boolean(saved.complete), lost: Boolean(saved.lost), ...timedState(mode) };
   }
 
   function renderTrajectory() {
@@ -301,9 +332,10 @@
     expireTimedChallenge("trajectory", game);
     const revealed = game.complete || game.lost ? game.player.clubs.length : Math.min(game.player.clubs.length, game.attempts + 1);
     return `<section>
-      <div class="game-header"><div class="eyebrow">${escapeHtml(GAME_MODES[game.mode].label)} · Trayectoria</div><div class="game-header-line"><h2>¿Quién recorrió este camino?</h2><span class="badge">${game.mode === "timed" ? `<span data-game-timer>${game.preparing ? `Prepárate · ${preparationSeconds(game)}` : formatTimer(remainingSeconds(game))}</span>` : `${Math.max(0, 5 - game.attempts)} intentos`}</span></div>
-      <p class="help">${escapeHtml(GAME_MODES[game.mode].description)}. Solo mostramos su recorrido por los clubes incluidos en las cinco grandes ligas.</p></div>
+      <div class="game-header"><div class="eyebrow">${escapeHtml(GAME_MODES[game.mode].label)} · ${escapeHtml(DIFFICULTIES[game.difficulty].label)} · Trayectoria</div><div class="game-header-line"><h2>¿Quién recorrió este camino?</h2><span class="badge">${game.mode === "timed" ? `<span data-game-timer>${game.preparing ? `Prepárate · ${preparationSeconds(game)}` : formatTimer(remainingSeconds(game))}</span>` : `${Math.max(0, 5 - game.attempts)} intentos`}</span></div>
+      <p class="help">${escapeHtml(GAME_MODES[game.mode].description)}. ${escapeHtml(difficultyHelp(game.difficulty))}. Solo mostramos su recorrido por los clubes incluidos en las cinco grandes ligas.</p></div>
       ${modePicker("trajectory", game.mode)}
+      ${difficultyPicker("trajectory", game.difficulty)}
       <div class="career">${game.player.clubs.map((club, index) => `<div class="career-row ${index < revealed ? "" : "hidden-club"}"><span class="year">${club.start || "—"}${club.end ? `–${club.end}` : ""}</span><span class="dot"></span><span><b>${index < revealed ? escapeHtml(club.name) : "Club oculto"}</b><small>${escapeHtml(core.LEAGUE_NAMES[club.league] || club.leagueName)}</small></span></div>`).join("")}</div>
       ${!game.complete && !game.lost && !game.preparing ? `<div class="panel">${game.attempts >= 2 ? `<p class="muted">Pista: ${escapeHtml(game.player.positions.join(" / "))}</p>` : ""}${searchBox("trajectory", "¿Qué jugador es?")}<div class="actions"><button class="btn btn-primary" data-action="submit-trajectory">Responder</button><button class="btn btn-secondary" data-action="reveal-trajectory">Revelar otro club</button></div></div>` : game.complete || game.lost ? renderSimpleResult(game.complete, game.player, game.attempts, "trajectory", game) : ""}
     </section>`;
@@ -312,10 +344,12 @@
   function initIdentity() {
     if (state.identity) return;
     const mode = state.identityMode;
-    const player = core.selectDaily(players, challengeSeed("identity", mode), candidate => candidate.sitelinks >= 45 && candidate.clubs.length >= 2 && isIdentityEligible(candidate));
-    const saved = mode === "daily" ? safeParse(localStorage.getItem(gameKey("identity-state")), {}) : {};
+    const difficulty = state.identityDifficulty;
+    const pool = difficultyPool(difficulty, candidate => candidate.clubs.length >= 2 && isIdentityEligible(candidate));
+    const player = core.selectDaily(pool, challengeSeed("identity", mode, difficulty));
+    const saved = mode === "daily" ? safeParse(localStorage.getItem(gameKey(`identity-state-${difficulty}`)), {}) : {};
     const hasNewState = saved.profileVersion === IDENTITY_PROFILE_VERSION && saved.targetId === player.id && Array.isArray(saved.guesses);
-    state.identity = { player, mode, guesses: hasNewState ? saved.guesses : [], complete: hasNewState && Boolean(saved.complete), lost: hasNewState && Boolean(saved.lost), ...timedState(mode) };
+    state.identity = { player, mode, difficulty, guesses: hasNewState ? saved.guesses : [], complete: hasNewState && Boolean(saved.complete), lost: hasNewState && Boolean(saved.lost), ...timedState(mode) };
   }
 
   function hasSharedValue(left, right) {
@@ -345,8 +379,9 @@
     expireTimedChallenge("identity", game);
     const remaining = Math.max(0, 8 - game.guesses.length);
     return `<section>
-      <div class="game-header"><div class="eyebrow">${escapeHtml(GAME_MODES[game.mode].label)} · Identidad</div><div class="game-header-line"><h2>¿Quién soy?</h2><span class="badge">${game.mode === "timed" ? `<span data-game-timer>${game.preparing ? `Prepárate · ${preparationSeconds(game)}` : formatTimer(remainingSeconds(game))}</span>` : `${remaining}/8 intentos`}</span></div><p class="help">${escapeHtml(GAME_MODES[game.mode].description)}. Tras cada jugador, compara Nacionalidad, Liga, Equipo, Posición, Edad y Dorsal con el futbolista misterioso.</p></div>
+      <div class="game-header"><div class="eyebrow">${escapeHtml(GAME_MODES[game.mode].label)} · ${escapeHtml(DIFFICULTIES[game.difficulty].label)} · Identidad</div><div class="game-header-line"><h2>¿Quién soy?</h2><span class="badge">${game.mode === "timed" ? `<span data-game-timer>${game.preparing ? `Prepárate · ${preparationSeconds(game)}` : formatTimer(remainingSeconds(game))}</span>` : `${remaining}/8 intentos`}</span></div><p class="help">${escapeHtml(GAME_MODES[game.mode].description)}. ${escapeHtml(difficultyHelp(game.difficulty))}. Tras cada jugador, compara Nacionalidad, Liga, Equipo, Posición, Edad y Dorsal con el futbolista misterioso.</p></div>
       ${modePicker("identity", game.mode)}
+      ${difficultyPicker("identity", game.difficulty)}
       <div class="identity-key" aria-label="Cómo leer los resultados"><span class="match">Coincide</span><span class="miss">No coincide</span><span class="higher">↑ Mayor</span><span class="lower">↓ Menor</span></div>
       ${game.guesses.length ? `<div class="comparison-list">${game.guesses.map(id => { const guess = playerById.get(id); const results = identityComparison(guess, game.player); return `<article class="comparison-row"><strong>${escapeHtml(guess.name)}</strong><div class="comparison-cells">${results.map(item => `<span class="comparison-cell ${item.state}"><small>${item.label}</small><b>${item.text}</b></span>`).join("")}</div></article>`; }).join("")}</div>` : `<div class="empty-comparison">Introduce tu primer jugador para ver la comparación.</div>`}
       ${!game.complete && !game.lost && !game.preparing ? `<div class="panel">${searchBox("identity", "Escribe un jugador…")}<div class="actions"><button class="btn btn-primary" data-action="submit-identity">Comparar jugador</button></div></div>` : game.complete || game.lost ? renderSimpleResult(game.complete, game.player, Math.max(0, game.guesses.length - 1), "identity", game) : ""}
@@ -368,7 +403,8 @@
   function initDuel() {
     if (state.duel) return;
     const mode = state.duelMode;
-    state.duel = { mode, streak: 0, best: state.duelBest, score: 0, round: 0, complete: false, lost: false, ...timedState(mode) };
+    const difficulty = state.duelDifficulty;
+    state.duel = { mode, difficulty, streak: 0, best: state.duelBest, score: 0, round: 0, complete: false, lost: false, ...timedState(mode) };
     nextDuel();
   }
 
@@ -380,13 +416,14 @@
 
   function nextDuel(keepLeft) {
     const game = state.duel;
-    const random = game.mode === "daily" ? core.seededRandom(`duel:${today}:${game.round}`) : Math.random;
+    const random = game.mode === "daily" ? core.seededRandom(`duel:${today}:${game.difficulty}:${game.round}`) : Math.random;
     const metric = METRICS[Math.floor(random() * METRICS.length)];
-    let left = keepLeft || players[Math.floor(random() * Math.min(900, players.length))];
+    const pool = difficultyPool(game.difficulty, player => metric.value(player) > 0);
+    let left = keepLeft && pool.some(player => player.id === keepLeft.id) ? keepLeft : pool[Math.floor(random() * pool.length)];
     let guard = 0;
-    while (metric.value(left) <= 0 && guard++ < 100) left = players[Math.floor(random() * Math.min(900, players.length))];
+    while (metric.value(left) <= 0 && guard++ < 100) left = pool[Math.floor(random() * pool.length)];
     let right; guard = 0;
-    do { right = players[Math.floor(random() * Math.min(1200, players.length))]; guard++; }
+    do { right = pool[Math.floor(random() * pool.length)]; guard++; }
     while ((right.id === left.id || metric.value(right) === metric.value(left) || metric.value(right) <= 0) && guard < 200);
     state.duel = { ...game, metric, left, right, answered: false, correct: null, round: game.round + 1 };
   }
@@ -398,8 +435,9 @@
     const badge = game.mode === "timed" ? `<span data-game-timer>${game.preparing ? `Prepárate · ${preparationSeconds(game)}` : formatTimer(remainingSeconds(game))}</span>` : game.mode === "daily" ? "1 duelo" : `Racha ${game.streak}`;
     const result = game.lost ? `<div class="result"><h3>Partida terminada</h3><p>${escapeHtml(game.lostReason)}</p><button class="btn btn-secondary" data-new-game="duel">${game.mode === "daily" ? "Jugar otro modo" : "Nueva partida"}</button></div>` : game.answered ? `<div class="result"><h3>${game.correct ? "¡Acierto!" : "Fallo"}</h3><p>${escapeHtml(game.right.name)} registra ${metric.value(game.right)} ${metric.short}.</p>${game.complete ? `<button class="btn btn-secondary" data-new-game="duel">Jugar otro modo</button>` : `<button class="btn btn-primary" data-action="next-duel">Siguiente duelo</button>`}</div>` : "";
     return `<section>
-      <div class="game-header"><div class="eyebrow">${escapeHtml(GAME_MODES[game.mode].label)} · Duelo</div><div class="game-header-line"><h2>Mayor o menor</h2><span class="badge">${badge}</span></div><p class="help">${escapeHtml(GAME_MODES[game.mode].description)}. ${escapeHtml(metric.label)}${game.mode === "timed" ? ` · ${game.score} aciertos` : ""}</p></div>
+      <div class="game-header"><div class="eyebrow">${escapeHtml(GAME_MODES[game.mode].label)} · ${escapeHtml(DIFFICULTIES[game.difficulty].label)} · Duelo</div><div class="game-header-line"><h2>Mayor o menor</h2><span class="badge">${badge}</span></div><p class="help">${escapeHtml(GAME_MODES[game.mode].description)}. ${escapeHtml(difficultyHelp(game.difficulty))}. ${escapeHtml(metric.label)}${game.mode === "timed" ? ` · ${game.score} aciertos` : ""}</p></div>
       ${modePicker("duel", game.mode)}
+      ${difficultyPicker("duel", game.difficulty)}
       <div class="duel">
         ${duelCard(game.left, metric.value(game.left), metric.short, false)}<div class="duel-vs">VS</div>${duelCard(game.right, metric.value(game.right), metric.short, !game.answered)}
       </div>
@@ -417,6 +455,7 @@
         <article class="info-card"><h3>Actualización</h3><p>${escapeHtml(formatUpdated())}</p><p class="muted">${escapeHtml(data.scope)}</p></article>
         <article class="info-card"><h3>Fuente abierta</h3><p>Trayectorias, fechas, nacionalidades y posiciones proceden de <a href="${escapeHtml(data.sourceUrl)}" target="_blank" rel="noreferrer">Wikidata</a>, cuyos datos estructurados se publican bajo CC0.</p></article>
         <article class="info-card"><h3>Qué significa “jugó en”</h3><p>La base registra una vinculación del jugador con el club desde 1990. No implica necesariamente titularidad, un mínimo de partidos o que toda su carrera esté incluida.</p></article>
+        <article class="info-card"><h3>Dificultad</h3><p>Los niveles ordenan la notoriedad, no la calidad deportiva. Fácil prioriza jugadores y clubes con mayor cobertura enciclopédica; Experto abre toda la selección, incluidos perfiles menos conocidos.</p></article>
         <article class="info-card"><h3>Actualizar en el futuro</h3><p>El proyecto incluye <code>scripts/update-data.mjs</code>. Al ejecutarlo vuelve a consultar la fuente y reconstruye la selección de 2.400 jugadores.</p></article>
       </div>
     </section>`;
@@ -439,7 +478,9 @@
     const query = core.normalize(input.value);
     state.selected[context] = null;
     if (query.length < 2) { container.hidden = true; return; }
-    const matches = players.filter(player => core.normalize(player.name).includes(query) && (context !== "identity" || isIdentityEligible(player)))
+    const difficulty = state[context]?.difficulty || state[`${context}Difficulty`] || "medium";
+    const minimum = DIFFICULTIES[difficulty].minSitelinks;
+    const matches = players.filter(player => player.sitelinks >= minimum && core.normalize(player.name).includes(query) && (context !== "identity" || isIdentityEligible(player)))
       .sort((a, b) => Number(core.normalize(b.name).startsWith(query)) - Number(core.normalize(a.name).startsWith(query)) || b.sitelinks - a.sitelinks).slice(0, 7);
     container.innerHTML = matches.map(player => `<button class="suggestion" data-select-player="${player.id}" data-context="${context}"><span><b>${escapeHtml(player.name)}</b></span><span>›</span></button>`).join("");
     container.hidden = !matches.length;
@@ -494,7 +535,7 @@
       game.lostReason = game.mode === "flawless" ? "Un fallo termina la partida en este modo." : "Has agotado los intentos.";
       showToast(game.lost ? "Partida terminada." : "No es él. Se ha revelado una pista.");
     }
-    if (game.mode === "daily") localStorage.setItem(gameKey(`${type}-state`), JSON.stringify({ attempts: game.attempts, complete: game.complete, lost: game.lost }));
+    if (game.mode === "daily") localStorage.setItem(gameKey(`${type}-state-${game.difficulty}`), JSON.stringify({ attempts: game.attempts, complete: game.complete, lost: game.lost }));
     state.selected[type] = null;
     render();
   }
@@ -516,7 +557,7 @@
     } else {
       showToast("Comparación añadida.");
     }
-    if (game.mode === "daily") localStorage.setItem(gameKey("identity-state"), JSON.stringify({ profileVersion: IDENTITY_PROFILE_VERSION, targetId: game.player.id, guesses: game.guesses, complete: game.complete, lost: game.lost }));
+    if (game.mode === "daily") localStorage.setItem(gameKey(`identity-state-${game.difficulty}`), JSON.stringify({ profileVersion: IDENTITY_PROFILE_VERSION, targetId: game.player.id, guesses: game.guesses, complete: game.complete, lost: game.lost }));
     state.selected.identity = null;
     render();
   }
@@ -527,7 +568,7 @@
     game.attempts++;
     game.lost = game.attempts >= 5;
     if (game.lost) game.lostReason = "Has agotado las pistas disponibles.";
-    if (game.mode === "daily") localStorage.setItem(gameKey(`${type}-state`), JSON.stringify({ attempts: game.attempts, complete: game.complete, lost: game.lost }));
+    if (game.mode === "daily") localStorage.setItem(gameKey(`${type}-state-${game.difficulty}`), JSON.stringify({ attempts: game.attempts, complete: game.complete, lost: game.lost }));
     render();
   }
 
@@ -561,6 +602,11 @@
       if (type === "grid") resetGrid(mode);
       else if (type === "duel") resetDuel(mode);
       else resetChallenge(type, mode);
+      render(); return;
+    }
+    const difficultyButton = event.target.closest("[data-difficulty]");
+    if (difficultyButton) {
+      setDifficulty(difficultyButton.dataset.game, difficultyButton.dataset.difficulty);
       render(); return;
     }
     const condition = event.target.closest("[data-condition]");
@@ -605,6 +651,6 @@
     return;
   }
   render();
-  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./service-worker.js?v=13").catch(() => {});
+  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("./service-worker.js?v=14").catch(() => {});
 })();
 
