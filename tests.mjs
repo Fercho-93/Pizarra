@@ -10,11 +10,14 @@ const context = { window: {} };
 vm.runInNewContext(await readFile(new URL("./data/players.js", import.meta.url), "utf8"), context);
 vm.runInNewContext(await readFile(new URL("./data/enrichment.js", import.meta.url), "utf8"), context);
 vm.runInNewContext(await readFile(new URL("./data/verified.js", import.meta.url), "utf8"), context);
+vm.runInNewContext(await readFile(new URL("./data/audit-corrections.js", import.meta.url), "utf8"), context);
 vm.runInNewContext(await readFile(new URL("./data/official-corrections.js", import.meta.url), "utf8"), context);
 const data = context.window.PIZARRA_DATA;
 const enrichment = context.window.PIZARRA_ENRICHMENT;
 const verified = context.window.PIZARRA_VERIFIED;
 const officialCorrections = context.window.PIZARRA_OFFICIAL_CORRECTIONS;
+const auditCorrections = context.window.PIZARRA_AUDIT_CORRECTIONS;
+core.applyCorrections(data.players, { ...auditCorrections, ...officialCorrections });
 const identityProfiles = { ...enrichment, ...verified };
 
 assert.equal(data.players.length, 2400, "La selección debe contener 2.400 jugadores");
@@ -33,6 +36,12 @@ for (const [id, profile] of Object.entries(enrichment)) {
 assert.equal(verified.Q483837.club.id, verified.Q30055335.club.id, "Modrić y Leão deben compartir su club verificado");
 assert.equal(verified.Q483837.club.league, verified.Q30055335.club.league, "Modrić y Leão deben compartir su liga verificada");
 assert.ok(officialCorrections.Q96755.positions.includes("Defensa") && officialCorrections.Q96755.clubs.some(club => club.id === "Q8682"), "Rüdiger debe contar como defensa del Real Madrid en la cuadrícula");
+assert.ok(officialCorrections.Q30055335.positions.includes("Delantero") && officialCorrections.Q30055335.clubs.some(club => club.id === "Q1543") && !officialCorrections.Q30055335.clubs.some(club => club.id === "Q8682"), "Leão debe contar como delantero del Milan y nunca como jugador del Real Madrid");
+assert.equal(Object.keys(auditCorrections).length, 62, "Las correcciones contrastadas deben estar consolidadas");
+assert.equal(JSON.stringify(data.players.find(player => player.id === "Q11571").clubs.filter(club => club.id === "Q18656").map(club => [club.start, club.end])), JSON.stringify([[2003, 2009], [2021, 2022]]), "Las dos etapas de Cristiano en Manchester deben permanecer separadas");
+assert.ok(data.players.find(player => player.id === "Q17158").positions.includes("Defensa"), "Puyol debe conservar la posición contrastada");
+assert.equal(data.players.find(player => player.id === "Q41533").name, "Frank Lampard", "El nombre importado de Lampard debe normalizarse");
+assert.ok(!data.players.find(player => player.id === "Q185572").clubs.some(club => club.id === "Q7156"), "La etapa de cantera de Arteta no debe contar como primer equipo del Barcelona");
 
 for (let day = 1; day <= 120; day++) {
   const grid = core.generateGrid(data.players, `test-2026-${String(day).padStart(3, "0")}`);
