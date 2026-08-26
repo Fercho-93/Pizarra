@@ -6,6 +6,7 @@
     "start": "node scripts/serve.mjs",
     "test": "node --check app.js && node --check core.js && node tests.mjs",
     "audit:official": "node scripts/audit-official.mjs",
+    "audit:easy": "node scripts/audit-easy-internal.mjs && node scripts/audit-easy-internal.mjs --resolved && node scripts/consolidate-easy-audit.mjs",
     "update:data": "node scripts/update-data.mjs"
   }
 }
