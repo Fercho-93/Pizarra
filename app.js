@@ -6,6 +6,18 @@
   const app = document.getElementById("app");
   const toast = document.getElementById("toast");
   const players = data?.players ?? [];
+  // Correcciones de carrera contrastadas tras la última importación de Wikidata.
+  // Se aplican antes de construir cualquier condición del juego.
+  const CURRENT_CAREER_OVERRIDES = {
+    Q96755: { id: "Q8682", name: "Real Madrid Club de Fútbol", league: "laliga", leagueName: "LaLiga", start: 2022, end: null }
+  };
+  for (const player of players) {
+    const club = CURRENT_CAREER_OVERRIDES[player.id];
+    if (club && !player.clubs.some(item => item.id === club.id)) {
+      player.clubs.push(club);
+      player.leagues = [...new Set([...player.leagues, club.league])];
+    }
+  }
   const verifiedPlayers = { ...(window.PIZARRA_ENRICHMENT ?? {}), ...(window.PIZARRA_VERIFIED ?? {}) };
   const playerById = new Map(players.map(player => [player.id, player]));
   const today = core.dateKey();
@@ -687,6 +699,6 @@
     return;
   }
   render();
-  if ("serviceWorker" in navigator && location.protocol !== "file:" && !["localhost", "127.0.0.1"].includes(location.hostname)) navigator.serviceWorker.register("./service-worker.js?v=18").catch(() => {});
+  if ("serviceWorker" in navigator && location.protocol !== "file:" && !["localhost", "127.0.0.1"].includes(location.hostname)) navigator.serviceWorker.register("./service-worker.js?v=19").catch(() => {});
 })();
 
