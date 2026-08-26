@@ -5,6 +5,7 @@ import { createRequire } from "node:module";
 
 const require = createRequire(import.meta.url);
 const core = require("./core.js");
+const appSource = await readFile(new URL("./app.js", import.meta.url), "utf8");
 const context = { window: {} };
 vm.runInNewContext(await readFile(new URL("./data/players.js", import.meta.url), "utf8"), context);
 vm.runInNewContext(await readFile(new URL("./data/enrichment.js", import.meta.url), "utf8"), context);
@@ -46,9 +47,14 @@ assert.ok(trajectory.clubs.length >= 3);
 const identity = core.selectDaily(data.players, "identity:test", player => player.clubs.length >= 2 && player.positions.length && player.sitelinks >= 45 && identityProfiles[player.id]?.club && Number.isInteger(identityProfiles[player.id]?.shirtNumber));
 assert.ok(identity.clubs.length >= 2);
 assert.ok(identityProfiles[identity.id], "La identidad diaria debe tener equipo y dorsal contrastados");
+for (const game of ["grid", "trajectory", "identity", "duel"]) {
+  assert.ok(appSource.includes(`modePicker("${game}"`), `${game} debe mostrar las cuatro modalidades`);
+}
+assert.ok(appSource.includes("Date.now() + 3000") && appSource.includes("Date.now() + 180000"), "El modo contrarreloj debe tener preparación y tres minutos");
 
 console.log(`✓ ${data.players.length} jugadores validados`);
 console.log("✓ 120 cuadrículas robustas, resolubles y sin repeticiones validadas");
 console.log("✓ Selección diaria de Trayectoria y Quién soy validada");
 console.log(`✓ ${Object.keys(enrichment).length} perfiles actuales con club y dorsal cruzados`);
+console.log("✓ Cuatro modalidades habilitadas en los cuatro juegos");
 
