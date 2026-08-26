@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-26T14:02:10.346Z",
+  "generatedAt": "2026-08-26T14:27:19.946Z",
   "scope": {
     "difficulty": "easy",
     "minSitelinks": 60,
@@ -8,12 +8,38 @@
   "policy": "Solo se marca como verificado un dato con una URL oficial registrada. Sin evidencia oficial, el estado es pendiente.",
   "summary": {
     "playerClubRelations": 1037,
-    "playersWithOfficialEvidence": 1,
-    "verifiedRelations": 2,
-    "mismatches": 2,
-    "pendingRelations": 1034
+    "playersWithOfficialEvidence": 3,
+    "verifiedRelations": 3,
+    "mismatches": 3,
+    "resolvedMismatches": 3,
+    "pendingRelations": 1033
   },
   "findings": [
+    {
+      "id": "Q483837",
+      "name": "Luka Modrić",
+      "source": "https://www.acmilan.com/en/news/articles/media/2026-07-23/official-statement-luka-modric",
+      "position": {
+        "status": "verified",
+        "imported": [
+          "Centrocampista"
+        ],
+        "official": [
+          "Centrocampista"
+        ]
+      },
+      "clubs": [
+        {
+          "clubId": "Q1543",
+          "status": "verified",
+          "official": {
+            "id": "Q1543",
+            "start": 2025,
+            "end": null
+          }
+        }
+      ]
+    },
     {
       "id": "Q96755",
       "name": "Antonio Rüdiger",
@@ -43,7 +69,8 @@
             "id": "Q4512",
             "start": 2011,
             "end": 2015
-          }
+          },
+          "resolvedByCorrection": true
         },
         {
           "clubId": "Q2739",
@@ -70,7 +97,34 @@
             "id": "Q8682",
             "start": 2022,
             "end": null
-          }
+          },
+          "resolvedByCorrection": true
+        }
+      ]
+    },
+    {
+      "id": "Q30055335",
+      "name": "Rafael Leão",
+      "source": "https://www.acmilan.com/en/news/articles/extra/2023-06-02/official-statement-rafael-leao",
+      "position": {
+        "status": "verified",
+        "imported": [
+          "Delantero"
+        ],
+        "official": [
+          "Delantero"
+        ]
+      },
+      "clubs": [
+        {
+          "clubId": "Q1543",
+          "status": "missing",
+          "official": {
+            "id": "Q1543",
+            "start": 2019,
+            "end": null
+          },
+          "resolvedByCorrection": true
         }
       ]
     }
@@ -399,33 +453,6 @@
           "name": "Paris Saint-Germain FC",
           "start": 2018,
           "end": 2019
-        }
-      ]
-    },
-    {
-      "id": "Q483837",
-      "name": "Luka Modrić",
-      "positions": [
-        "Centrocampista"
-      ],
-      "clubs": [
-        {
-          "id": "Q18741",
-          "name": "Tottenham Hotspur Football Club",
-          "start": 2008,
-          "end": 2012
-        },
-        {
-          "id": "Q8682",
-          "name": "Real Madrid Club de Fútbol",
-          "start": 2012,
-          "end": 2025
-        },
-        {
-          "id": "Q1543",
-          "name": "A.C. Milan",
-          "start": 2025,
-          "end": null
         }
       ]
     },
@@ -9440,21 +9467,6 @@
           "name": "Società Sportiva Lazio",
           "start": 2021,
           "end": 2026
-        }
-      ]
-    },
-    {
-      "id": "Q30055335",
-      "name": "Rafael Leão",
-      "positions": [
-        "Delantero"
-      ],
-      "clubs": [
-        {
-          "id": "Q8682",
-          "name": "Real Madrid Club de Fútbol",
-          "start": 2019,
-          "end": null
         }
       ]
     },
